@@ -9,7 +9,6 @@
 import headerVue from './components/Header.vue'
 import { RouterView } from 'vue-router'
 
-
 export default {
   data() {
     return {
