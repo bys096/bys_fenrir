@@ -1,16 +1,18 @@
 <template>
   <div>
     <button @click="test">btn</button>
-    <div>
-      {{m}}
-    </div>
+    <SearchStoreVue></SearchStoreVue>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import searchStoreVue from '../components/SearchStroeVue.vue'
 
 export default {
+  components: {
+    SearchStoreVue: searchStoreVue
+  },
 data() {
     return {
       m: ""
@@ -28,7 +30,7 @@ data() {
         console.log(res);
         this.m = res.data;
     });
-    }
+    },
   }
 }
 </script>
