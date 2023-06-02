@@ -1,10 +1,12 @@
 <template>
   <div>
+    <HeaderVue></HeaderVue>
     <RouterView></RouterView>
   </div>
 </template>
 
 <script>
+import headerVue from './components/Header.vue'
 import { RouterView } from 'vue-router'
 
 
@@ -14,6 +16,7 @@ export default {
     }
   },
   components: {
+    HeaderVue: headerVue,
     RouterView
   },
 }
