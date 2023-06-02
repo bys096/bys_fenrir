@@ -79,24 +79,36 @@
       <br><br>
       <div>
 
+ <div class="text-center">
+    <!-- <v-pagination
+      v-model="page"
+      :length="pageCnt"
+      rounded="circle"
+    ></v-pagination> -->
 
+    <v-pagination
+          v-model="page"
+          :length="pageCnt"
+          @input="pageLoad()"
+          total-visible="7"
+      ></v-pagination>
+  </div>
 
-<button @click="next"></button>
       </div>
   </div>
 </template>
 
 <script>
+
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
-
-
+import { VPagination } from 'vuetify/lib';
 
 
 export default {
   components: {
-    
+    VPagination
   },
   data() {
     return {
@@ -116,7 +128,7 @@ export default {
         {
           params: {
             keyword: this.keyword,
-            start: this.pageStart,
+            start: 0,
             count: this.pageSize
           }
         }
@@ -128,9 +140,23 @@ export default {
           this.pageCnt = this.recordCnt / 5;
       });
     },
-    next() {
+    pageLoad() {
       // alert(this.page);
-      this.page++;
+      axios.get('/v1/?key=a6d3bb26218771ec&format=json&lat=35.7111&lng=139.7611&range=500',
+        {
+          params: {
+            keyword: this.keyword,
+            start: ++this.pageStart,
+            count: this.pageSize
+          }
+        }
+      )
+        .then((res) => {
+          console.log(res);
+          this.shopData = res.data.results.shop;
+
+      });
+      
     }
   }
 }
@@ -139,6 +165,7 @@ export default {
 <style scoped>
   @import url('https://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css');
   
+
     @import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
 
   .stsch_box {
@@ -259,30 +286,9 @@ export default {
       height: 100%;
       box-sizing: border-box;
   }
-.paginate-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+
+  .theme--light.v-pagination .v-pagination__item--active {
+    color: #ffdf65;
 }
 
-.paginate-link {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-right: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  color: #333;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.paginate-link:hover {
-  background-color: #f0f0f0;
-}
-
-.paginate-link.active {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
-}
 </style>

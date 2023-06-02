@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import searchStoreVue from '../components/SearchStroeVue.vue'
 
 export default {
@@ -19,7 +20,16 @@ data() {
   },
   methods: {
     test() {
-      console.log('a');
+      axios.get('/v1/?key=a6d3bb26218771ec&format=json&lat=35.7111&lng=139.7611&range=500', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+      )
+      .then((res) => {
+        console.log(res);
+        this.m = res.data;
+    });
     },
   }
 }
