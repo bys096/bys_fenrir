@@ -70,7 +70,11 @@
         </thead>
         <tbody>
           <tr v-for="(shop, index) in shopData" :key="index">
-            <td><img :src="shop.photo.pc.m" alt=""></td>
+            <td>
+              <div class="td-img-wrapper">
+                <img :src="shop.photo.pc.m" alt="">
+              </div>
+            </td>
             <td class="text-center">{{shop.name}}</td>
             <td class="text-center">{{shop.address}}</td>
           </tr>
@@ -91,6 +95,7 @@
           :length="pageCnt"
           @input="pageLoad()"
           total-visible="7"
+    class="my-pagination"
       ></v-pagination>
   </div>
 
@@ -116,9 +121,11 @@ export default {
       keyword: null,
       recordCnt: null,
       pageCnt: null,
-      pageStart: 0,
+      pageStart: 1,
       pageSize: 5,
-      page: 1
+      page: 1,
+      isActivePage: false
+
     }
   },
 
@@ -146,7 +153,7 @@ export default {
         {
           params: {
             keyword: this.keyword,
-            start: ++this.pageStart,
+            start: this.pageSize * this.page + 1,
             count: this.pageSize
           }
         }
@@ -154,7 +161,6 @@ export default {
         .then((res) => {
           console.log(res);
           this.shopData = res.data.results.shop;
-
       });
       
     }
@@ -277,18 +283,38 @@ export default {
     right: 12vw;
     top: 5vh;
   }
-  td {
-    /* width: 10vw; */
-    /* height: 20vh; */
+  /* td {
+    width: 20vw;
+    height: 20vh;
   }
   img {
       width: 100%;
       height: 100%;
-      box-sizing: border-box;
-  }
+      object-fit: contain;
 
-  .theme--light.v-pagination .v-pagination__item--active {
-    color: #ffdf65;
+      box-sizing: border-box;
+  } */
+  td {
+    width: 20vw;
+    height: 20vh;
+    overflow: hidden;  /* 셀의 크기를 넘어가는 내용을 숨김 */
+}
+
+ .td-img-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;  /* 셀의 크기를 넘어가는 이미지를 숨김 */
+}
+
+.td-img-wrapper img {
+    width: 100%;  /* 이미지를 셀의 너비에 맞게 조절 */
+    height: auto;  /* 이미지의 높이를 자동으로 조절하여 비율을 유지 */
+}
+
+
+.my-pagination >>> .v-pagination__item--active {
+  /* background-color: blue; */
+  color: black; /* 원하는 색상으로 변경하세요 */
 }
 
 </style>
