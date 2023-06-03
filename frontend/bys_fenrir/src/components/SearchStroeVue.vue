@@ -57,10 +57,8 @@
       </div>
     </div>
     
-    
-
     <div class="sch-result">
-      <table class="table table-hover">
+      <table class="table table-hover store-list">
         <thead>
           <tr>
             <td class="text-center"></td>
@@ -81,7 +79,24 @@
         </tbody>
       </table>
 
-      <div class="map"></div>
+      <div class="card">
+        
+        
+          <div class="map">
+        <!-- <div @click="test">btn</div> -->
+        <button @click="getCurrentPostion()">getCurrentPostion</button>
+        <p>{{textContent}}</p>
+        <gmap-map
+            :zoom="14"    
+            :center="center"
+            style="width:100%;  height: 600px;"
+        >
+        </gmap-map>
+      </div>
+        
+      </div>
+
+      
     </div>
 
     <div class="page-wrap">
@@ -115,9 +130,17 @@
         recordCnt: null,
         pageCnt: null,
         pageStart: 1,
-        pageSize: 5,
+        pageSize: 4,
         page: 1,
-        isActivePage: false
+        
+        latitude: '',       // my latitude
+        longitude: '',      // my longitude
+        textContent: '',
+        // center: { lat: 37.5642135, lng: 127.0016985 },
+        center: { lat: 35.7111, lng: 139.7611 },    // 
+        locationMarkers: [],
+        locPlaces: [],
+        existingPlace: null
       }
     },
 
@@ -155,6 +178,28 @@
           .catch((error) => {
             console.log(error);
           });
+      },
+      getCurrentPostion() {
+        if(!("geolocation" in navigator)) {
+          this.textContent = 'Geolocation is not available.';
+          return;
+        }
+        this.textContent = 'Locating...'
+          
+        // get position
+        navigator.geolocation.getCurrentPosition(pos => {
+          this.latitude = pos.coords.latitude;
+          this.longitude = pos.coords.longitude;
+          this.textContent = 'Your location data is ' + this.latitude + ', ' + this.longitude;
+          this.center.lat = this.latitude;
+          this.center.lng = this.longitude;
+          // : { lat: 35.7111, lng: 139.7611 }
+        }, err => {
+          this.textContent = err.message;
+        })
+      },
+      test() {
+        alert('aa');
       }
     }
   }
@@ -173,6 +218,14 @@
   .stsch_box {
     border: 1px solid #cccccc;
     padding: 20px 57px 20px 60px;
+  }
+  .sch-result {
+    display: flex;
+  }
+  .map {
+    width: 30vw;
+    position: relative;
+    top: 10vh;
   }
   .page-wrap {
     margin-top: 10vh;
@@ -259,10 +312,10 @@
   .fa-magnifying-glass {
     font-size: 5vmin;
   }
-  table {
+  .sch-result table {
     width: 40vw;
     position: relative;
-    right: 12vw;
+    right: 2vw;
     top: 5vh;
   }
   .td-img-wrapper {
