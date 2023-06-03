@@ -35,8 +35,9 @@ public class User extends BaseEntity {
     @Column(name = "user_nick")
     private String userNick;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
-    private String userRole;
+    private Role userRole;
 
 
     public void update(String nickname) {
