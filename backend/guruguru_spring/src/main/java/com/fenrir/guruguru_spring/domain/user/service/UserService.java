@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.user.service;
 
+import com.fenrir.guruguru_spring.domain.user.dto.LoginRequestDto;
 import com.fenrir.guruguru_spring.domain.user.dto.UserCreateRequestDto;
 import com.fenrir.guruguru_spring.domain.user.dto.UserUpdateRequestDto;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,5 +37,11 @@ public class UserService {
         User user = userRepository.findById(uid)
                 .orElseThrow(() -> new UserNotFoundException());
         userRepository.deleteById(uid);
+    }
+
+    @Transactional
+    public User login(LoginRequestDto dto) {
+        return userRepository.findByUserEmailAndUserPw(dto.getEmail(), dto.getPw())
+                .orElseThrow(() -> new UserNotFoundException());
     }
 }
