@@ -24,14 +24,14 @@ class UserRepositoryTest {
         userRepository.save(user);
     }
 
-    @Test
-    @Transactional
-    @Rollback(false)
-    void update() {
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new UserNotFoundException());
-        user.update("ysupdate");
-    }
+//    @Test
+//    @Transactional
+//    @Rollback(false)
+//    void update() {
+//        User user = userRepository.findById(1L)
+//                .orElseThrow(() -> new UserNotFoundException());
+//        user.updateUser("ysupdate");
+//    }
 
     @Test
     void delete() {

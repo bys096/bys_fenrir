@@ -1,14 +1,11 @@
 package com.fenrir.guruguru_spring.domain.user.controller;
 
-import com.fenrir.guruguru_spring.domain.user.dto.UserRegisterRequestDto;
-import com.fenrir.guruguru_spring.domain.user.entity.User;
+import com.fenrir.guruguru_spring.domain.user.dto.UserCreateRequestDto;
+import com.fenrir.guruguru_spring.domain.user.dto.UserUpdateRequestDto;
 import com.fenrir.guruguru_spring.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -19,9 +16,21 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    @PostMapping("/register")
-    public ResponseEntity<Boolean> userRegister(@Valid @RequestBody UserRegisterRequestDto dto) {
-        userService.userRegister(dto);
-        return ResponseEntity.ok(true);
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public void userRegister(@Valid @RequestBody UserCreateRequestDto dto) {
+        userService.createUser(dto);
+    }
+
+    @PatchMapping("/{uid}")
+    @ResponseStatus(HttpStatus.OK)
+    public void userUpdate(@Valid @RequestBody UserUpdateRequestDto dto, @PathVariable("uid") Long uid) {
+        userService.updateUser(dto, uid);
+    }
+
+    @DeleteMapping("/{uid}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void userDelete(@PathVariable("uid") Long uid) {
+        userService.deleteUser(uid);
     }
 }

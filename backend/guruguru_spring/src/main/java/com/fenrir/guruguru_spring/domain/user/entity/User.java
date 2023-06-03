@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.user.entity;
 
+import com.fenrir.guruguru_spring.domain.user.dto.UserUpdateRequestDto;
 import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +41,9 @@ public class User extends BaseEntity {
     private Role userRole;
 
 
-    public void update(String nickname) {
-        this.userNick = nickname;
+    public void updateUser(UserUpdateRequestDto dto) {
+        this.userName = dto.getUserName();
+        this.userNick = dto.getNickName();
+        this.userPw = dto.getPw();
     }
 }
