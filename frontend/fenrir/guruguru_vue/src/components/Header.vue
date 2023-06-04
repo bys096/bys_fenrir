@@ -22,7 +22,9 @@
             </li>
           </ul>
           <div class="justify-content-end d-flex">
-            <button class="btn btn-warning btn-warning-hover me-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#login">
+            <button 
+            @click="$router.push('/join')"
+            class="btn btn-warning btn-warning-hover me-3 rounded-pill">
               会員登録
             </button>
             <button class="
@@ -43,12 +45,16 @@
 
 <script>
 export default {
-
+  methods: {
+    test() {
+      alert('test');
+    }
+  }
 }
 </script>
 
 <style scoped>
-@import url('../assets/css/header.css');
+/* @import url('../assets/css/header.css'); */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;600;700&amp;family=Noto+Sans+TC:wght@400;700&amp;display=swap');
 
 
