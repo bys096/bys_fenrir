@@ -44,4 +44,5 @@ public class UserService {
         return userRepository.findByUserEmailAndUserPw(dto.getEmail(), dto.getPw())
                 .orElseThrow(() -> new UserNotFoundException());
     }
+
 }

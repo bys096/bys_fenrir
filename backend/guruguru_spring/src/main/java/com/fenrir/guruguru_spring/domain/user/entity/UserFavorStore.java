@@ -1,6 +1,5 @@
-package com.fenrir.guruguru_spring.domain.store.entity;
+package com.fenrir.guruguru_spring.domain.user.entity;
 
-import com.fenrir.guruguru_spring.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Table(name = "favor_stores")
 @DynamicInsert
-public class FavorStore {
+public class UserFavorStore {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fs_id")
