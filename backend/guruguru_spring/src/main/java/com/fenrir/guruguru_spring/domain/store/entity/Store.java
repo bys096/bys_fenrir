@@ -24,7 +24,7 @@ public class Store extends BaseEntity {
     private Long storeId;
 
     @Column(name = "store_code", unique = true)
-    private String storeCOde;
+    private String storeCode;
 
     @Column(name = "store_name")
     private String storeName;
