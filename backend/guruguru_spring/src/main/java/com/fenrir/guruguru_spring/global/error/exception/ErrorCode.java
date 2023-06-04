@@ -11,6 +11,8 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U001", "存在しないユーザです。"),
     USER_INVALID(HttpStatus.BAD_REQUEST, "U002", "権限がないユーザです。");
 
+
+
     private final HttpStatus status;
     private final String code;
     private final String message;

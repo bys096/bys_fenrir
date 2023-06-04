@@ -17,7 +17,6 @@ import javax.persistence.*;
 @Getter
 @Table(name = "users")
 @DynamicInsert
-
 public class User extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
