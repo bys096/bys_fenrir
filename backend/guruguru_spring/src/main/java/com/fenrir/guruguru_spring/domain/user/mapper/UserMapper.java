@@ -15,7 +15,7 @@ public class UserMapper {
                 .userPw(dto.getPw())
                 .userName(dto.getUserName())
                 .userNick(dto.getNickName())
-                .userRole(Role.ADMIN)
+                .userRole(Role.USER)
                 .build();
     }
 }
