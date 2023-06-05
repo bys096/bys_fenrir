@@ -67,7 +67,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(shop, index) in shopData" :key="index">
+          <tr v-for="(shop, index) in shopData" :key="index" @click="$router.push('/store/detail')">
             <td class="align-middle text-center">
               <div class="td-img-wrapper">
                 <img :src="shop.photo.pc.m" alt="" class="img-thumbnail">
@@ -207,7 +207,7 @@
 
 <style scoped>
   @import url('https://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css');
-  @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css');
+  
 
   .stsch_container {
     display: flex;

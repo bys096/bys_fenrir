@@ -2,12 +2,14 @@
   <div>
     <HeaderVue></HeaderVue>
     <RouterView></RouterView>
+    <FooterVue></FooterVue>
   </div>
 </template>
 
 <script>
-import headerVue from './components/Header.vue'
 import { RouterView } from 'vue-router'
+import headerVue from './components/Header.vue'
+import footerVue from './components/Footer.vue'
 
 
 export default {
@@ -17,7 +19,8 @@ export default {
   },
   components: {
     HeaderVue: headerVue,
-    RouterView
+    RouterView,
+    FooterVue: footerVue
   },
 }
 </script>

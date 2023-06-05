@@ -1,0 +1,163 @@
+<template>
+  <section class="py-3 py-md-5 bg-light">
+  <div class="container">
+    <span class="badge bg-secondary px-3">魔法科技</span>
+    <h1 class="
+                fs-lg-2 fs-mobile-1
+                fw-bold
+                mt-1
+                mb-0
+                pb-4
+                letter-spacing-22
+              ">
+      拍出會動的照片｜LivePhotos 魔法拍立得
+    </h1>
+    <div class="row align-items-center">
+      <div class="col-md-auto col-lg-7">
+        <img src="https://WangShuan.github.io/bootstrap5-project/images/produt_image.jpeg" alt="魔法拍立得示意圖" class="img-fluid rounded-img" />
+      </div>
+      <div class="col-md col-lg-5">
+        <small class="text-dark font-baloo-tamma lh-lg d-block mt-3 mt-md-0">目標 $600,000</small>
+        <div class="font-baloo-tamma fs-2 lh-xl-lg fw-bold">$280,047</div>
+        <div class="progress rounded-pill">
+          <div class="
+                    progress-bar
+                    bg-warning
+                    text-secondary
+                    fs-lg-sm fs-mobile-5
+                  " role="progressbar" style="width: 41%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100">
+            41%
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 mt-3 mt-md-4">
+            <div class="position-relative">
+              <small class="
+                        position-absolute
+                        top-0
+                        start-0
+                        translate-middle-y
+                        fw-normal
+                        pb-xl-3
+                        text-dark
+                      ">
+                贊助人數
+              </small>
+              <span class="font-baloo-tamma fs-2 lh-lg fw-bold">1374</span>
+              <span class="fs-4 fw-bolder lh-lg">人</span>
+            </div>
+          </div>
+          <div class="col-6 mt-3 mt-md-4">
+            <div class="position-relative">
+              <small class="
+                        position-absolute
+                        top-0
+                        start-0
+                        translate-middle-y
+                        fw-normal
+                        pb-xl-3
+                        text-dark
+                      ">
+                募資倒數
+              </small>
+              <span class="font-baloo-tamma fs-2 lh-lg fw-bold">27</span>
+              <span class="fs-4 fw-bolder lh-lg">天</span>
+            </div>
+          </div>
+          <ul class="
+                    d-flex
+                    justify-content-between justify-content-md-start
+                    list-unstyled
+                    mb-3
+                    mt-2
+                  ">
+            <li class="me-0 me-md-3">
+              <a href="#" class="link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="認證標章" data-bs-customClass="mytooltip">
+                <img src="https://WangShuan.github.io/bootstrap5-project/images/icon_good01.svg" alt="認證標章圖標" class="me-1 square-1 square-md-2" />
+                <small class="d-md-none align-bottom">認證標章</small></a>
+            </li>
+            <li class="me-0 me-md-3">
+              <a href="#" class="link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="品質保證" data-bs-customClass="mytooltip">
+                <img src="https://WangShuan.github.io/bootstrap5-project/images/icon_good02.svg" alt="品質保證圖標" class="me-1 square-1 square-md-2" />
+                <small class="d-md-none align-bottom">品質保證</small>
+              </a>
+            </li>
+            <li class="me-0 me-md-3">
+              <a href="#" class="link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="原生創意" data-bs-customClass="mytooltip">
+                <img src="https://WangShuan.github.io/bootstrap5-project/images/icon_good03.svg" alt="原生創意圖標" class="me-1 square-1 square-md-2" />
+                <small class="d-md-none align-bottom">原生創意</small>
+              </a>
+            </li>
+            <li class="me-0 me-md-3">
+              <a href="#" class="link-dark text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="人氣王" data-bs-customClass="mytooltip">
+                <img src="https://WangShuan.github.io/bootstrap5-project/images/icon_good04.svg" alt="人氣王圖標" class="me-1 square-1 square-md-2" />
+                <small class="d-md-none align-bottom">人氣王</small></a>
+            </li>
+          </ul>
+        </div>
+        <div class="
+                  mb-4
+                  border-3
+                  bg-white
+                  rounded
+                  border-start border-warning
+                  p-3
+                  text-dark
+                  fs-lg-6 fs-mobile-5
+                ">
+          專案募資中！ <br />
+          在
+          <span class="fw-bold">2021/06/14 23:59</span>
+          募資結束前，您都可以贊助我們！
+        </div>
+        <button class="
+                  btn-warning btn btn-warning-hover
+                  w-100
+                  rounded-pill
+                  btn-lg
+                  mb-2
+                ">
+          贊助專案
+        </button>
+        <div class="row g-2">
+          <div class="col-6 col-md-7">
+            <button class="
+                      btn-outline-secondary btn-outline-secondary-hover
+                      border-2
+                      btn
+                      w-100
+                      rounded-pill
+                      btn-lg
+                    ">
+              <i class="fas fa-heart custom-heart"></i>
+              追蹤專案
+            </button>
+          </div>
+          <div class="col">
+            <button class="
+                      btn-outline-secondary btn-outline-secondary-hover
+                      border-2
+                      btn btn-lg
+                      w-100
+                      rounded-pill
+                    ">
+              <i class="fas fa-share-alt"></i>
+              分享
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>

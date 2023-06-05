@@ -15,7 +15,7 @@
               <a class="nav-link link-dark px-md-4" aria-current="page" href="#">検索</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-dark px-md-4" href="#">＃＃</a>
+              <a class="nav-link link-dark px-md-4" href="/store/register">店舗登録</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link-dark px-md-4" href="#">＃＃</a>
@@ -46,7 +46,15 @@
 </template>
 
 <script>
+
 export default {
+  data() {
+    return {
+      
+    }
+  },
+  components: {
+  },
   methods: {
     test() {
       alert('test');

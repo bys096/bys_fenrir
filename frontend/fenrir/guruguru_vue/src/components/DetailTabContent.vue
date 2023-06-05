@@ -1,0 +1,514 @@
+<template>
+  <div class="tab-content mb-5">
+          <!-- tab - 專案介紹 -->
+          <div class="tab-pane fade active show" id="tab-detail" role="tabpanel">
+            <img src="https://WangShuan.github.io/bootstrap5-project/images/p1.jpeg" alt="施了魔法的照片/文章示意圖" class="img-fluid w-100" />
+            <h3 class="
+                      mt-3
+                      mb-1
+                      ps-3
+                      fs-lg-4 fs-mobile-2
+                      border-start border-4 border-warning
+                      fw-bolder
+                    ">
+              施了魔法的照片
+            </h3>
+            <p class="lh-lg text-justify mt-2">
+              受就相法大夠局來畫師我只這然以放灣得的後人心年我物我年，或人有動與次出女親構算帶年行著所間女，外成認心香吸工並知日成展源大超時動為生葉衣致長山對精做英密差家他微熱建取示濟定心一，品定把別銀動，深青輪一物加，生明果。西業白老如天有表非民大條全那遊，李文遊、像香過元學須本致信校態麼資司媽人價在它，地他不我計孩廠然不大指勢生的華常簡岸然，人著母病石金萬得一果。
+            </p>
+            <img src="https://WangShuan.github.io/bootstrap5-project/images/p2.jpeg" alt="留下當下的美好/文章示意圖" class="img-fluid mt-4 w-100" />
+            <h3 class="
+                      mt-3
+                      ps-3
+                      border-start border-4 border-warning
+                      fw-bolder
+                      fs-lg-4 fs-mobile-2
+                    ">
+              留下當下的美好
+            </h3>
+            <p class="lh-lg text-justify mt-2">
+              受就相法大夠局來畫師我只這然以放灣得的後人心年我物我年，或人有動與次出女親構算帶年行著所間女，外成認心香吸工並知日成展源大超時動為生葉衣致長山對精做英密差家他微熱建取示濟定心一，品定把別銀動，深青輪一物加，生明果。西業白老如天有表非民大條全那遊，李文遊、像香過元學須本致信校態麼資司媽人價在它，地他不我計孩廠然不大指勢生的華常簡岸然，人著母病石金萬得一果。
+            </p>
+          </div>
+          <!-- tab - 常見問答 -->
+          <div class="tab-pane fade" id="tab-news" role="tabpanel">
+            <ul class="list-unstyled accordion accordion-flush" id="qa-accordion">
+              <li class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingOne">
+                  <button class="
+                            accordion-button
+                            btn-outline-warning
+                            collapsed
+                            fs-lg-sm fs-mobile-4
+                          " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <span class="
+                              bg-warning
+                              text-dark
+                              font-baloo-tamma
+                              fs-sm
+                              fw-bolder
+                              text-center
+                              rounded
+                              me-3
+                              lh-lg
+                              letter-spacing-7
+                            ">
+                      Q1
+                    </span>
+                    影片拍完之後可以編輯嗎？
+                  </button>
+                </h3>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#qa-accordion">
+                  <p class="
+                            accordion-body
+                            mb-0
+                            fs-lg-sm fs-mobile-4
+                            lh-lg
+                            text-secondary
+                          ">
+                    可以進行簡易的編輯，內建 5
+                    種濾鏡，影片秒數有3秒、5秒、10秒可以選擇，拍完的當下可以編輯要印出來的影片範圍哦！
+                  </p>
+                </div>
+              </li>
+              <li class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingTwo">
+                  <button class="
+                            accordion-button
+                            btn-outline-warning
+                            collapsed
+                            fs-lg-sm fs-mobile-4
+                          " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    <span class="
+                              bg-warning
+                              text-dark
+                              font-baloo-tamma
+                              fw-bolder
+                              text-center
+                              rounded
+                              fs-sm
+                              me-3
+                              lh-lg
+                              letter-spacing-7
+                            ">
+                      Q2
+                    </span>
+                    有提供保固或維修服務嗎？
+                  </button>
+                </h3>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#qa-accordion">
+                  <p class="
+                            accordion-body
+                            mb-0
+                            pe-3
+                            fs-lg-sm fs-mobile-4
+                            lh-lg
+                            text-secondary
+                          ">
+                    提供產品售後服務，對產品本體(不含配件、線材)提供二年保固服務。產品因意外或人為不當使用或未經授權維修等非依使用手冊使用而造成產品損壞者，則不在保固範圍之內，得向客戶酌收產品維修服務費用。
+                  </p>
+                </div>
+              </li>
+              <li class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingThree">
+                  <button class="
+                            accordion-button
+                            btn-outline-warning
+                            collapsed
+                            fs-lg-sm fs-mobile-4
+                          " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    <span class="
+                              bg-warning
+                              text-dark
+                              font-baloo-tamma
+                              fw-bolder
+                              text-center
+                              rounded
+                              fs-sm
+                              me-3
+                              lh-lg
+                              letter-spacing-7
+                            ">
+                      Q3
+                    </span>
+                    補充包底片要去哪裡購買呢？
+                  </button>
+                </h3>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#qa-accordion">
+                  <p class="
+                            accordion-body
+                            mb-0
+                            pe-3
+                            fs-lg-sm fs-mobile-4
+                            lh-lg
+                            text-secondary
+                          ">
+                    本產品可以兼容 i-type 及 600
+                    相片，各大網路平台皆有販售。
+                  </p>
+                </div>
+              </li>
+              <li class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingFour">
+                  <button class="
+                            accordion-button
+                            btn-outline-warning
+                            collapsed
+                            fs-lg-sm fs-mobile-4
+                          " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    <span class="
+                              bg-warning
+                              text-dark
+                              font-baloo-tamma
+                              fw-bolder
+                              text-center
+                              rounded
+                              fs-sm
+                              me-3
+                              lh-lg
+                              letter-spacing-7
+                            ">
+                      Q4
+                    </span>
+                    印出來的拍立得照片需要充電嗎？
+                  </button>
+                </h3>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#qa-accordion">
+                  <p class="
+                            accordion-body
+                            mb-0
+                            pe-3
+                            fs-lg-sm fs-mobile-4
+                            lh-lg
+                            text-secondary
+                          ">
+                    不用，取出後稍微搖晃，相片與空氣接觸數秒後便會產生圖像顏色。
+                  </p>
+                </div>
+              </li>
+              <li class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingFive">
+                  <button class="
+                            accordion-button
+                            btn-outline-warning
+                            collapsed
+                            fs-lg-sm fs-mobile-4
+                          " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    <span class="
+                              bg-warning
+                              text-dark
+                              font-baloo-tamma
+                              fw-bolder
+                              text-center
+                              rounded
+                              fs-sm
+                              me-3
+                              lh-lg
+                              letter-spacing-7
+                            ">
+                      Q5
+                    </span>
+                    運送方式及付款方式有哪些呢？
+                  </button>
+                </h3>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#qa-accordion">
+                  <p class="
+                            accordion-body
+                            mb-0
+                            pe-3
+                            fs-lg-sm fs-mobile-4
+                            lh-lg
+                            text-secondary
+                          ">
+                    可以選擇超商取貨及宅配，付款方式有銀行轉帳及信用卡支付。
+                  </p>
+                </div>
+              </li>
+              <li class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingSix">
+                  <button class="
+                            accordion-button
+                            btn-outline-warning
+                            collapsed
+                            fs-lg-sm fs-mobile-4
+                          " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    <span class="
+                              bg-warning
+                              text-dark
+                              font-baloo-tamma
+                              fw-bolder
+                              text-center
+                              rounded
+                              fs-sm
+                              me-3
+                              lh-lg
+                              letter-spacing-7
+                            ">
+                      Q6
+                    </span>
+                    退換貨方式及規則
+                  </button>
+                </h3>
+                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#qa-accordion">
+                  <p class="
+                            accordion-body
+                            mb-0
+                            pe-3
+                            fs-lg-sm fs-mobile-4
+                            lh-lg
+                            text-secondary
+                          ">
+                    因商品封條多為一次性包裝，商品退貨時必須回復原狀，亦即必須回復至您收到商品時的原始狀態，且會視回收的商品狀態另外酌收額外的整新費用，請您務必確認有購買需求後再行拆封，感謝您的配合。
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- tab - 目前進度 -->
+          <div class="tab-pane fade" id="tab-qa" role="tabpanel">
+            <ul class="list-unstyled">
+              <li class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-auto">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/news01.jpeg" alt="消息示意圖" class="news-img d-lg-none d-xl-block" />
+                  </div>
+                  <div class="col">
+                    <div class="card-body">
+                      <h4 class="card-title fs-6 fw-bold mb-0">
+                        高雄體驗會｜免費參加送帆布袋
+                      </h4>
+                      <small class="
+                                text-secondary
+                                my-2
+                                font-baloo-tamma
+                                d-block
+                                w-100
+                                fw-normal
+                              ">2021-6-20</small>
+                      <p class="
+                                card-text
+                                text-secondary
+                                fs-sm
+                                d-none d-md-block
+                                pb-3
+                              ">
+                        大家安安！謝謝每位贊助者的熱情支持，讓我們離夢想更進一步，我們將於下個月舉辦體驗會，歡迎各位踴躍參與！
+                      </p>
+                      <a href="#" class="
+                                link-danger
+                                font-baloo-tamma
+                                fw-bold
+                                pb-2
+                                fs-6
+                                position-absolute
+                                bottom-0
+                              ">MORE</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-auto">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/news02.jpeg" alt="消息示意圖" class="news-img d-lg-none d-xl-block" />
+                  </div>
+                  <div class="col">
+                    <div class="card-body">
+                      <h4 class="card-title fw-bold fs-6 mb-0">
+                        高雄體驗會｜免費參加送帆布袋
+                      </h4>
+                      <small class="
+                                text-secondary
+                                my-2
+                                font-baloo-tamma
+                                d-block
+                                w-100
+                                fw-normal
+                              ">2021-6-20</small>
+                      <p class="
+                                card-text
+                                text-secondary
+                                fs-sm
+                                d-none d-md-block
+                                pb-3
+                              ">
+                        大家安安！謝謝每位贊助者的熱情支持，讓我們離夢想更進一步，我們將於下個月舉辦體驗會，歡迎各位踴躍參與！
+                      </p>
+                      <a href="#" class="
+                                link-danger
+                                font-baloo-tamma
+                                fw-bold
+                                pb-2
+                                fs-6
+                                position-absolute
+                                bottom-0
+                              ">MORE</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-auto">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/news03.jpeg" alt="消息示意圖" class="news-img d-lg-none d-xl-block" />
+                  </div>
+                  <div class="col">
+                    <div class="card-body">
+                      <h4 class="card-title fs-6 fw-bold mb-0">
+                        高雄體驗會｜免費參加送帆布袋
+                      </h4>
+                      <small class="
+                                text-secondary
+                                my-2
+                                font-baloo-tamma
+                                d-block
+                                w-100
+                                fw-normal
+                              ">2021-6-20</small>
+                      <p class="
+                                card-text
+                                text-secondary
+                                fs-sm
+                                d-none d-md-block
+                                pb-3
+                              ">
+                        大家安安！謝謝每位贊助者的熱情支持，讓我們離夢想更進一步，我們將於下個月舉辦體驗會，歡迎各位踴躍參與！
+                      </p>
+                      <a href="#" class="
+                                link-danger
+                                font-baloo-tamma
+                                fw-bold
+                                pb-2
+                                fs-6
+                                position-absolute
+                                bottom-0
+                              ">MORE</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- tab - 留言 -->
+          <div class="tab-pane fade" id="tab-comment" role="tabpanel">
+            <div class="
+                      border-3
+                      rounded
+                      border-start border-warning
+                      p-3
+                      text-dark
+                      mb-3
+                      d-none d-md-block
+                      letter-spacing-7
+                      bg-gray-100
+                    ">
+              只有本專案的贊助者才可以留言哦，如果有任何專案相關的問題，歡迎<a href="#" class="link-danger">聯絡提案人</a>！
+            </div>
+            <ul class="mb-4 list-unstyled">
+              <li class="mb-3">
+                <div class="border rounded-4 p-3 comment">
+                  <div class="d-flex justify-content-start">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img01.jpeg" alt="廖小杰個人頭像" />
+                    <div class="d-flex flex-column align-items-start ms-3">
+                      <a href="#" class="
+                                letter-spacing-20
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                              ">
+                        廖小杰
+                      </a>
+                      <small class="text-secondary fs-sm letter-spacing-20">
+                        2020年5月22日 11:32
+                      </small>
+                    </div>
+                  </div>
+                  <p class="text-gray-800 my-3 letter-spacing-7">
+                    晚上起床上廁所看到照片裡的人一直動其實有點恐怖，希望可以有暫停或是定時的功能！
+                  </p>
+                  <div class="
+                            text-gray-800
+                            p-3
+                            bg-light
+                            rounded-2
+                            letter-spacing-7
+                          ">
+                    <span class="
+                              text-danger
+                              w-100
+                              fs-sm
+                              d-block
+                              mb-2
+                              letter-spacing-6
+                            ">提案者回覆</span>
+                    你要嘛起床的時候開燈，要嘛給我們更多錢開發阿
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="border rounded-4 p-3 comment">
+                  <div class="d-flex justify-content-start">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="卡阿伯個人頭像" />
+                    <div class="d-flex flex-column align-items-start ms-3">
+                      <a href="#" class="
+                                letter-spacing-20
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                              ">卡阿伯</a>
+                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-800 my-3 letter-spacing-7">
+                    希望有更多花色可以選擇！我女兒最近喜歡綠色
+                  </p>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="border rounded-4 p-3 comment">
+                  <div class="d-flex justify-content-start">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="賈師個人頭像" />
+                    <div class="d-flex flex-column align-items-start ms-3">
+                      <a href="#" class="
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                                letter-spacing-20
+                              ">賈師</a>
+                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-800 my-3 letter-spacing-7">
+                    可以做個相簿功能嗎？拍出好看的影片再讓我們選擇要印出哪一張這樣
+                  </p>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="border rounded-4 p-3 comment">
+                  <div class="d-flex justify-content-start">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="俊俊個人頭像" />
+                    <div class="d-flex flex-column align-items-start ms-3">
+                      <a href="#" class="
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                                letter-spacing-20
+                              ">俊俊</a>
+                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-800 my-3">
+                    test123 看一下我是不是真的可以留言
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
