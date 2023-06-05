@@ -22,7 +22,7 @@
             会員登録
           </h2>
         </div>
-        <form id="form" class="needs-validation" @submit.prevent="joinRequest">
+        <form id="form" class="needs-validation" @submit.prevent="loginRequest">
         
           <div class="mb-3">
             <label for="email" class="form-label">email</label>
@@ -73,23 +73,20 @@ export default {
   data() {
     return {
       email: null,
-      pw: null,
-      nickName: null,
-      userName: null,
+      pw: null
     }
   },
   methods: {
-    joinRequest() {
+    loginRequest() {
       const user = {
         email: this.email,
-        pw: this.pw,
-        nickName: this.nickName,
-        userName: this.userName
+        pw: this.pw
       }
-      axios.post('http://localhost:8080/user', user)
+      axios.post('/api/user/login', user)
         .then((res) => {
-          if(res.status === 201)
-            this.$router.push('/');
+          console.log(res);
+          // if(res.status === 201)
+            // this.$router.push('/');
         })
         .catch((err) => {
           console.log(err);
