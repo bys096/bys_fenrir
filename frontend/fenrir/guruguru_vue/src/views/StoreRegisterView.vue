@@ -68,13 +68,11 @@ export default {
   },
   methods: {
     registerRequest() {
-      const user = {
-        email: this.email,
-        pw: this.pw,
-        nickName: this.nickName,
-        userName: this.userName
+      const store = {
+        storeCode: this.storeId,
+        uid: 1
       }
-      axios.post('http://localhost:8080/user', user)
+      axios.post('http://localhost:8080/store', store)
         .then((res) => {
           if(res.status === 201)
             this.$router.push('/');
@@ -84,30 +82,24 @@ export default {
         });
     },
     async getStoreLoad() {
-
       if(this.storeId != null && this.storeId !== "") {
-
-      
-      // console.log('press');
-      await axios.get('/v1/?key=a6d3bb26218771ec&format=json', {
-        params: {
-          id: this.storeId
-        }
-      }
-      
-      )
-        .then((res) => {
-          const resLen = res.data.results.shop.length;
-          if(resLen == 0 || resLen == null) {
-            this.isStoreValid = false;
+        await axios.get('/v1/?key=a6d3bb26218771ec&format=json', {
+          params: {
+            id: this.storeId
           }
-          else if(this.storeId === res.data.results.shop[0].id){
-            this.isStoreValid = true;
-          }
-
         })
-        .catch((err) => console.log(err));
-      }
+          .then((res) => {
+            const resLen = res.data.results.shop.length;
+            if(resLen == 0 || resLen == null) {
+              this.isStoreValid = false;
+            }
+            else if(this.storeId === res.data.results.shop[0].id){
+              this.isStoreValid = true;
+            }
+
+          })
+          .catch((err) => console.log(err));
+        }
     }
   }
 }

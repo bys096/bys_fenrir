@@ -1,7 +1,7 @@
 <template>
   <section class="py-3 py-md-5 bg-light">
   <div class="container">
-    <span class="badge bg-secondary px-3">魔法科技</span>
+    <span class="badge bg-secondary px-3">{{ shopDetail.genre.name }}</span>
     <h1 class="
                 fs-lg-2 fs-mobile-1
                 fw-bold
@@ -10,16 +10,18 @@
                 pb-4
                 letter-spacing-22
               ">
-      拍出會動的照片｜LivePhotos 魔法拍立得
+      <!-- 拍出會動的照片｜LivePhotos 魔法拍立得 -->
+      {{ shopDetail.name }}
     </h1>
     <div class="row align-items-center">
       <div class="col-md-auto col-lg-7">
-        <img src="https://WangShuan.github.io/bootstrap5-project/images/produt_image.jpeg" alt="魔法拍立得示意圖" class="img-fluid rounded-img" />
+        <!-- <img src="https://WangShuan.github.io/bootstrap5-project/images/produt_image.jpeg" alt="魔法拍立得示意圖" class="img-fluid rounded-img" /> -->
+        <img :src="shopDetailPhoto" alt="">
       </div>
       <div class="col-md col-lg-5">
         <small class="text-dark font-baloo-tamma lh-lg d-block mt-3 mt-md-0">目標 $600,000</small>
         <div class="font-baloo-tamma fs-2 lh-xl-lg fw-bold">$280,047</div>
-        <div class="progress rounded-pill">
+        <!-- <div class="progress rounded-pill">
           <div class="
                     progress-bar
                     bg-warning
@@ -28,7 +30,7 @@
                   " role="progressbar" style="width: 41%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100">
             41%
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col-6 mt-3 mt-md-4">
             <div class="position-relative">
@@ -41,9 +43,9 @@
                         pb-xl-3
                         text-dark
                       ">
-                贊助人數
+                許容人数
               </small>
-              <span class="font-baloo-tamma fs-2 lh-lg fw-bold">1374</span>
+              <span class="font-baloo-tamma fs-2 lh-lg fw-bold">{{ shopDetail.capacity }}</span>
               <span class="fs-4 fw-bolder lh-lg">人</span>
             </div>
           </div>
@@ -58,10 +60,10 @@
                         pb-xl-3
                         text-dark
                       ">
-                募資倒數
+                いいね
               </small>
               <span class="font-baloo-tamma fs-2 lh-lg fw-bold">27</span>
-              <span class="fs-4 fw-bolder lh-lg">天</span>
+              <span class="fs-4 fw-bolder lh-lg">人</span>
             </div>
           </div>
           <ul class="
@@ -105,10 +107,25 @@
                   text-dark
                   fs-lg-6 fs-mobile-5
                 ">
-          專案募資中！ <br />
-          在
-          <span class="fw-bold">2021/06/14 23:59</span>
-          募資結束前，您都可以贊助我們！
+          オープン時間 <br />
+          
+          <span class="fw-bold">{{ shopDetail.open }}</span>
+          <!-- 募資結束前，您都可以贊助我們！ -->
+        </div>
+        <div class="
+                  mb-4
+                  border-3
+                  bg-white
+                  rounded
+                  border-start border-warning
+                  p-3
+                  text-dark
+                  fs-lg-6 fs-mobile-5
+                ">
+          アクセス <br />
+          
+          <span class="fw-bold">{{ shopDetail.access }}</span>
+          <!-- 募資結束前，您都可以贊助我們！ -->
         </div>
         <button class="
                   btn-warning btn btn-warning-hover
@@ -117,7 +134,7 @@
                   btn-lg
                   mb-2
                 ">
-          贊助專案
+          レヴュー
         </button>
         <div class="row g-2">
           <div class="col-6 col-md-7">
@@ -130,7 +147,7 @@
                       btn-lg
                     ">
               <i class="fas fa-heart custom-heart"></i>
-              追蹤專案
+              いいね
             </button>
           </div>
           <div class="col">
@@ -154,7 +171,17 @@
 
 <script>
 export default {
-
+  computed: {
+    shopDetail() {
+      return this.$store.state.shopDetail;
+    },
+    shopDetailPhoto() {
+      if (this.shopDetail && this.shopDetail.photo && this.shopDetail.photo.pc && this.shopDetail.photo.pc.l) {
+        return this.shopDetail.photo.pc.l;
+      }
+      return '';
+    }
+  }
 }
 </script>
 

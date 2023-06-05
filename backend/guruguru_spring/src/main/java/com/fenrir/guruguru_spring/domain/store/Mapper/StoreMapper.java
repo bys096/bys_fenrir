@@ -13,7 +13,7 @@ public class StoreMapper {
     public Store toEntity(@Valid StoreRegisterRequestDto dto, User user) {
         return Store.builder()
                 .owner(user)
-                .storeName(dto.getStoreName())
+//                .storeName(dto.getStoreName())
                 .storeCode(dto.getStoreCode())
                 .build();
     }

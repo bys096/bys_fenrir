@@ -59,7 +59,7 @@
                     fs-5
                     letter-spacing-20
                   ">
-            選擇一個方案來支持
+            ベストレヴュー
           </h3>
           <div class="card mt-3">
             <img src="https://WangShuan.github.io/bootstrap5-project/images/img.jpeg" class="card-img-top" alt="廣告/團購優惠" />

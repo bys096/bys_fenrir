@@ -1,7 +1,7 @@
 <template>
 <div>
   
-<TopSectionVue></TopSectionVue>
+<TopSectionVue ></TopSectionVue>
 <NavTabVue></NavTabVue>
 
 <div class="container">
@@ -136,12 +136,24 @@ import detailTabContentVue from '../components/DetailTabContent.vue'
 import infoCardVue from '../components/DetailInfoCardVue.vue'
 
 export default {
+  data() {
+    return {
+      shop: null
+    }
+  },
   components: {
     NavTabVue: navTabVue,
     TopSectionVue: topSectionVue,
     DetailSidebarVue: detailSidebarVue,
     DetailTabContentVue: detailTabContentVue,
     InfoCardVue: infoCardVue
+  },
+  mounted() {
+    console.log('값 수신');
+    console.log(this.$route.query.shop);
+    this.shop = this.$route.query.shop;
+    console.log('vuex');
+    console.log(this.$store.state.shopDetail);
   }
 }
 </script>

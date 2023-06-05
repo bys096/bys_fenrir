@@ -17,8 +17,8 @@ public class StoreRegisterRequestDto {
     @NotNull(message = "ユーザーidは必須項目です。")
     private Long uid;
 
-    @NotEmpty(message = "ストア名は必須項目です。")
-    private String storeName;
+//    @NotEmpty(message = "ストア名は必須項目です。")
+//    private String storeName;
 
     @NotEmpty(message = "ストアコードは必須項目です。")
     private String storeCode;

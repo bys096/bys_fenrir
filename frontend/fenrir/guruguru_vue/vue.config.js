@@ -11,7 +11,12 @@ module.exports = defineConfig({
             target: 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/', 
             changeOrigin: true, 
             pathRewrite:{ "^/v1" : '' } 
-        } 
+        },
+        '/api': { 
+            target: 'https://localhost:8080/', 
+            changeOrigin: true, 
+            pathRewrite:{ "^/api" : '' } 
+        }
     },
   headers: { "Access-Control-Allow-Origin": "*" }
   }, 

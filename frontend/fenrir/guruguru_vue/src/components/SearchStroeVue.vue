@@ -67,7 +67,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(shop, index) in shopData" :key="index" @click="$router.push('/store/detail')">
+          <tr v-for="(shop, index) in shopData" :key="index" @click="goToStoreDetail(shop)">
             <td class="align-middle text-center">
               <div class="td-img-wrapper">
                 <img :src="shop.photo.pc.m" alt="" class="img-thumbnail">
@@ -122,6 +122,9 @@
     components: {
       VPagination
     },
+    computed: {
+      
+    },
 
     data() {
       return {
@@ -158,6 +161,8 @@
             this.shopData = res.data.results.shop;
             this.recordCnt = res.data.results.results_available;
             this.pageCnt = this.recordCnt / 5;
+          
+            this.$store.commit('testArr', this.shopData);
           })
           .catch((error) => {
             console.error(error);
@@ -200,6 +205,19 @@
       },
       test() {
         alert('aa');
+      },
+      goToStoreDetail(shop) {
+        // $router.push('/store/detail');
+        console.log('넘길 값');
+        console.log(shop);
+        // this.$router.push({
+        //   path: `/store/detail`,
+        //   query: {
+        //     shop: shop
+        //   }
+        // });
+        this.$store.commit('changeShop', shop);
+        this.$router.push('/store/detail');
       }
     }
   }
