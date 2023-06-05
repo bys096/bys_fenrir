@@ -22,41 +22,18 @@
             店舗登録
           </h2>
         </div>
-        <form id="form" class="needs-validation" @submit.prevent="joinRequest">
-        
+        <!-- <h3>店舗のオーナーを証明するシステムは織り込んでおりません。</h3> -->
+        <form id="form" class="needs-validation" @submit.prevent="registerRequest">
           <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="text" class="form-control" id="email"
-                name="email" v-model="email" required />
-            <div class="invalid-feedback">請輸入正確的郵件格式</div>
+            <label for="email" class="form-label">店舗ID</label>
+            <input type="text" 
+                :class="isStoreValid ? 'form-control is-valid' : 'form-control is-invalid'"
+                id="email"
+                @keyup="getStoreLoad()"
+                name="userName" v-model="storeId" required />
+            <div :class="!isStoreValid ? 'invalid-feedback' : 'span-none'">店舗のオーナーを証明するシステムは織り込んでおりません。</div>
+            <div :class="!isStoreValid ? 'span-none' : 'valid-feedback'">正しい店のIDです。</div>
           </div>
-
-          <div class="mb-3">
-            <label for="pw" class="form-label">パスワード</label>
-            <input type="text" class="form-control" id="pw"
-                name="pw" v-model="pw" required />
-            <div class="invalid-feedback"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="userName" class="form-label">名前</label>
-            <input type="text" class="form-control" id="userName"
-                name="userName" v-model="userName" required />
-            <div class="valid-feedback"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="nickName" class="form-label">ニックネーム</label>
-            <input type="text" class="form-control" id="nickName"
-                name="nickName" v-model="nickName" required />
-            <div class="valid-feedback"></div>
-          </div>
-
-          <!-- <div class="mb-3">
-            <label for="phone" class="form-label">連絡先</label>
-            <input type="text" class="form-control" id="phone" required />
-            <div class="invalid-feedback"></div>
-          </div> -->
 
           <div class="d-none d-md-flex justify-content-center">
             <button type="submit" class="
@@ -85,14 +62,12 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      email: null,
-      pw: null,
-      nickName: null,
-      userName: null,
+      storeId: null,
+      isStoreValid: false
     }
   },
   methods: {
-    joinRequest() {
+    registerRequest() {
       const user = {
         email: this.email,
         pw: this.pw,
@@ -107,6 +82,32 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    async getStoreLoad() {
+
+      if(this.storeId != null && this.storeId !== "") {
+
+      
+      // console.log('press');
+      await axios.get('/v1/?key=a6d3bb26218771ec&format=json', {
+        params: {
+          id: this.storeId
+        }
+      }
+      
+      )
+        .then((res) => {
+          const resLen = res.data.results.shop.length;
+          if(resLen == 0 || resLen == null) {
+            this.isStoreValid = false;
+          }
+          else if(this.storeId === res.data.results.shop[0].id){
+            this.isStoreValid = true;
+          }
+
+        })
+        .catch((err) => console.log(err));
+      }
     }
   }
 }
@@ -127,6 +128,10 @@ export default {
 
 .row {
   justify-content: center; /* 가로 가운데 정렬 */
+}
+
+.span-none {
+  display: none;
 }
 
 </style>
