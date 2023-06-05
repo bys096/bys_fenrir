@@ -21,7 +21,7 @@
               <a class="nav-link link-dark px-md-4" href="#">＃＃</a>
             </li>
           </ul>
-          <div class="justify-content-end d-flex">
+          <div class="justify-content-end d-flex" v-if="!isAuthenticated">
             <button 
             @click="$router.push('/join')"
             class="btn btn-warning btn-warning-hover me-3 rounded-pill">
@@ -35,6 +35,24 @@
                       border-2
                     ">
               ログイン
+            </button>
+          </div>
+
+
+          <div class="justify-content-end d-flex" v-if="isAuthenticated">
+            <button 
+            @click="$router.push('/join')"
+            class="btn btn-warning btn-warning-hover me-3 rounded-pill">
+              会員登録
+            </button>
+            <button 
+            @click="logout()"
+                      class="
+                      btn btn-outline-secondary btn-outline-secondary-hover
+                      rounded-pill
+                      border-2
+                    ">
+              ログアウト
             </button>
           </div>
         </div>
@@ -53,11 +71,17 @@ export default {
       
     }
   },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.getAuthenticated;
+    }
+  },
   components: {
   },
   methods: {
-    test() {
-      alert('test');
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push('/');
     }
   }
 }

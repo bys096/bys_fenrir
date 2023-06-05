@@ -100,7 +100,7 @@ export default {
         nickName: this.nickName,
         userName: this.userName
       }
-      axios.post('http://localhost:8080/user', user)
+      axios.post('/api/user', user)
         .then((res) => {
           if(res.status === 201)
             this.$router.push('/');

@@ -72,7 +72,7 @@ export default {
         storeCode: this.storeId,
         uid: 1
       }
-      axios.post('http://localhost:8080/store', store)
+      axios.post('/api/store', store)
         .then((res) => {
           if(res.status === 201)
             this.$router.push('/');
