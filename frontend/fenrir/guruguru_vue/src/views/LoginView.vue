@@ -19,7 +19,7 @@
                     fs-lg-4 fs-mobile-2
                     fw-bold
                   ">
-            会員登録
+            ログイン
           </h2>
         </div>
         <form id="form" class="needs-validation" @submit.prevent="loginRequest">
@@ -84,9 +84,8 @@ export default {
       }
       axios.post('/api/user/login', user)
         .then((res) => {
-          console.log(res);
-          // if(res.status === 201)
-            // this.$router.push('/');
+          this.$store.dispatch('login', res.data.accessToken);
+          this.$router.push('/');
         })
         .catch((err) => {
           console.log(err);
