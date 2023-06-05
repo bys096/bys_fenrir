@@ -3,7 +3,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light py-3">
       <div class="container">
-        <a class="navbar-brand py-0" href="#">
+        <a class="navbar-brand py-0" href="/">
           <img src="https://WangShuan.github.io/bootstrap5-project/images/logo.jpeg" alt="拼拼 LOGO" width="111" height="40" class="d-inline-block align-top" />
         </a>
         <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,17 +15,21 @@
               <a class="nav-link link-dark px-md-4" aria-current="page" href="#">検索</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-dark px-md-4" href="#">＃＃</a>
+              <a class="nav-link link-dark px-md-4" href="/store/register">店舗登録</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link-dark px-md-4" href="#">＃＃</a>
             </li>
           </ul>
           <div class="justify-content-end d-flex">
-            <button class="btn btn-warning btn-warning-hover me-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#login">
+            <button 
+            @click="$router.push('/join')"
+            class="btn btn-warning btn-warning-hover me-3 rounded-pill">
               会員登録
             </button>
-            <button class="
+            <button 
+            @click="$router.push('/login')"
+                      class="
                       btn btn-outline-secondary btn-outline-secondary-hover
                       rounded-pill
                       border-2
@@ -42,13 +46,25 @@
 </template>
 
 <script>
-export default {
 
+export default {
+  data() {
+    return {
+      
+    }
+  },
+  components: {
+  },
+  methods: {
+    test() {
+      alert('test');
+    }
+  }
 }
 </script>
 
 <style scoped>
-@import url('../assets/css/header.css');
+/* @import url('../assets/css/header.css'); */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;600;700&amp;family=Noto+Sans+TC:wght@400;700&amp;display=swap');
 
 

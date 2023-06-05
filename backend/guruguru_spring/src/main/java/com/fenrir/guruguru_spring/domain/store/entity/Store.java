@@ -26,8 +26,8 @@ public class Store extends BaseEntity {
     @Column(name = "store_code", unique = true)
     private String storeCode;
 
-    @Column(name = "store_name")
-    private String storeName;
+
+    // image thumbnail?
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
