@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.review.entity;
 
+import com.fenrir.guruguru_spring.domain.store.entity.Store;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,10 @@ public class Review extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     // image
 }

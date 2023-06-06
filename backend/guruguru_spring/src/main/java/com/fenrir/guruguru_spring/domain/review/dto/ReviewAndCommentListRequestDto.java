@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewAndCommnetListRequestDto {
+public class ReviewAndCommentListRequestDto {
 
     private String reviewText;
 //    private String
