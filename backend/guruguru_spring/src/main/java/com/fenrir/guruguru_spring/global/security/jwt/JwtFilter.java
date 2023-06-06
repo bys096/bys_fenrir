@@ -1,5 +1,7 @@
 package com.fenrir.guruguru_spring.global.security.jwt;
 
+import com.fenrir.guruguru_spring.domain.user.exception.UserNotFoundException;
+import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
     // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
     // 클라이언트의 요청이 컨트롤러에 도달하기 전에 호출되는 메소드
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, BusinessException {
 
         // 1. Request Header 에서 토큰을 꺼냄
         String jwt = resolveToken(request);
