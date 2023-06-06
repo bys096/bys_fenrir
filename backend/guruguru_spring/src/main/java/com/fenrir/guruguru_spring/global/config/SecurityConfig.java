@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.global.config;
 
+import com.fenrir.guruguru_spring.global.error.GlobalExceptionHandler;
 import com.fenrir.guruguru_spring.global.security.jwt.JwtAccessDeniedHandler;
 import com.fenrir.guruguru_spring.global.security.jwt.JwtAuthenticationEntryPoint;
 import com.fenrir.guruguru_spring.global.security.jwt.JwtSecurityConfig;
@@ -66,7 +67,10 @@ public class SecurityConfig {
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig(tokenProvider))
+        .and()
+                .exceptionHandling();
+
 
 
 

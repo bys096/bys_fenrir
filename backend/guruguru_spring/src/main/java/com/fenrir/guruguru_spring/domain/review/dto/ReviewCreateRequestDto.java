@@ -24,6 +24,6 @@ public class ReviewCreateRequestDto {
     @NotEmpty(message = "テキストは必須項目です。")
     private String reviewText;
 
-    @NotNull(message = "uidは必須項目です。")
-    private Long uid;
+//    @NotNull(message = "uidは必須項目です。")
+//    private Long uid;
 }
