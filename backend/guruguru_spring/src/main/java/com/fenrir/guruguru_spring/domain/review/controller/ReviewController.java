@@ -1,12 +1,15 @@
 package com.fenrir.guruguru_spring.domain.review.controller;
 
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateException;
 import com.fenrir.guruguru_spring.domain.review.service.ReviewService;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +38,13 @@ public class ReviewController {
         reviewService.deleteReview(rid);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list/{storeCode}")
     @ResponseStatus(HttpStatus.OK)
-    public void getReviewAndCommentList() {
-
+    public Page<ReviewByStoreResponseDto> getAllReviewByStore(@PathVariable("storeCode") String storeCode,
+          @ModelAttribute ReviewPaginationRequestDto requestDto) {
+        log.info("getAllReviewByStore");
+        return reviewService.getAllReviewByStore(storeCode, requestDto);
     }
+
+
 }

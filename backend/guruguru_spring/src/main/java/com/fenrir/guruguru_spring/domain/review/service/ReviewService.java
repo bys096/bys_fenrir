@@ -1,12 +1,15 @@
 package com.fenrir.guruguru_spring.domain.review.service;
 
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateException;
 import com.fenrir.guruguru_spring.domain.review.mapper.ReviewMapper;
 import com.fenrir.guruguru_spring.domain.review.repository.ReviewRepository;
 import com.fenrir.guruguru_spring.domain.owner_register.entity.OwnerRegister;
 import com.fenrir.guruguru_spring.domain.owner_register.exception.StoreNotFoundException;
 import com.fenrir.guruguru_spring.domain.owner_register.repository.OwnerRegisterRepository;
+import com.fenrir.guruguru_spring.domain.review.repository.ReviewRepositoryCustom;
 import com.fenrir.guruguru_spring.domain.store.entity.Store;
 import com.fenrir.guruguru_spring.domain.store.mapper.StoreMapper;
 import com.fenrir.guruguru_spring.domain.store.repository.StoreRepository;
@@ -16,6 +19,9 @@ import com.fenrir.guruguru_spring.domain.user.repository.UserRepository;
 import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import com.fenrir.guruguru_spring.global.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,6 +33,7 @@ public class ReviewService {
     private final StoreRepository storeRepository;
     private final ReviewMapper reviewMapper;
     private final StoreMapper storeMapper;
+    private final ReviewRepositoryCustom reviewRepositoryCustom;
 
 
     public void createReview(ReviewCreateRequestDto dto) throws BusinessException {
@@ -62,6 +69,13 @@ public class ReviewService {
                             reviewRepository.save(reviewMapper.toEntity(dto, user, savedStore));
                         }
                 );
+    }
+
+    public Page<ReviewByStoreResponseDto> getAllReviewByStore(String storeCode, ReviewPaginationRequestDto requestDto) {
+
+        Pageable pageable = PageRequest.of(requestDto.getPage(), requestDto.getLimit());
+
+        return reviewRepositoryCustom.getReviewByStore(storeCode, pageable, requestDto);
     }
 
     public void deleteReview(Long rid) {
