@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate';
+import createPersistedState from 'vuex-persistedstate'
+import axios from 'axios';
 
 
 Vue.use(Vuex);
@@ -11,6 +12,7 @@ export const store =  new Vuex.Store({
     token: null,
     shopDetail: null,
     isAuthenticated: false,
+    reviewList: []
   },
   getters: {
     getToken(state) {
@@ -39,6 +41,9 @@ export const store =  new Vuex.Store({
     },
     setAuthenticated(state) {
       state.isAuthenticated = !state.isAuthenticated;
+    },
+    addOneReview(state, review) {
+      state.reviewList.push(review);
     }
   },
   actions: {
@@ -55,6 +60,19 @@ export const store =  new Vuex.Store({
       commit('clearToken');
       location.href = '/';
     },
+    async createReview({ commit, getters }, review) {
+      let response = null;
+      try {
+        await axios.post(`/api/review`, review, {
+          headers: getters.headers
+        });
+      } catch(err) {
+        console.log(err);
+        const errRes = err.response.data;
+        if(errRes.code === "R002")
+          alert(errRes.message);
+      }
+    }
     
   },
   

@@ -1,6 +1,5 @@
-package com.fenrir.guruguru_spring.domain.review.entity;
+package com.fenrir.guruguru_spring.domain.owner_register.entity;
 
-import com.fenrir.guruguru_spring.domain.owner_register.entity.OwnerRegister;
 import com.fenrir.guruguru_spring.domain.store.entity.Store;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
@@ -17,28 +16,23 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "reviews")
+@Table(name = "owner_registers")
 @DynamicInsert
-public class Review extends BaseEntity {
+public class OwnerRegister extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private Long rid;
-
-    @Column(name = "review_rating")
-    private int reviewRating;
-
-    @Column(name = "review_text")
-    private String reviewText;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "or_id")
+    private Long orId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User owner;
+
+    @Column(name = "or_state")
+    private int orState;
+    // image thumbnail?
+
+    @OneToOne
     @JoinColumn(name = "store_code")
     private Store store;
-
-    // image
 }

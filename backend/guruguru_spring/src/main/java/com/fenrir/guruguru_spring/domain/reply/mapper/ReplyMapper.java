@@ -12,7 +12,7 @@ public class ReplyMapper {
     public Reply toEntity(ReplyCreateRequestDto dto, Review review, User user) {
         return Reply.builder()
                 .review(review)
-                .user(user)
+//                .user(user)
                 .replyText(dto.getReplyText())
                 .build();
     }

@@ -6,12 +6,14 @@ import com.fenrir.guruguru_spring.domain.review.service.ReviewService;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@Slf4j
 @RequestMapping("/review")
 @RequiredArgsConstructor
 public class ReviewController {
@@ -21,6 +23,8 @@ public class ReviewController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createReview(@Valid @RequestBody ReviewCreateRequestDto dto) {
+        log.info("요청 수신");
+        log.info(dto.toString());
         reviewService.createReview(dto);
     }
 

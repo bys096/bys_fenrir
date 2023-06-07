@@ -27,7 +27,7 @@ public enum ErrorCode {
 
     // Review
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R001", "존재하지 않는 리뷰입니다."),
-    REVIEW_DUPLICATE(HttpStatus.BAD_REQUEST, "R002", "이미 리뷰를 작성한 작품입니다."),
+    REVIEW_DUPLICATE(HttpStatus.BAD_REQUEST, "R002", "このレビューはもう作成済みです。"),
     REVIEW_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "R003", "유저가 작성한 리뷰가 아닙니다."),
     REVIEW_ALREADY_LIKED(HttpStatus.BAD_REQUEST, "R004", "이미 좋아요가 되어 있습니다.");
 

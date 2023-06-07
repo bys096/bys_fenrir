@@ -12,8 +12,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByUser_UserId(Long userId);
 
 
-    @Query("select r from Review r where r.user.userId = :userId or r.store.owner.userId = :userId")
-    Optional<Review> findByUserOrOwnerId(@PathVariable("userId") Long userId);
+//    @Query("select r from Review r where r.user.userId = :userId or r.store.owner.userId = :userId")
+//    Optional<Review> findByUserOrOwnerId(@PathVariable("userId") Long userId);
 
 //    Optional<Review> findByUser_UserIdOrStore_Owner(Long userId);
 }

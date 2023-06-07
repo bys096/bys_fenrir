@@ -1,4 +1,4 @@
-package com.fenrir.guruguru_spring.domain.store.dto;
+package com.fenrir.guruguru_spring.domain.owner_register.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,16 +12,14 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreRegisterRequestDto {
+public class OwnerRegisterRequestDto {
 
-    @NotNull(message = "ユーザーidは必須項目です。")
-    private Long uid;
-
-//    @NotEmpty(message = "ストア名は必須項目です。")
-//    private String storeName;
+    @NotEmpty(message = "ストア名は必須項目です。")
+    private String storeName;
 
     @NotEmpty(message = "ストアコードは必須項目です。")
     private String storeCode;
+
 
     // address, access
 }

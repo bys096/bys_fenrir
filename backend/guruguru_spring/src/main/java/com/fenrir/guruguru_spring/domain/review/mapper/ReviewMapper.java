@@ -2,6 +2,7 @@ package com.fenrir.guruguru_spring.domain.review.mapper;
 
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
 import com.fenrir.guruguru_spring.domain.review.entity.Review;
+import com.fenrir.guruguru_spring.domain.owner_register.entity.OwnerRegister;
 import com.fenrir.guruguru_spring.domain.store.entity.Store;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import org.springframework.stereotype.Component;

@@ -161,8 +161,6 @@
             this.shopData = res.data.results.shop;
             this.recordCnt = res.data.results.results_available;
             this.pageCnt = this.recordCnt / 5;
-          
-            this.$store.commit('testArr', this.shopData);
           })
           .catch((error) => {
             console.error(error);

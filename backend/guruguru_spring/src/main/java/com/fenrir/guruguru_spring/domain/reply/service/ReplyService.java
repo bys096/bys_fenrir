@@ -27,17 +27,17 @@ public class ReplyService {
     public void createReply(ReplyCreateRequestDto dto) throws BusinessException {
 
 
-        User user = userRepository.findById(SecurityUtil.getCurrentMemberId())
-                .orElseThrow(() -> {
-                    throw new UserNotFoundException();
-                });
+//        User user = userRepository.findById(SecurityUtil.getCurrentMemberId())
+//                .orElseThrow(() -> {
+//                    throw new UserNotFoundException();
+//                });
 
 //        本人が書いたのか、店主が書いたのかの確認
-        Review review = reviewRepository.findByUserOrOwnerId(user.getUserId())
-                .orElseThrow(() -> {
-                    throw new ReviewNotMatchUserException();
-                });
-
-        replyRepository.save(replyMapper.toEntity(dto, review, user));
+//        Review review = reviewRepository.findByUserOrOwnerId(user.getUserId())
+//                .orElseThrow(() -> {
+//                    throw new ReviewNotMatchUserException();
+//                });
+//
+//        replyRepository.save(replyMapper.toEntity(dto, review, user));
     }
 }

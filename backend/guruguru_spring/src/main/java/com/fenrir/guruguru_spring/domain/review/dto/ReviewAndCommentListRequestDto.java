@@ -12,5 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReviewAndCommentListRequestDto {
 
     private String reviewText;
+
+    private String storeCode;
 //    private String
 }

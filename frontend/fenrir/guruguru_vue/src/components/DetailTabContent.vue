@@ -402,7 +402,7 @@
                       letter-spacing-7
                       bg-gray-100
                     ">
-              只有本專案的贊助者才可以留言哦，如果有任何專案相關的問題，歡迎<a href="#" class="link-danger">聯絡提案人</a>！
+              レビューを書いた方には<a href="#" class="link-danger">ポイント50Pを積立します！</a>
             </div>
             <ul class="mb-4 list-unstyled">
               <li class="mb-3">
@@ -504,8 +504,14 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios';
 
+export default {
+  computed: {
+    reviewData() {
+      
+    }
+  } 
 }
 </script>
 
