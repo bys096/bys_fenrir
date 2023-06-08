@@ -21,7 +21,7 @@ public class ReviewPaginationRequestDto {
     @Builder
     public ReviewPaginationRequestDto(Integer page, Integer limit, Sort sort) {
         this.page = page == null ? 0 : page;
-        this.limit = limit == null ? 10 : limit;
+        this.limit = limit == null ? 4 : limit;
         this.sort = sort == null ? Sort.CREATED_DATE_DESC : sort;
     }
 }

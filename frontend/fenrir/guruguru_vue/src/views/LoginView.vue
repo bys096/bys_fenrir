@@ -84,7 +84,7 @@ export default {
       }
       axios.post('/api/user/login', user)
         .then((res) => {
-          this.$store.dispatch('login', res.data.accessToken);
+          this.$store.dispatch('login', res.data.accessToken, res.data.uid);
           this.$router.push('/');
         })
         .catch((err) => {

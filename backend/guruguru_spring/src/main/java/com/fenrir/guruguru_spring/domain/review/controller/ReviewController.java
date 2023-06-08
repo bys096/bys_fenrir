@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,6 +43,10 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.OK)
     public Page<ReviewByStoreResponseDto> getAllReviewByStore(@PathVariable("storeCode") String storeCode,
           @ModelAttribute ReviewPaginationRequestDto requestDto) {
+        log.info("리스트 디버깅");
+        log.info(storeCode);
+        log.info(requestDto.getPage().toString());
+        log.info(requestDto.getLimit().toString());
         log.info("getAllReviewByStore");
         return reviewService.getAllReviewByStore(storeCode, requestDto);
     }

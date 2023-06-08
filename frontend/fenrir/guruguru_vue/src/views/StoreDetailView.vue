@@ -9,7 +9,7 @@
     <div class="row g-md-5">
       <!-- 左邊 tab 區塊 -->
       <div class="col-lg-8">
-        <DetailTabContentVue></DetailTabContentVue>
+        <DetailTabContentVue :props="reviewList"></DetailTabContentVue>
         <!-- 手機版逼人贊助卡片區塊 -->
         <InfoCardVue></InfoCardVue>
         <!-- 表單 -->
@@ -136,9 +136,13 @@ import topSectionVue from '../components/DetailTopSection.vue'
 import detailSidebarVue from '../components/DetailSidebar.vue'
 import detailTabContentVue from '../components/DetailTabContent.vue'
 import infoCardVue from '../components/DetailInfoCardVue.vue'
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
+import axios from 'axios';
 
 export default {
+  created() {
+    this.getReviewList();
+  },
   computed: {
       // return this.$store.state.shopDetail;
       ...mapState(['shopDetail'])
@@ -149,6 +153,8 @@ export default {
       rating: 5, // rating,
       reviewText: null,
       reviewTitle: null,
+      reviewList: [],
+      sort: null
     }
   },
   components: {
@@ -182,10 +188,22 @@ export default {
         this.reviewTitle = "";
         this.rating = 5;
       }
-      
-      
-
-
+    },
+    async getReviewList() {
+      try {
+        // const page = this.reviewList == null ? 0 : this.reviewList
+        const params =  { params: { page: this.page, limit: this.limit } };
+        const config = this.$store.getters.headers;
+        console.log('getReviewList');
+        const res = await axios.get(`/api/review/list/${this.shopDetail.id}`, params, config);
+        if(res.status === 200) {
+          console.log(res.data);
+          this.reviewList = res.data;
+        }
+      } catch(error) {
+        console.log('실패');
+        console.log(error);
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreRequestDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.review.entity.QReview;
+import com.fenrir.guruguru_spring.domain.user.entity.QUser;
 import com.fenrir.guruguru_spring.global.common.Sort;
 import com.querydsl.core.types.*;
 import com.querydsl.core.types.dsl.Expressions;
@@ -56,11 +57,11 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     }
 
 
-    public QBean<ReviewByStoreResponseDto> reviewSelectByStore(QReview review) {
+    public QBean<ReviewByStoreResponseDto> reviewSelectByStore(QReview review, QUser user) {
         return Projections.fields(
                 ReviewByStoreResponseDto.class,
-                review.user.userId, review.user.userId, review.rid,
-                review.createdAt, review.reviewText, review.reviewRating
+                review.user.userNick, review.createdAt, review.reviewRating,
+                review.reviewText, review.user.userId, review.rid
         );
     }
 
@@ -68,10 +69,12 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     public Page<ReviewByStoreResponseDto> getReviewByStore(String storeCode, Pageable pageable,
         ReviewPaginationRequestDto requestDto) {
         QReview review = QReview.review;
+        QUser user = QUser.user;
 
         JPQLQuery<ReviewByStoreResponseDto> results = queryFactory
-                .select(reviewSelectByStore(review))
+                .select(reviewSelectByStore(review, user))
                 .from(review)
+                .innerJoin(review.user, user)
                 .where(review.store.storeCode.eq(storeCode))
                 .orderBy(getOrderSpecifiers(requestDto.getSort()))
                 .offset(pageable.getOffset())

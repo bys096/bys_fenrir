@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.review.mapper;
 
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
 import com.fenrir.guruguru_spring.domain.review.entity.Review;
 import com.fenrir.guruguru_spring.domain.owner_register.entity.OwnerRegister;
@@ -15,6 +16,17 @@ public class ReviewMapper {
                 .store(store)
                 .reviewText(dto.getReviewText())
                 .reviewRating(dto.getReviewRating())
+                .build();
+    }
+
+    public ReviewByStoreResponseDto toDto(Review review, User user) {
+        return  ReviewByStoreResponseDto.builder()
+                .reviewId(review.getRid())
+                .reviewRating(review.getReviewRating())
+                .reviewText(review.getReviewText())
+                .createdDate(review.getCreatedAt())
+                .userId(user.getUserId())
+                .nickName(user.getUserNick())
                 .build();
     }
 }

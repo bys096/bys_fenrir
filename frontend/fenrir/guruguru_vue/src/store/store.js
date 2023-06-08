@@ -10,6 +10,7 @@ export const store =  new Vuex.Store({
   
   state: {
     token: null,
+    uid: null,
     shopDetail: null,
     isAuthenticated: false,
     reviewList: []
@@ -31,8 +32,9 @@ export const store =  new Vuex.Store({
     changeShop(state, shop) {
       state.shopDetail = shop;
     },
-    setToken(state, token) {
+    setToken(state, token, uid) {
       state.token = token;
+      state.uid = uid;
     },
     clearToken(state) {
       sessionStorage.removeItem('member_id');
@@ -47,8 +49,8 @@ export const store =  new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, token) {
-      commit('setToken', token);
+    login({ commit }, token, uid) {
+      commit('setToken', token, uid);
       commit('setAuthenticated');
     },
     logout({ commit }) {

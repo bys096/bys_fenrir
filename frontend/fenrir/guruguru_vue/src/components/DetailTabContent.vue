@@ -498,6 +498,28 @@
                   </p>
                 </div>
               </li>
+              
+              <li v-for="(review, index) in props.content" :key="index" class="mb-3">
+                <div class="border rounded-4 p-3 comment">
+                  <div class="d-flex justify-content-start">
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="俊俊個人頭像" />
+                    <div class="d-flex flex-column align-items-start ms-3">
+                      <a href="#" class="
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                                letter-spacing-20
+                              ">{{ review.userNick }}</a>
+                      <small class="text-secondary fs-sm letter-spacing-20">
+                        {{ review.createdAt[0] }}年{{ review.createdAt[1] }}月{{ review.createdAt[2] }}日
+                        {{ review.createdAt[3] < 10 ? '0'+review.createdAt[3] : review.createdAt[3] }}:{{ review.createdAt[4] < 10 ? '0'+review.createdAt[4] : review.createdAt[4] }}
+                      </small>
+                    </div>
+                  </div>
+                  <p class="text-gray-800 my-3">
+                    {{ review.reviewText }}
+                  </p>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -507,6 +529,7 @@
 import axios from 'axios';
 
 export default {
+  props: ['props'],
   computed: {
     reviewData() {
       

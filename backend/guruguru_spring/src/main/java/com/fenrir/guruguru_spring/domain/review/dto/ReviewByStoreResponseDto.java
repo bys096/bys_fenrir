@@ -12,11 +12,11 @@ public class ReviewByStoreResponseDto {
 
     private Long userId;
 
-    private String nickName;
+    private String userNick;
 
 //    private String imageUrl;
 
-    private Long reviewId;
+    private Long rid;
 
     private LocalDateTime createdAt;
 
@@ -29,12 +29,12 @@ public class ReviewByStoreResponseDto {
     @Builder
     public ReviewByStoreResponseDto(String nickName, LocalDateTime createdDate,
         Integer reviewRating, String reviewText, Long userId, Long reviewId) {
-        this.nickName = nickName;
+        this.userNick = nickName;
         this.createdAt = createdDate;
         this.reviewRating = reviewRating;
         this.reviewText = reviewText;
         this.userId = userId;
-        this.reviewId = reviewId;
+        this.rid = reviewId;
     }
 }
 

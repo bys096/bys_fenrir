@@ -103,6 +103,7 @@
         <v-pagination
           v-model="page"
           :length="pageCnt"
+          min="1"
           @input="pageLoad()"
           total-visible="9"
           class="my-pagination"
@@ -132,7 +133,7 @@
         keyword: null,
         recordCnt: null,
         pageCnt: null,
-        pageStart: 1,
+        pageStart: 0,
         pageSize: 4,
         page: 1,
         
@@ -152,25 +153,27 @@
         axios.get('/v1/?key=a6d3bb26218771ec&format=json&lat=35.7111&lng=139.7611&range=500', {
           params: {
             keyword: this.keyword,
-            start: 0,
+            start: 1,
             count: this.pageSize
           }
         })
           .then((res) => {
             console.log(res);
+            this.page = 0;
             this.shopData = res.data.results.shop;
             this.recordCnt = res.data.results.results_available;
-            this.pageCnt = this.recordCnt / 5;
+            this.pageCnt = Math.ceil(this.recordCnt / 4);
           })
           .catch((error) => {
             console.error(error);
           });
       },
       pageLoad() {
+        console.log('currnet page: ' + this.page);
         axios.get('/v1/?key=a6d3bb26218771ec&format=json&lat=35.7111&lng=139.7611&range=500', {
           params: {
             keyword: this.keyword,
-            start: this.pageSize * this.page + 1,
+            start: this.pageSize * (this.page - 1) + 1,
             count: this.pageSize
           }
         })

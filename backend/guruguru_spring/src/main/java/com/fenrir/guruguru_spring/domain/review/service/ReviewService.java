@@ -3,6 +3,7 @@ package com.fenrir.guruguru_spring.domain.review.service;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
+import com.fenrir.guruguru_spring.domain.review.entity.Review;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateException;
 import com.fenrir.guruguru_spring.domain.review.mapper.ReviewMapper;
 import com.fenrir.guruguru_spring.domain.review.repository.ReviewRepository;
@@ -51,7 +52,6 @@ public class ReviewService {
         店主は作成ができないように変える必要がある
 
 */
-
         storeRepository.findByStoreCode(dto.getStoreCode())
                 .ifPresentOrElse(
                         store -> {
