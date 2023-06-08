@@ -42,8 +42,11 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return review.user.userId.eq(userId);
     }
 
+    @SuppressWarnings("unchecked")
     private OrderSpecifier getOrderSpecifiers(Sort sort) {
         for (Sort value : Sort.values()) {
+            log.info("value.getProper(): " + value.getOrder());
+            log.info("param sort.getProper(): " + sort.getOrder());
             if (sort == value) {
                 Path<Object> path = Expressions.path(Object.class, review, value.getProperty());
                 return new OrderSpecifier(value.getOrder(), path);
@@ -75,6 +78,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .limit(pageable.getPageSize());
 
         List<ReviewByStoreResponseDto> reviews = results.fetch();
+//        long count = results.fetchCount()
 
         return new PageImpl<>(reviews, pageable, countQuery(review, null));
     }

@@ -511,7 +511,18 @@ export default {
     reviewData() {
       
     }
-  } 
+  },
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    addOneReview() {
+      
+    }
+  }
+  
 }
 </script>
 

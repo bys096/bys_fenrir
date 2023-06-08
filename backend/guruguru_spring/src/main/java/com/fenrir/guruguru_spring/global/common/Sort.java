@@ -10,6 +10,7 @@ public enum Sort {
     private final String property;
     private final Order order;
 
+
     Sort(String property, Order order) {
         this.property = property;
         this.order = order;
