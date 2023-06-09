@@ -7,6 +7,7 @@ import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateExcepti
 import com.fenrir.guruguru_spring.domain.review.service.ReviewService;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
+import com.fenrir.guruguru_spring.global.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ public class ReviewController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createReview(@Valid @RequestBody ReviewCreateRequestDto dto) {
-        log.info("요청 수신");
+        log.info("security Context: " + SecurityUtil.getCurrentMemberId());
         log.info(dto.toString());
         reviewService.createReview(dto);
     }

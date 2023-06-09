@@ -18,9 +18,11 @@ import com.fenrir.guruguru_spring.domain.user.repository.UserRepository;
 import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import com.fenrir.guruguru_spring.global.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ReplyService {
 
@@ -37,13 +39,11 @@ public class ReplyService {
                     throw new UserNotFoundException();
                 });
 
-        Store store = storeRepository.findByStoreCode(dto.getStoreCode())
-                .orElseThrow(() -> {
-                    throw new StoreNotFoundException();
-                });
+        log.info("security Utils: " + SecurityUtil.getCurrentMemberId());
+        log.info(dto.toString());
 
         //        本人が書いたのか、店主が書いたのかの確認
-        Review review = reviewRepository.findReviewsAndStoresWithStoreOwnerAndWriter(user.getUserId(), store.getStoreCode())
+        Review review = reviewRepository.findReviewsByUserIdAndStoreCodeOrOwner(dto.getReviewId(), user.getUserId())
                 .orElseThrow(() -> {
                    throw new ReplyNotMatchUserException();
                 });

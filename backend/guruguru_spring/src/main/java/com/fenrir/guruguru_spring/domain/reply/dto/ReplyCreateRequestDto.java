@@ -14,7 +14,9 @@ public class ReplyCreateRequestDto {
     @NotEmpty(message = "テキストは必須項目です。")
     private String replyText;
 
-    private String storeCode;
+    private Long reviewId;
+
+//    private String storeCode;
 
 
 //    @NotNull(message = "レーティングは必須項目です。")
