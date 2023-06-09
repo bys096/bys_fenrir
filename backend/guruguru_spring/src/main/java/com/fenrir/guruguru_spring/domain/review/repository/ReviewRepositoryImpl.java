@@ -1,7 +1,10 @@
 package com.fenrir.guruguru_spring.domain.review.repository;
 
+import com.fenrir.guruguru_spring.domain.reply.dto.ReplyResponseDto;
+import com.fenrir.guruguru_spring.domain.reply.entity.QReply;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreRequestDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreWithReplyDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.review.entity.QReview;
 import com.fenrir.guruguru_spring.domain.user.entity.QUser;
@@ -17,7 +20,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.fenrir.guruguru_spring.domain.review.entity.QReview.*;
 
@@ -65,11 +70,20 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         );
     }
 
+    public QBean<ReplyResponseDto> replySelectedByReview(QReply reply, QUser user) {
+        return Projections.fields(
+                ReplyResponseDto.class,
+                reply.replyId, reply.replyText, reply.replyUser.userId,
+                reply.createdAt,reply.review.rid, reply.replyUser.userNick
+        );
+    }
+
     @Override
-    public Page<ReviewByStoreResponseDto> getReviewByStore(String storeCode, Pageable pageable,
+    public Page<ReviewByStoreWithReplyDto> getReviewByStore(String storeCode, Pageable pageable,
         ReviewPaginationRequestDto requestDto) {
         QReview review = QReview.review;
         QUser user = QUser.user;
+        QReply reply = QReply.reply;
 
         JPQLQuery<ReviewByStoreResponseDto> results = queryFactory
                 .select(reviewSelectByStore(review, user))
@@ -81,8 +95,25 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .limit(pageable.getPageSize());
 
         List<ReviewByStoreResponseDto> reviews = results.fetch();
-//        long count = results.fetchCount()
 
-        return new PageImpl<>(reviews, pageable, countQuery(review, null));
+
+        List<ReviewByStoreWithReplyDto> reviewReplyList = reviews.stream().map(r -> {
+            ReplyResponseDto replyResponseDto = queryFactory
+                    .select(replySelectedByReview(reply, user))
+                    .from(reply)
+                    .where(reply.review.rid.eq(r.getRid()))
+                    .fetchOne();
+            return new ReviewByStoreWithReplyDto(r, replyResponseDto);
+        }).collect(Collectors.toList());
+
+        reviewReplyList.forEach(r -> {
+            System.out.println("review id: " + r.getReview().getRid());
+            System.out.println("review text: " + r.getReview().getReviewText());
+            if(r.getReply() != null)
+                System.out.println("reply text: " + r.getReply().getReplyText());
+        });
+
+
+        return new PageImpl<>(reviewReplyList, pageable, countQuery(review, null));
     }
 }

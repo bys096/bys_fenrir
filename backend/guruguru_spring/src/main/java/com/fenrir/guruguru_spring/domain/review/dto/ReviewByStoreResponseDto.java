@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.review.dto;
 
+import com.fenrir.guruguru_spring.domain.reply.dto.ReplyResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,6 @@ public class ReviewByStoreResponseDto {
 
     private String userNick;
 
-//    private String imageUrl;
 
     private Long rid;
 
@@ -22,9 +22,12 @@ public class ReviewByStoreResponseDto {
 
     private Integer reviewRating;
 
-    // iine
 
     private String reviewText;
+
+
+//    iine
+//    private String imageUrl;
 
     @Builder
     public ReviewByStoreResponseDto(String nickName, LocalDateTime createdDate,

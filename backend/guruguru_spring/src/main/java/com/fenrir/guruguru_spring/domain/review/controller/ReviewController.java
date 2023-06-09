@@ -1,6 +1,7 @@
 package com.fenrir.guruguru_spring.domain.review.controller;
 
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreWithReplyDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateException;
@@ -42,8 +43,8 @@ public class ReviewController {
 
     @GetMapping("/list/{storeCode}")
     @ResponseStatus(HttpStatus.OK)
-    public Page<ReviewByStoreResponseDto> getAllReviewByStore(@PathVariable("storeCode") String storeCode,
-          @ModelAttribute ReviewPaginationRequestDto requestDto) {
+    public Page<ReviewByStoreWithReplyDto> getAllReviewByStore(@PathVariable("storeCode") String storeCode,
+                                                               @ModelAttribute ReviewPaginationRequestDto requestDto) {
         log.info("리스트 디버깅");
         log.info(storeCode);
         log.info(requestDto.getPage().toString());

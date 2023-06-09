@@ -27,7 +27,7 @@ public class Review extends BaseEntity {
     private Long rid;
 
     @Column(name = "review_rating")
-    private int reviewRating;
+    private Integer reviewRating;
 
     @Column(name = "review_text")
     private String reviewText;

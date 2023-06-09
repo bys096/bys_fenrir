@@ -40,7 +40,7 @@ public class ReplyService {
                 });
 
         log.info("security Utils: " + SecurityUtil.getCurrentMemberId());
-        log.info(dto.toString());
+        log.info("reviewId: " + dto.getReviewId());
 
         //        本人が書いたのか、店主が書いたのかの確認
         Review review = reviewRepository.findReviewsByUserIdAndStoreCodeOrOwner(dto.getReviewId(), user.getUserId())
@@ -48,6 +48,7 @@ public class ReplyService {
                    throw new ReplyNotMatchUserException();
                 });
 
+        log.info("점주인증완료");
 
         replyRepository.save(replyMapper.toEntity(dto, review, user));
     }

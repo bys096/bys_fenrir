@@ -444,99 +444,112 @@
                   </div>
                 </div>
               </li>
-              <!-- <li class="mb-3">
+
+              <li class="mb-3" v-for="(content, index) in props" :key="index">
                 <div class="border rounded-4 p-3 comment">
                   <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="卡阿伯個人頭像" />
+                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img01.jpeg" alt="廖小杰個人頭像" />
                     <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                letter-spacing-20
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                              ">卡阿伯</a>
-                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
-                    </div>
-                  </div>
-                  <p class="text-gray-800 my-3 letter-spacing-7">
-                    希望有更多花色可以選擇！我女兒最近喜歡綠色
-                  </p>
-                </div>
-              </li> -->
-              <!-- <li class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="賈師個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                                letter-spacing-20
-                              ">賈師</a>
-                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
-                    </div>
-                  </div>
-                  <p class="text-gray-800 my-3 letter-spacing-7">
-                    可以做個相簿功能嗎？拍出好看的影片再讓我們選擇要印出哪一張這樣
-                  </p>
-                </div>
-              </li>
-              <li class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="俊俊個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                                letter-spacing-20
-                              ">俊俊</a>
-                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
-                    </div>
-                  </div>
-                  <p class="text-gray-800 my-3">
-                    test123 看一下我是不是真的可以留言
-                  </p>
-                </div>
-              </li> -->
-              
-              <li v-for="(review, index) in props" :key="index" class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="俊俊個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      
-                                <v-rating
+                      <v-rating
                                     class="my-rating"
-                                    v-model="review.reviewRating"
+                                    v-model="content.review.reviewRating"
                                     readonly
                                     density="compact"
                                     bg-color="orange-lighten-1"
                                     id="t"
-                                ></v-rating>
-                              
-                      <a href="#" class="
+                      ></v-rating>
+                      <!-- <a href="#" class="
                                 fs-lg-5 fs-mobile-4
                                 link-gray-700
                                 letter-spacing-20
-                              ">{{ review.userNick }}</a>
-                              <!-- <div v-if="$store.state.uid === review.userId"><button>X</button></div> -->
-                              
+                              ">{{ content.review.userNick }}</a> -->
+                      <a href="#" class="
+                                letter-spacing-20
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                              ">
+                        {{ content.review.userNick }}
+                      </a>
+                      <!-- <small class="text-secondary fs-sm letter-spacing-20">
+                        {{ content.review.createdAt[0] }}年{{ content.review.createdAt[1] }}月{{ content.review.createdAt[2] }}日
+                        {{ content.review.createdAt[3] < 10 ? '0'+ content.review.createdAt[3] : content.review.createdAt[3] }}:{{ content.review.createdAt[4] < 10 ? '0' + content.review.createdAt[4] : content.review.createdAt[4] }}
+                      </small> -->
                       <small class="text-secondary fs-sm letter-spacing-20">
-                        {{ review.createdAt[0] }}年{{ review.createdAt[1] }}月{{ review.createdAt[2] }}日
-                        {{ review.createdAt[3] < 10 ? '0'+review.createdAt[3] : review.createdAt[3] }}:{{ review.createdAt[4] < 10 ? '0'+review.createdAt[4] : review.createdAt[4] }}
+                        2020年5月22日 11:32
                       </small>
                     </div>
                   </div>
-                  <p class="text-gray-800 my-3">
-                    {{ review.reviewText }}
+                  <div>
+                    <p class="text-gray-800 my-3 letter-spacing-7">
+                      {{ content.review.reviewText }}
+                    </p>
+                  </div>
+                  <div v-show="content.reply == null">
                     <span class="reply
-                        fw-bold
-                        text-secondary fs-sm letter-spacing-10
-                        d-block
-                        "><a href="">답글</a></span>
-                  </p>
+                          fw-bold
+                          fs-sm letter-spacing-10
+                          d-block
+                          "
+                          @click="showCommentForm()"
+                      >コメント</span>
+                  </div>
+                    
+                  <div class="
+                            text-gray-800
+                            p-3
+                            bg-light
+                            rounded-2
+                            letter-spacing-7
+                          "
+                          v-if="isShowCommnentForm"
+                          >
+
+                    <!-- コメントフォーム -->
+                    <div class="mb-3">
+                      <v-container fluid>
+                        <v-textarea
+                          name="input-7-1"
+                          variant="filled"
+                          clearable
+                          v-model="replyText"
+                          placeholder="お店に関しての正直なレビューを残してください。"
+                          required
+                          model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                        ></v-textarea>
+                        <div class="replyBtn">
+                        <button class="
+                              btn
+                              btn-sm
+                              btn-outline-secondary
+                              btn-outline-secondary-hover
+                              rounded-pill
+                              px-3
+                              "
+                            @click="saveReply(content.review.rid)"
+                        >
+                          <i class="far fa-comment-dots me-2 text-secondary"></i>コメント
+                        </button>
+                        </div>
+                      </v-container>
+                      <div class="invalid-feedback">請選擇一種付款方式</div>
+                    </div>
+                    <div class="reply-content" v-if="content.reply !== null">
+                      <span class="
+                                text-danger
+                                w-100
+                                fs-sm
+                                d-block
+                                mb-2
+                                letter-spacing-6
+                              ">オーナー</span>
+                      {{ content.reply.replyText }}
+                    </div>
+                  </div>
                 </div>
               </li>
+
+            
+              
             </ul>
           </div>
         </div>
@@ -554,12 +567,20 @@ export default {
   },
   data() {
     return {
-      
+      isShowCommnentForm: false,
+      replyText: null
     }
   },
   methods: {
-    addOneReview() {
-      
+    showCommentForm() {
+      this.isShowCommnentForm = !this.isShowCommnentForm;
+    },
+    saveReply(rid) {
+      const reply = {
+        replyText: this.replyText,
+        reviewId: rid
+      }
+      this.$emit('addReply', reply);
     }
   }
   
@@ -573,15 +594,27 @@ export default {
   position: relative;
   right: 0.3vw
 }
-.reply a {
+.reply {
   color: #636057;
   text-decoration: none;  
   position: relative;
   /* left: 1vw; */
-  top: 1vh;
+  /* top: 1vh; */
 }
 
-.reply a:hover {
+.reply:hover{
   color: #ff785e;
+  cursor: pointer;
+}
+/* .theme--light.v-icon {
+  position: relative;
+  top: 20vh;
+} */
+
+.replyBtn {
+  /* position: relative; */
+  /* left: 50px; */
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

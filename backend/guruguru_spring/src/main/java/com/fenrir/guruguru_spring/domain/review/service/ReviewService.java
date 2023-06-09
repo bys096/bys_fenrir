@@ -1,6 +1,7 @@
 package com.fenrir.guruguru_spring.domain.review.service;
 
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
+import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreWithReplyDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
 import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.review.entity.Review;
@@ -78,7 +79,7 @@ public class ReviewService {
                 );
     }
 
-    public Page<ReviewByStoreResponseDto> getAllReviewByStore(String storeCode, ReviewPaginationRequestDto requestDto) {
+    public Page<ReviewByStoreWithReplyDto> getAllReviewByStore(String storeCode, ReviewPaginationRequestDto requestDto) {
 
         Pageable pageable = PageRequest.of(requestDto.getPage(), requestDto.getLimit());
 

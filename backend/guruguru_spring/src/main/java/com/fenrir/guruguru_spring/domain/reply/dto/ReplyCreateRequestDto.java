@@ -16,9 +16,4 @@ public class ReplyCreateRequestDto {
 
     private Long reviewId;
 
-//    private String storeCode;
-
-
-//    @NotNull(message = "レーティングは必須項目です。")
-//    private Long rating;
 }

@@ -18,7 +18,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 
 
-    @Query("SELECT r FROM Review r JOIN Store s ON s.storeCode = r.store.storeCode JOIN OwnerRegister own ON own.store.storeCode = r.store.storeCode where r.rid = :reviewId AND (r.user.userId = :userId OR own.owner.userId = :userId)")
+    @Query("SELECT r FROM Review r JOIN Store s ON s.storeCode = r.store.storeCode JOIN OwnerRegister own ON own.store.storeCode = r.store.storeCode where r.rid = :reviewId AND own.owner.userId = :userId")
     Optional<Review> findReviewsByUserIdAndStoreCodeOrOwner(@PathParam("reviewId") Long reviewId, @PathParam("userId") Long userId);
 
 
