@@ -8,11 +8,14 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ReplyCreateRequestDto {
 
-    @NotNull(message = "レビューIDは必須項目です。")
-    private Long rid;
+//    @NotNull(message = "レビューIDは必須項目です。")
+//    private Long rid;
 
     @NotEmpty(message = "テキストは必須項目です。")
     private String replyText;
+
+    private String storeCode;
+
 
 //    @NotNull(message = "レーティングは必須項目です。")
 //    private Long rating;

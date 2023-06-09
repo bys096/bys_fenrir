@@ -26,11 +26,13 @@ public enum ErrorCode {
     STORE_INVALID(HttpStatus.BAD_REQUEST, "S002", "権限がない店です。"),
 
     // Review
-    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R001", "존재하지 않는 리뷰입니다."),
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R001", "存在しないレビューです。"),
     REVIEW_DUPLICATE(HttpStatus.BAD_REQUEST, "R002", "このレビューはもう作成済みです。"),
-    REVIEW_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "R003", "유저가 작성한 리뷰가 아닙니다."),
-    REVIEW_ALREADY_LIKED(HttpStatus.BAD_REQUEST, "R004", "이미 좋아요가 되어 있습니다.");
+    REVIEW_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "R003", "ユーザーが作成したレビューまたはオーナーではありません。"),
+    REVIEW_ALREADY_LIKED(HttpStatus.BAD_REQUEST, "R004", "이미 좋아요가 되어 있습니다."),
 
+    // Reply
+    REPLY_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "RP001", "ユーザーが作成したレビューまたはオーナーではありません。");
 
     private final HttpStatus status;
     private final String code;

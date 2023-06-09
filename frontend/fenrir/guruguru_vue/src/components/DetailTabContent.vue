@@ -529,6 +529,11 @@
                   </div>
                   <p class="text-gray-800 my-3">
                     {{ review.reviewText }}
+                    <span class="reply
+                        fw-bold
+                        text-secondary fs-sm letter-spacing-10
+                        d-block
+                        "><a href="">답글</a></span>
                   </p>
                 </div>
               </li>
@@ -567,5 +572,16 @@ export default {
   padding: 0;
   position: relative;
   right: 0.3vw
+}
+.reply a {
+  color: #636057;
+  text-decoration: none;  
+  position: relative;
+  /* left: 1vw; */
+  top: 1vh;
+}
+
+.reply a:hover {
+  color: #ff785e;
 }
 </style>
