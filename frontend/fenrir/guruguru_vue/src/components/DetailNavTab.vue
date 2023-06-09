@@ -28,7 +28,16 @@
 
 <script>
 export default {
-
+  computed: {
+    isTabActive() {
+      return "nav-link link-dark py-3 active"
+    }
+  },
+  data() {
+    return {
+      isTabActive : "intro"
+    }
+  }
 }
 </script>
 

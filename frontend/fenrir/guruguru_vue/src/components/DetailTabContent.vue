@@ -444,7 +444,7 @@
                   </div>
                 </div>
               </li>
-              <li class="mb-3">
+              <!-- <li class="mb-3">
                 <div class="border rounded-4 p-3 comment">
                   <div class="d-flex justify-content-start">
                     <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="卡阿伯個人頭像" />
@@ -461,8 +461,8 @@
                     希望有更多花色可以選擇！我女兒最近喜歡綠色
                   </p>
                 </div>
-              </li>
-              <li class="mb-3">
+              </li> -->
+              <!-- <li class="mb-3">
                 <div class="border rounded-4 p-3 comment">
                   <div class="d-flex justify-content-start">
                     <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="賈師個人頭像" />
@@ -497,18 +497,30 @@
                     test123 看一下我是不是真的可以留言
                   </p>
                 </div>
-              </li>
+              </li> -->
               
-              <li v-for="(review, index) in props.content" :key="index" class="mb-3">
+              <li v-for="(review, index) in props" :key="index" class="mb-3">
                 <div class="border rounded-4 p-3 comment">
                   <div class="d-flex justify-content-start">
                     <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="俊俊個人頭像" />
                     <div class="d-flex flex-column align-items-start ms-3">
+                      
+                                <v-rating
+                                    class="my-rating"
+                                    v-model="review.reviewRating"
+                                    readonly
+                                    density="compact"
+                                    bg-color="orange-lighten-1"
+                                    id="t"
+                                ></v-rating>
+                              
                       <a href="#" class="
                                 fs-lg-5 fs-mobile-4
                                 link-gray-700
                                 letter-spacing-20
                               ">{{ review.userNick }}</a>
+                              <!-- <div v-if="$store.state.uid === review.userId"><button>X</button></div> -->
+                              
                       <small class="text-secondary fs-sm letter-spacing-20">
                         {{ review.createdAt[0] }}年{{ review.createdAt[1] }}月{{ review.createdAt[2] }}日
                         {{ review.createdAt[3] < 10 ? '0'+review.createdAt[3] : review.createdAt[3] }}:{{ review.createdAt[4] < 10 ? '0'+review.createdAt[4] : review.createdAt[4] }}
@@ -549,6 +561,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.my-rating >>> .theme--light.v-icon {
+  color: #FFD700;
+  padding: 0;
+  position: relative;
+  right: 0.3vw
+}
 </style>

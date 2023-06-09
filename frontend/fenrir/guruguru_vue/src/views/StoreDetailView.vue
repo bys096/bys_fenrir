@@ -35,7 +35,7 @@
             レビュー
           </h2>
         </div>
-        <form id="form" class="needs-validation" @submit.prevent="saveReview()">
+        <form id="form" class="needs-validation" @submit.prevent="saveReviewAndLoad()">
 
 
           <div class="text-center">
@@ -145,7 +145,8 @@ export default {
   },
   computed: {
       // return this.$store.state.shopDetail;
-      ...mapState(['shopDetail'])
+      ...mapState(['shopDetail']),
+      
   },
   data() {
     return {
@@ -173,7 +174,7 @@ export default {
     // console.log(this.$store.state.shopDetail);
   },
   methods: {
-    saveReview() {
+    async saveReviewAndLoad() {
       const review = {
         reviewRating: this.rating,
         reviewText: this.reviewText,
@@ -183,11 +184,26 @@ export default {
       if(!this.reviewText || !this.rating) {
         alert('空欄があります。');
       } else {
-        this.$store.dispatch('createReview', review);
+        await this.saveReview(review);
+        await this.getReviewList();
         this.reviewText = "";
         this.reviewTitle = "";
         this.rating = 5;
       }
+    },
+    async saveReview(review) {
+      let response = null;
+      try {
+        await axios.post(`/api/review`, review, {
+          headers: this.$store.getters.headers
+        });
+      } catch(err) {
+        console.log(err);
+        const errRes = err.response.data;
+        if(errRes.code === "R002")
+          alert(errRes.message);
+      }
+    
     },
     async getReviewList() {
       try {
@@ -197,8 +213,9 @@ export default {
         console.log('getReviewList');
         const res = await axios.get(`/api/review/list/${this.shopDetail.id}`, params, config);
         if(res.status === 200) {
-          console.log(res.data);
-          this.reviewList = res.data;
+          console.log('새롭게 리뷰 리스트반환');
+          console.log(res);
+          this.reviewList = res.data.content;
         }
       } catch(error) {
         console.log('실패');

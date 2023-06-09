@@ -33,7 +33,7 @@
 
           <div class="mb-3">
             <label for="pw" class="form-label">パスワード</label>
-            <input type="text" class="form-control" id="pw"
+            <input type="password" class="form-control" id="pw"
                 name="pw" v-model="pw" required />
             <div class="invalid-feedback"></div>
           </div>
@@ -84,7 +84,10 @@ export default {
       }
       axios.post('/api/user/login', user)
         .then((res) => {
-          this.$store.dispatch('login', res.data.accessToken, res.data.uid);
+          const accessToken = res.data.accessToken;
+          const uid = res.data.uid;
+        
+          this.$store.dispatch('login', { token: accessToken, uid: uid });
           this.$router.push('/');
         })
         .catch((err) => {

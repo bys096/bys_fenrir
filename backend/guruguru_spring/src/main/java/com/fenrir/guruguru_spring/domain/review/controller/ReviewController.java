@@ -49,6 +49,7 @@ public class ReviewController {
         log.info(requestDto.getLimit().toString());
         log.info("getAllReviewByStore");
         return reviewService.getAllReviewByStore(storeCode, requestDto);
+//        return ResponseEntity.ok(reviewService.getAllReviewByStore(storeCode, requestDto));
     }
 
 

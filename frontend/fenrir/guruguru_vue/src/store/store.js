@@ -32,9 +32,10 @@ export const store =  new Vuex.Store({
     changeShop(state, shop) {
       state.shopDetail = shop;
     },
-    setToken(state, token, uid) {
+    setToken(state, { token, uid }) {
       state.token = token;
       state.uid = uid;
+      console.log('check from mutations: ' + uid);
     },
     clearToken(state) {
       sessionStorage.removeItem('member_id');
@@ -49,8 +50,11 @@ export const store =  new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, token, uid) {
-      commit('setToken', token, uid);
+    login({ commit }, payload) {
+      const { token, uid } = payload;
+      console.log('check from actions token: ' + token);
+      console.log('check from actions uid: ' + uid);
+      commit('setToken', { token, uid });
       commit('setAuthenticated');
     },
     logout({ commit }) {
@@ -62,19 +66,6 @@ export const store =  new Vuex.Store({
       commit('clearToken');
       location.href = '/';
     },
-    async createReview({ commit, getters }, review) {
-      let response = null;
-      try {
-        await axios.post(`/api/review`, review, {
-          headers: getters.headers
-        });
-      } catch(err) {
-        console.log(err);
-        const errRes = err.response.data;
-        if(errRes.code === "R002")
-          alert(errRes.message);
-      }
-    }
     
   },
   

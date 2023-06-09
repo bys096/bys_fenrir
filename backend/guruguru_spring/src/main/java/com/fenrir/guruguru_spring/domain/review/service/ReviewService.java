@@ -52,6 +52,7 @@ public class ReviewService {
         店主は作成ができないように変える必要がある
 
 */
+        log.info("로그인된 유저id " + user.getUserId());
         storeRepository.findByStoreCode(dto.getStoreCode())
                 .ifPresentOrElse(
                         store -> {
@@ -69,8 +70,9 @@ public class ReviewService {
                                     );
                         },
                         () -> {
-                            log.info("여긴가?");
-                            Store savedStore =  storeRepository.save(storeMapper.toEntity(dto.getStoreCode(), dto.getStoreName()));
+                            log.info("여긴가???");
+                            Store savedStore = storeRepository.save(storeMapper.toEntity(dto.getStoreCode(), dto.getStoreName()));
+                            log.info("저장됨?");
                             reviewRepository.save(reviewMapper.toEntity(dto, user, savedStore));
                         }
                 );
