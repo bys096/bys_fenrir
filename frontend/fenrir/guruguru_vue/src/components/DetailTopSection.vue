@@ -60,7 +60,7 @@
                         pb-xl-3
                         text-dark
                       ">
-                いいね
+                <v-icon>mdi-heart</v-icon>いいね
               </small>
               <span class="font-baloo-tamma fs-2 lh-lg fw-bold">27</span>
               <span class="fs-4 fw-bolder lh-lg">人</span>

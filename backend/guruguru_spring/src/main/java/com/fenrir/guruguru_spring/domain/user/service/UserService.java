@@ -12,6 +12,7 @@ import com.fenrir.guruguru_spring.global.security.jwt.RefreshTokenRepository;
 import com.fenrir.guruguru_spring.global.security.jwt.TokenDto;
 import com.fenrir.guruguru_spring.global.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserService {
 
@@ -56,8 +58,6 @@ public class UserService {
 
     @Transactional
     public TokenDto login(LoginRequestDto dto) {
-//        return userRepository.findByUserEmailAndUserPw(dto.getEmail(), dto.getPw())
-//                .orElseThrow(() -> new UserNotFoundException());
 
         UsernamePasswordAuthenticationToken authenticationToken = dto.toAuthentication();
 
@@ -65,17 +65,25 @@ public class UserService {
         //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+        User user = userRepository.findById(Long.parseLong(authentication.getName()))
+                .orElseThrow(() -> new UserNotFoundException());
 
+
+        // 3. 인증 정보를 기반으로 JWT 토큰 생성
+        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication, user.getUserId());
+        log.info("accessToken:" + tokenDto.getAccessToken());
+        log.info("userId: " + tokenDto.getUid());
+
+        log.info("tokentDto 발급");
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())
                 .value(tokenDto.getRefreshToken())
                 .build();
 
+        log.info("refresh before");
         refreshTokenRepository.save(refreshToken);
-
+        log.info("refresh after");
         // 5. 토큰 발급
         return tokenDto;
     }

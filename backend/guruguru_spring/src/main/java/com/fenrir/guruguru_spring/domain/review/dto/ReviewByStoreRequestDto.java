@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewAndCommentListRequestDto {
+public class ReviewByStoreRequestDto {
 
     private String reviewText;
+
+    private String storeCode;
 //    private String
 }

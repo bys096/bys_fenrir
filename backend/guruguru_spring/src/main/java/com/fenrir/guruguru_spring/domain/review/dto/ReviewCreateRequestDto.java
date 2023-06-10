@@ -1,10 +1,7 @@
 package com.fenrir.guruguru_spring.domain.review.dto;
 
 import com.fenrir.guruguru_spring.domain.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -16,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ReviewCreateRequestDto {
 
     @NotNull(message = "レヴュー点数は必須項目です。")
@@ -24,8 +22,14 @@ public class ReviewCreateRequestDto {
     @NotEmpty(message = "テキストは必須項目です。")
     private String reviewText;
 
-    @NotNull(message = "sidは必須項目です。")
-    private Long sid;
+    @NotEmpty(message = "ストアコードは必須項目です。")
+    private String storeCode;
+
+    @NotEmpty(message = "ストアコードは必須項目です。")
+    private String storeName;
+//    @NotNull(message = "sidは必須項目です。")
+//    private Long sid;
+
 
 //    @NotNull(message = "uidは必須項目です。")
 //    private Long uid;

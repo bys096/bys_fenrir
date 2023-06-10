@@ -1,7 +1,5 @@
 package com.fenrir.guruguru_spring.domain.store.entity;
 
-import com.fenrir.guruguru_spring.domain.user.entity.User;
-import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,20 +15,12 @@ import javax.persistence.*;
 @Getter
 @Table(name = "stores")
 @DynamicInsert
-public class Store extends BaseEntity {
+public class Store {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
-    private Long storeId;
-
-    @Column(name = "store_code", unique = true)
+    @Id
+    @Column(name = "store_code")
     private String storeCode;
 
-
-    // image thumbnail?
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User owner;
-
+    @Column(name = "store_name")
+    private String storeName;
 }

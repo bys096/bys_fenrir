@@ -63,6 +63,7 @@ export default {
   data() {
     return {
       storeId: null,
+      storeName: null,
       isStoreValid: false
     }
   },
@@ -70,9 +71,11 @@ export default {
     registerRequest() {
       const store = {
         storeCode: this.storeId,
-        uid: 1
+        storeName: this.storeName
       }
-      axios.post('/api/store', store)
+      axios.post('/api/or', store, {
+        headers: this.$store.getters.headers
+      })
         .then((res) => {
           if(res.status === 201)
             this.$router.push('/');
@@ -95,6 +98,7 @@ export default {
             }
             else if(this.storeId === res.data.results.shop[0].id){
               this.isStoreValid = true;
+              this.storeName = res.data.results.shop[0].name;
             }
 
           })

@@ -1,7 +1,6 @@
 package com.fenrir.guruguru_spring.domain.reply.entity;
 
 import com.fenrir.guruguru_spring.domain.review.entity.Review;
-import com.fenrir.guruguru_spring.domain.store.entity.Store;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,7 @@ public class Reply extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User replyUser;
 
 
 }

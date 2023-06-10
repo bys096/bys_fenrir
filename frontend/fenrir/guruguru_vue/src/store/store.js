@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate';
+import createPersistedState from 'vuex-persistedstate'
+import axios from 'axios';
 
 
 Vue.use(Vuex);
@@ -9,8 +10,10 @@ export const store =  new Vuex.Store({
   
   state: {
     token: null,
+    uid: null,
     shopDetail: null,
     isAuthenticated: false,
+    reviewList: []
   },
   getters: {
     getToken(state) {
@@ -29,8 +32,10 @@ export const store =  new Vuex.Store({
     changeShop(state, shop) {
       state.shopDetail = shop;
     },
-    setToken(state, token) {
+    setToken(state, { token, uid }) {
       state.token = token;
+      state.uid = uid;
+      console.log('check from mutations: ' + uid);
     },
     clearToken(state) {
       sessionStorage.removeItem('member_id');
@@ -39,11 +44,17 @@ export const store =  new Vuex.Store({
     },
     setAuthenticated(state) {
       state.isAuthenticated = !state.isAuthenticated;
+    },
+    addOneReview(state, review) {
+      state.reviewList.push(review);
     }
   },
   actions: {
-    login({ commit }, token) {
-      commit('setToken', token);
+    login({ commit }, payload) {
+      const { token, uid } = payload;
+      console.log('check from actions token: ' + token);
+      console.log('check from actions uid: ' + uid);
+      commit('setToken', { token, uid });
       commit('setAuthenticated');
     },
     logout({ commit }) {

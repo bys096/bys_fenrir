@@ -402,113 +402,257 @@
                       letter-spacing-7
                       bg-gray-100
                     ">
-              只有本專案的贊助者才可以留言哦，如果有任何專案相關的問題，歡迎<a href="#" class="link-danger">聯絡提案人</a>！
+              レビューを書いた方には<a href="#" class="link-danger">ポイント50Pを積立します！</a>
             </div>
             <ul class="mb-4 list-unstyled">
-              <li class="mb-3">
+              
+
+              <li class="mb-3" v-for="(content, index) in props" :key="index">
                 <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
+                  <div class="d-flex justify-content-start" id="review-header">
+
+
+                    <div class="review-title">
                     <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img01.jpeg" alt="廖小杰個人頭像" />
                     <div class="d-flex flex-column align-items-start ms-3">
+                      <v-rating
+                                    class="my-rating"
+                                    v-model="content.review.reviewRating"
+                                    readonly
+                                    density="compact"
+                                    bg-color="orange-lighten-1"
+                                    id="t"
+                      ></v-rating>
+
+                      
+                      <!-- <a href="#" class="
+                                fs-lg-5 fs-mobile-4
+                                link-gray-700
+                                letter-spacing-20
+                              ">{{ content.review.userNick }}</a> -->
                       <a href="#" class="
                                 letter-spacing-20
                                 fs-lg-5 fs-mobile-4
                                 link-gray-700
                               ">
-                        廖小杰
+                        {{ content.review.userNick }}
                       </a>
+                      <!-- <small class="text-secondary fs-sm letter-spacing-20">
+                        {{ content.review.createdAt[0] }}年{{ content.review.createdAt[1] }}月{{ content.review.createdAt[2] }}日
+                        {{ content.review.createdAt[3] < 10 ? '0'+ content.review.createdAt[3] : content.review.createdAt[3] }}:{{ content.review.createdAt[4] < 10 ? '0' + content.review.createdAt[4] : content.review.createdAt[4] }}
+                      </small> -->
                       <small class="text-secondary fs-sm letter-spacing-20">
                         2020年5月22日 11:32
                       </small>
                     </div>
+                    </div>
+
+
+
+                    <div class="dl-wrap" @click="deleteReply(content.review, content.reply)">
+                        <v-chip
+                        class="ma-2 dl "
+                        variant="outlined"
+                        >
+                        <svg-icon type="mdi" :path="path"></svg-icon>
+                        <span class="dl-text">削除</span>
+                        </v-chip>
+                      </div>
+                    <!-- <div class="dl-wrap">
+                      <v-chip
+                      class="ma-2 dl"
+                      variant="outlined"
+                      >
+                      <svg-icon type="mdi" :path="path"></svg-icon>
+                      <span class="dl-text">削除</span>
+                      </v-chip>
+                    </div> -->
+                    
+
                   </div>
-                  <p class="text-gray-800 my-3 letter-spacing-7">
-                    晚上起床上廁所看到照片裡的人一直動其實有點恐怖，希望可以有暫停或是定時的功能！
-                  </p>
+                  <div>
+                    <p class="text-gray-800 my-3 letter-spacing-7">
+                      {{ content.review.reviewText }}
+                    </p>
+                  </div>
+                  <div v-show="content.reply == null">
+                    <span class="reply
+                          fw-bold
+                          fs-sm letter-spacing-10
+                          d-block
+                          "
+                          @click="showCommentForm()"
+                      >コメント</span>
+                      
+                  </div>
+                    
                   <div class="
                             text-gray-800
                             p-3
                             bg-light
                             rounded-2
                             letter-spacing-7
-                          ">
-                    <span class="
-                              text-danger
-                              w-100
-                              fs-sm
-                              d-block
-                              mb-2
-                              letter-spacing-6
-                            ">提案者回覆</span>
-                    你要嘛起床的時候開燈，要嘛給我們更多錢開發阿
-                  </div>
-                </div>
-              </li>
-              <li class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="卡阿伯個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                letter-spacing-20
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                              ">卡阿伯</a>
-                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
+                          "
+                          v-if="isShowCommnentForm"
+                  >
+                    <!-- コメントフォーム -->
+                    <div class="mb-3">
+                      <v-container fluid>
+                        <v-textarea
+                          name="input-7-1"
+                          variant="filled"
+                          clearable
+                          v-model="replyText"
+                          placeholder="お客さまへのコメントを作成してください。"
+                          required
+                          model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                        ></v-textarea>
+                        <div class="replyBtn">
+                        <button class="
+                              btn
+                              btn-sm
+                              btn-outline-secondary
+                              btn-outline-secondary-hover
+                              rounded-pill
+                              px-3
+                              "
+                            @click="saveReply(content.review.rid)"
+                        >
+                          <i class="far fa-comment-dots me-2 text-secondary"></i>コメント
+                        </button>
+                        </div>
+                      </v-container>
+                      <div class="invalid-feedback">請選擇一種付款方式</div>
                     </div>
                   </div>
-                  <p class="text-gray-800 my-3 letter-spacing-7">
-                    希望有更多花色可以選擇！我女兒最近喜歡綠色
-                  </p>
-                </div>
-              </li>
-              <li class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="賈師個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                                letter-spacing-20
-                              ">賈師</a>
-                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
+                    <div class="reply-content" v-if="content.reply !== null">
+                      <span class="
+                                text-danger
+                                w-100
+                                fs-sm
+                                d-block
+                                mb-2
+                                letter-spacing-6
+                              ">オーナー</span>
+                      {{ content.reply.replyText }} 
                     </div>
-                  </div>
-                  <p class="text-gray-800 my-3 letter-spacing-7">
-                    可以做個相簿功能嗎？拍出好看的影片再讓我們選擇要印出哪一張這樣
-                  </p>
                 </div>
               </li>
-              <li class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img02.jpeg" alt="俊俊個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                                letter-spacing-20
-                              ">俊俊</a>
-                      <small class="text-secondary fs-sm letter-spacing-20">2020年5月22日 11:32</small>
-                    </div>
-                  </div>
-                  <p class="text-gray-800 my-3">
-                    test123 看一下我是不是真的可以留言
-                  </p>
-                </div>
-              </li>
+
+            
+              
             </ul>
           </div>
         </div>
 </template>
 
 <script>
-export default {
+import axios from 'axios';
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiDeleteVariant } from '@mdi/js';
 
+
+
+
+
+
+export default {
+  components: {
+    SvgIcon
+  },
+  props: ['props'],
+  computed: {
+    reviewData() {
+      
+    }
+  },
+
+  data() {
+    return {
+      isShowCommnentForm: false,
+      replyText: null,
+      mdiDelete: true,
+      path: mdiDeleteVariant,
+    }
+  },
+  methods: {
+    showCommentForm() {
+      this.isShowCommnentForm = !this.isShowCommnentForm;
+    },
+    saveReply(reviewId) {
+      const reply = {
+        replyText: this.replyText,
+        reviewId: reviewId
+      }
+      this.$emit('addReply', reply);
+      this.showCommentForm();
+    },
+    deleteReply(reviewParam, replyParam) {
+      console.log(reviewParam.rid);
+      console.log(replyParam.replyId);
+    
+      const reviewObject = {
+        reviewId: reviewParam.rid,
+        replyId: replyParam.replyId
+      }
+      this.$emit('deleteReply', reviewObject);
+      
+    }
+  }
+  
 }
 </script>
 
-<style>
+<style scoped>
+.my-rating >>> .theme--light.v-icon {
+  color: #FFD700;
+  padding: 0;
+  position: relative;
+  right: 0.3vw
+}
+.reply {
+  color: #636057;
+  text-decoration: none;  
+  position: relative;
+  /* left: 1vw; */
+  /* top: 1vh; */
+}
 
+.reply:hover{
+  color: #ff785e;
+  cursor: pointer;
+}
+/* .theme--light.v-chip:not(.v-chip--active) {
+    background: #ff785e;
+} */
+#review-header {
+    justify-content: space-between !important;
+}
+.review-title {
+  display: flex;
+}
+/* .dl-wrap {
+  position: relative;
+  
+}*/
+.theme--light.v-chip:not(.v-chip--active) {
+    background: transparent;
+  border: solid 1px #e91e63;
+    /* border: #e91e63; */
+}
+
+.dl {
+    color: #e91e63!important;
+    cursor: pointer;
+}
+.dl-text {
+  margin-left: 5px;
+}
+
+.replyBtn {
+  /* position: relative; */
+  /* left: 50px; */
+  display: flex;
+  justify-content: flex-end;
+}
 </style>

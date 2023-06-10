@@ -33,7 +33,7 @@
 
           <div class="mb-3">
             <label for="pw" class="form-label">パスワード</label>
-            <input type="text" class="form-control" id="pw"
+            <input type="password" class="form-control" id="pw"
                 name="pw" v-model="pw" required />
             <div class="invalid-feedback"></div>
           </div>
