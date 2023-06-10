@@ -161,8 +161,8 @@ import { mdiMagnify } from '@mdi/js';
           pet: this.pet,
           lunch: this.lunch,
           midnight: this.midnight,
-          lat: this.center.lat,
-          lng: this.center.lng
+          lat: this.latitude,
+          lng: this.longitude
           // 35.652243448 lat
           // 139.5444876358 lng
         }
@@ -185,7 +185,7 @@ import { mdiMagnify } from '@mdi/js';
         longitude: '',      // my longitude
         textContent: '',
         // center: { lat: 37.5642135, lng: 127.0016985 },
-        center: { lat: null, lng: null },    // 
+        center: { lat: null, lng: null },    // map
         locationMarkers: [],
         locPlaces: [],
         existingPlace: null,
@@ -196,6 +196,7 @@ import { mdiMagnify } from '@mdi/js';
         pet: null,
         lunch: null,
         midnight: null,
+        
 
         isGps: false
       }
@@ -227,6 +228,7 @@ import { mdiMagnify } from '@mdi/js';
       },
       pageLoad() {
         console.log('currnet page: ' + this.page);
+        console.log(this.condition);
         axios.get('/v1/?key=a6d3bb26218771ec&range=500', {
           params: this.condition
         })
@@ -270,9 +272,8 @@ import { mdiMagnify } from '@mdi/js';
         if(this.isGps) {
           this.getCurrentPostion();
         } else {
-          this.center.lat = null;
-          this.center.lng = null;
-
+          this.latitude = null;
+          this.longitude = null;
         }
       }
     }
