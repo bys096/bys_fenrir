@@ -9,7 +9,7 @@
     <div class="row g-md-5">
       <!-- 左邊 tab 區塊 -->
       <div class="col-lg-8">
-        <DetailTabContentVue :props="reviewList" @addReply="saveReplyAndLoad"></DetailTabContentVue>
+        <DetailTabContentVue :props="reviewList" @addReply="saveReplyAndLoad" @deleteReply="deleteReplyAndLoad"></DetailTabContentVue>
         <!-- 手機版逼人贊助卡片區塊 -->
         <InfoCardVue></InfoCardVue>
         <!-- 表單 -->
@@ -231,6 +231,16 @@ export default {
         await axios.post('/api/reply', reply, {
           headers: this.$store.getters.headers
         });
+      } catch(error) {
+        console.log(error);
+      }
+    },
+    async deleteReplyAndLoad(reviewObj) {
+      try {
+        await axios.delete(`/api/review/${reviewObj.reviewId}/${reviewObj.replyId}`,{
+          headers: this.$store.getters.headers
+        });
+        await this.getReviewList();
       } catch(error) {
         console.log(error);
       }

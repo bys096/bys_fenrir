@@ -34,12 +34,6 @@ public class ReviewController {
         reviewService.createReview(dto);
     }
 
-    @DeleteMapping("/{rid}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteReview(@PathVariable("rid") Long rid) {
-        System.out.println("rid");
-        reviewService.deleteReview(rid);
-    }
 
     @GetMapping("/list/{storeCode}")
     @ResponseStatus(HttpStatus.OK)
@@ -52,6 +46,13 @@ public class ReviewController {
         log.info("getAllReviewByStore");
         return reviewService.getAllReviewByStore(storeCode, requestDto);
 //        return ResponseEntity.ok(reviewService.getAllReviewByStore(storeCode, requestDto));
+    }
+
+
+    @DeleteMapping("/{reviewId}/{replyId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReview(@PathVariable("reviewId") Long reviewId, @PathVariable("replyId") Long replyId) {
+        reviewService.deleteReview(reviewId, replyId);
     }
 
 

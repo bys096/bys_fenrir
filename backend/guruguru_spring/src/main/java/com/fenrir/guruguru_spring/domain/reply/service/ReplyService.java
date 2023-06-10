@@ -2,6 +2,9 @@ package com.fenrir.guruguru_spring.domain.reply.service;
 
 import com.fenrir.guruguru_spring.domain.owner_register.exception.StoreNotFoundException;
 import com.fenrir.guruguru_spring.domain.reply.dto.ReplyCreateRequestDto;
+import com.fenrir.guruguru_spring.domain.reply.entity.Reply;
+import com.fenrir.guruguru_spring.domain.reply.exception.ReplyInvalidException;
+import com.fenrir.guruguru_spring.domain.reply.exception.ReplyNotFoundException;
 import com.fenrir.guruguru_spring.domain.reply.exception.ReplyNotMatchUserException;
 import com.fenrir.guruguru_spring.domain.reply.mapper.ReplyMapper;
 import com.fenrir.guruguru_spring.domain.reply.repository.ReplyRepository;
@@ -20,6 +23,8 @@ import com.fenrir.guruguru_spring.global.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @Slf4j
@@ -45,11 +50,15 @@ public class ReplyService {
         //        本人が書いたのか、店主が書いたのかの確認
         Review review = reviewRepository.findReviewsByUserIdAndStoreCodeOrOwner(dto.getReviewId(), user.getUserId())
                 .orElseThrow(() -> {
-                   throw new ReplyNotMatchUserException();
+                   throw new ReplyInvalidException();
                 });
 
         log.info("점주인증완료");
 
         replyRepository.save(replyMapper.toEntity(dto, review, user));
     }
+
+
+
+
 }

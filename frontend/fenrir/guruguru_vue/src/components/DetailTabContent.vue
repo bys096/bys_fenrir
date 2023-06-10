@@ -405,49 +405,14 @@
               レビューを書いた方には<a href="#" class="link-danger">ポイント50Pを積立します！</a>
             </div>
             <ul class="mb-4 list-unstyled">
-              <li class="mb-3">
-                <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
-                    <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img01.jpeg" alt="廖小杰個人頭像" />
-                    <div class="d-flex flex-column align-items-start ms-3">
-                      <a href="#" class="
-                                letter-spacing-20
-                                fs-lg-5 fs-mobile-4
-                                link-gray-700
-                              ">
-                        廖小杰
-                      </a>
-                      <small class="text-secondary fs-sm letter-spacing-20">
-                        2020年5月22日 11:32
-                      </small>
-                    </div>
-                  </div>
-                  <p class="text-gray-800 my-3 letter-spacing-7">
-                    晚上起床上廁所看到照片裡的人一直動其實有點恐怖，希望可以有暫停或是定時的功能！
-                  </p>
-                  <div class="
-                            text-gray-800
-                            p-3
-                            bg-light
-                            rounded-2
-                            letter-spacing-7
-                          ">
-                    <span class="
-                              text-danger
-                              w-100
-                              fs-sm
-                              d-block
-                              mb-2
-                              letter-spacing-6
-                            ">提案者回覆</span>
-                    你要嘛起床的時候開燈，要嘛給我們更多錢開發阿
-                  </div>
-                </div>
-              </li>
+              
 
               <li class="mb-3" v-for="(content, index) in props" :key="index">
                 <div class="border rounded-4 p-3 comment">
-                  <div class="d-flex justify-content-start">
+                  <div class="d-flex justify-content-start" id="review-header">
+
+
+                    <div class="review-title">
                     <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img01.jpeg" alt="廖小杰個人頭像" />
                     <div class="d-flex flex-column align-items-start ms-3">
                       <v-rating
@@ -458,6 +423,8 @@
                                     bg-color="orange-lighten-1"
                                     id="t"
                       ></v-rating>
+
+                      
                       <!-- <a href="#" class="
                                 fs-lg-5 fs-mobile-4
                                 link-gray-700
@@ -478,6 +445,30 @@
                         2020年5月22日 11:32
                       </small>
                     </div>
+                    </div>
+
+
+
+                    <div class="dl-wrap" @click="deleteReply(content.review, content.reply)">
+                        <v-chip
+                        class="ma-2 dl "
+                        variant="outlined"
+                        >
+                        <svg-icon type="mdi" :path="path"></svg-icon>
+                        <span class="dl-text">削除</span>
+                        </v-chip>
+                      </div>
+                    <!-- <div class="dl-wrap">
+                      <v-chip
+                      class="ma-2 dl"
+                      variant="outlined"
+                      >
+                      <svg-icon type="mdi" :path="path"></svg-icon>
+                      <span class="dl-text">削除</span>
+                      </v-chip>
+                    </div> -->
+                    
+
                   </div>
                   <div>
                     <p class="text-gray-800 my-3 letter-spacing-7">
@@ -492,6 +483,7 @@
                           "
                           @click="showCommentForm()"
                       >コメント</span>
+                      
                   </div>
                     
                   <div class="
@@ -502,8 +494,7 @@
                             letter-spacing-7
                           "
                           v-if="isShowCommnentForm"
-                          >
-
+                  >
                     <!-- コメントフォーム -->
                     <div class="mb-3">
                       <v-container fluid>
@@ -512,7 +503,7 @@
                           variant="filled"
                           clearable
                           v-model="replyText"
-                          placeholder="お店に関しての正直なレビューを残してください。"
+                          placeholder="お客さまへのコメントを作成してください。"
                           required
                           model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
                         ></v-textarea>
@@ -533,6 +524,7 @@
                       </v-container>
                       <div class="invalid-feedback">請選擇一種付款方式</div>
                     </div>
+                  </div>
                     <div class="reply-content" v-if="content.reply !== null">
                       <span class="
                                 text-danger
@@ -542,9 +534,8 @@
                                 mb-2
                                 letter-spacing-6
                               ">オーナー</span>
-                      {{ content.reply.replyText }}
+                      {{ content.reply.replyText }} 
                     </div>
-                  </div>
                 </div>
               </li>
 
@@ -557,30 +548,53 @@
 
 <script>
 import axios from 'axios';
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiDeleteVariant } from '@mdi/js';
+
+
+
+
+
 
 export default {
+  components: {
+    SvgIcon
+  },
   props: ['props'],
   computed: {
     reviewData() {
       
     }
   },
+
   data() {
     return {
       isShowCommnentForm: false,
-      replyText: null
+      replyText: null,
+      mdiDelete: true,
+      path: mdiDeleteVariant,
     }
   },
   methods: {
     showCommentForm() {
       this.isShowCommnentForm = !this.isShowCommnentForm;
     },
-    saveReply(rid) {
+    saveReply(reviewId) {
       const reply = {
         replyText: this.replyText,
-        reviewId: rid
+        reviewId: reviewId
       }
       this.$emit('addReply', reply);
+    },
+    deleteReply(reviewParam, replyParam) {
+      console.log(reviewParam.rid);
+      console.log(replyParam.replyId);
+    
+      const reviewObject = {
+        reviewId: reviewParam.rid,
+        replyId: replyParam.replyId
+      }
+      this.$emit('deleteReply', reviewObject);
     }
   }
   
@@ -606,10 +620,32 @@ export default {
   color: #ff785e;
   cursor: pointer;
 }
-/* .theme--light.v-icon {
-  position: relative;
-  top: 20vh;
+/* .theme--light.v-chip:not(.v-chip--active) {
+    background: #ff785e;
 } */
+#review-header {
+    justify-content: space-between !important;
+}
+.review-title {
+  display: flex;
+}
+/* .dl-wrap {
+  position: relative;
+  
+}*/
+.theme--light.v-chip:not(.v-chip--active) {
+    background: transparent;
+  border: solid 1px #e91e63;
+    /* border: #e91e63; */
+}
+
+.dl {
+    color: #e91e63!important;
+    cursor: pointer;
+}
+.dl-text {
+  margin-left: 5px;
+}
 
 .replyBtn {
   /* position: relative; */

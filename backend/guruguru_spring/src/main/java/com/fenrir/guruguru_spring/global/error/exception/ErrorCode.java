@@ -32,7 +32,9 @@ public enum ErrorCode {
     REVIEW_ALREADY_LIKED(HttpStatus.BAD_REQUEST, "R004", "이미 좋아요가 되어 있습니다."),
 
     // Reply
-    REPLY_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "RP001", "ユーザーが作成したレビューまたはオーナーではありません。");
+    REPLY_NOT_FOUND(HttpStatus.NOT_FOUND, "RP001", "存在しないコメントです。"),
+    REPLY_INVALID(HttpStatus.BAD_REQUEST, "RP002", "オーナではありません。"),
+    REPLY_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "RP003", "ユーザーが作成したレビューまたはオーナーではありません。");
 
     private final HttpStatus status;
     private final String code;
