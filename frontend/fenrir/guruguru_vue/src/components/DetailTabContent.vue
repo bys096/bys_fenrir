@@ -585,6 +585,7 @@ export default {
         reviewId: reviewId
       }
       this.$emit('addReply', reply);
+      this.showCommentForm();
     },
     deleteReply(reviewParam, replyParam) {
       console.log(reviewParam.rid);
@@ -595,6 +596,7 @@ export default {
         replyId: replyParam.replyId
       }
       this.$emit('deleteReply', reviewObject);
+      
     }
   }
   
