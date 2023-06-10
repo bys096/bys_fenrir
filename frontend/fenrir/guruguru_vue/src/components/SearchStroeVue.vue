@@ -124,7 +124,14 @@
       VPagination
     },
     computed: {
-      
+      condition() {
+        return {
+          keyword: this.keyword,
+          format: 'json',
+          count: this.pageSize,
+          start: this.pageSize * (this.page - 1) + 1,
+        }
+      }
     },
 
     data() {
@@ -144,22 +151,25 @@
         center: { lat: 35.7111, lng: 139.7611 },    // 
         locationMarkers: [],
         locPlaces: [],
-        existingPlace: null
+        existingPlace: null,
+        
+        
+        
       }
     },
 
     methods: {
       search() {
-        axios.get('/v1/?key=a6d3bb26218771ec&format=json&lat=35.7111&lng=139.7611&range=500', {
-          params: {
-            keyword: this.keyword,
-            start: 1,
-            count: this.pageSize
-          }
+        this.pageCnt = null;
+        this.page = null;
+        console.log('currentPage by Computed: ');
+        console.log(this.condition);
+        axios.get('/v1/?key=a6d3bb26218771ec&lat=35.7111&lng=139.7611&range=500', {
+          params: this.condition
         })
           .then((res) => {
             console.log(res);
-            this.page = 0;
+            this.page = 1;
             this.shopData = res.data.results.shop;
             this.recordCnt = res.data.results.results_available;
             this.pageCnt = Math.ceil(this.recordCnt / 4);
@@ -170,12 +180,8 @@
       },
       pageLoad() {
         console.log('currnet page: ' + this.page);
-        axios.get('/v1/?key=a6d3bb26218771ec&format=json&lat=35.7111&lng=139.7611&range=500', {
-          params: {
-            keyword: this.keyword,
-            start: this.pageSize * (this.page - 1) + 1,
-            count: this.pageSize
-          }
+        axios.get('/v1/?key=a6d3bb26218771ec&lat=35.7111&lng=139.7611&range=500', {
+          params: this.condition
         })
           .then((res) => {
             console.log(res);
@@ -204,9 +210,7 @@
           this.textContent = err.message;
         })
       },
-      test() {
-        alert('aa');
-      },
+
       goToStoreDetail(shop) {
         // $router.push('/store/detail');
         console.log('넘길 값');
