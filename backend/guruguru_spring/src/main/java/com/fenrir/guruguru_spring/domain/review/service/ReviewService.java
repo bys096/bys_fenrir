@@ -87,7 +87,6 @@ public class ReviewService {
     public Page<ReviewByStoreWithReplyDto> getAllReviewByStore(String storeCode, ReviewPaginationRequestDto requestDto) {
 
         Pageable pageable = PageRequest.of(requestDto.getPage(), requestDto.getLimit());
-
         return reviewRepositoryCustom.getReviewByStore(storeCode, pageable, requestDto);
     }
 
@@ -98,13 +97,19 @@ public class ReviewService {
                 .orElseThrow(() -> {
                     throw new ReviewNotFoundException();
                 });
-        Reply reply = replyRepository.findById(replyId)
-                .orElseThrow(() -> {
-                    throw new ReplyNotFoundException();
-                });
 
-        replyRepository.delete(reply);
-        reviewRepository.delete(review);
+        if(replyId == null) {
+            reviewRepository.delete(review);
+        } else {
+            Reply reply = replyRepository.findById(replyId)
+                    .orElseThrow(() -> {
+                       throw new ReplyNotFoundException();
+                    });
+            replyRepository.delete(reply);
+            reviewRepository.delete(review);
+        }
+
+
     }
 
 

@@ -30,7 +30,7 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createReview(@Valid @RequestBody ReviewCreateRequestDto dto) {
         log.info("security Context: " + SecurityUtil.getCurrentMemberId());
-        log.info(dto.toString());
+//        log.info(dto.toString());
         reviewService.createReview(dto);
     }
 
@@ -49,11 +49,21 @@ public class ReviewController {
     }
 
 
+
+    @DeleteMapping("/{reviewId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReview(@PathVariable("reviewId") Long reviewId) {
+        log.info("delete mapiing in cntroller for review");
+        reviewService.deleteReview(reviewId, null);
+    }
+
     @DeleteMapping("/{reviewId}/{replyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteReview(@PathVariable("reviewId") Long reviewId, @PathVariable("replyId") Long replyId) {
+    public void deleteReviewWithReply(@PathVariable("reviewId") Long reviewId, @PathVariable("replyId") Long replyId) {
+        log.info("delete mapiing in cntroller for with reply and review");
         reviewService.deleteReview(reviewId, replyId);
     }
+
 
 
 }
