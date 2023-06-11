@@ -5,6 +5,7 @@ import JoinView from '../views/JoinView.vue'
 import LoginView from '../views/LoginView.vue'
 import DetailView from '../views/StoreDetailView.vue'
 import StoreRegisterView from '../views/StoreRegisterView.vue'
+import AdminView from '../views/AdminView.vue'
 
 Vue.use(VueRouter)
 
@@ -33,7 +34,12 @@ const routes = [
     path: '/store/register',
     name: 'register',
     component: StoreRegisterView
-  }
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminView
+  },
   
   
   
