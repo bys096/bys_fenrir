@@ -81,7 +81,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout');
-      this.$router.push('/');
+      this.$router.push('/').catch(() => {});
     }
   }
 }
