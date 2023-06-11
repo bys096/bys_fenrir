@@ -25,6 +25,10 @@ public enum ErrorCode {
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "S001", "存在しない店です。"),
     STORE_INVALID(HttpStatus.BAD_REQUEST, "S002", "権限がない店です。"),
 
+    // Owner
+    OWNER_DUPLICATE(HttpStatus.BAD_REQUEST, "O001", "もう登録済みの店です。"),
+
+
     // Review
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R001", "存在しないレビューです。"),
     REVIEW_DUPLICATE(HttpStatus.BAD_REQUEST, "R002", "このレビューはもう作成済みです。"),

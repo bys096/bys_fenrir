@@ -75,25 +75,39 @@ export default {
     }
   },
   methods: {
-    registerRequest() {
-      this.uploadFile();
+    async registerRequest() {
 
-
+      
 
 
       const store = {
         storeCode: this.storeId,
-        storeName: this.storeName
+        storeName: this.storeName,
+        fileName: this.encodedFileName
       }
-      axios.post('/api/or', store, {
+      console.log('전송전 store 정보확인');
+      console.log(store);
+
+
+
+      await axios.post('/api/or', store, {
         headers: this.$store.getters.headers
       })
         .then((res) => {
-          if(res.status === 201)
+          if(res.status === 201) {
+            this.uploadFile();
             this.$router.push('/');
+          }
         })
         .catch((err) => {
           console.log(err);
+          const errContext = err.response.data;
+          // const errCode = err.response.data.code;
+          // const errMsg = err.response.data.message;
+          if(errContext.code === "O001") {
+            console.log(errContext);
+            alert(errContext.message);
+          }
         });
     },
     async getStoreLoad() {
@@ -162,6 +176,7 @@ export default {
             this.image = presignedUrl + encodedFileName;
             console.log(res);
             console.log('s3 업로드 완료');
+            
           })
         .catch(err => {
           if (err.response.status === 419) {
@@ -169,7 +184,7 @@ export default {
           } 
           else console.error('s3 업로드 오류:', err);
         })
-  }
+  },
   }
 }
 </script>

@@ -20,6 +20,9 @@ public class OwnerRegisterRequestDto {
     @NotEmpty(message = "ストアコードは必須項目です。")
     private String storeCode;
 
+    @NotEmpty(message = "オーナーであることを証明する資料は必須項目です。")
+    private String fileName;
+
 
     // address, access
 }
