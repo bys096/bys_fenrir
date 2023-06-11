@@ -33,6 +33,9 @@
                 name="userName" v-model="storeId" required />
             <div :class="!isStoreValid ? 'invalid-feedback' : 'span-none'">店舗のオーナーを証明するシステムは織り込んでおりません。</div>
             <div :class="!isStoreValid ? 'span-none' : 'valid-feedback'">正しい店のIDです。</div>
+            <div>
+              <input type="file" @change="getUrl()" ref="file" required />
+            </div>
           </div>
 
           <div class="d-none d-md-flex justify-content-center">
@@ -64,11 +67,20 @@ export default {
     return {
       storeId: null,
       storeName: null,
-      isStoreValid: false
+      isStoreValid: false,
+
+      presignedUrl: null,
+      encodedFileName: null,
+      selectedFile: null
     }
   },
   methods: {
     registerRequest() {
+      this.uploadFile();
+
+
+
+
       const store = {
         storeCode: this.storeId,
         storeName: this.storeName
@@ -104,7 +116,60 @@ export default {
           })
           .catch((err) => console.log(err));
         }
+      },
+
+
+
+      async getUrl() {
+        try {
+        const selectedFile = this.$refs.file.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        const fileSize = selectedFile.size;
+        if (fileSize > maxSize) {
+          alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+          return;
+        }
+        const filename = selectedFile.name;
+        const filetype = selectedFile.type;
+        console.log(filetype);
+        const res = await axios.get('/api/aws/s3/url', {
+          params: { filename, filetype },
+          headers: this.$store.getters.headers
+        });
+        const encodedFileName = res.data.encodedFileName
+        const presignedUrl = res.data.preSignedUrl;
+
+        this.presignedUrl = presignedUrl;
+        this.encodedFileName = encodedFileName;
+        this.selectedFile = selectedFile;
+
+        console.log('presign');
+        console.log(res);
+        console.log('presignedUrl: ' + presignedUrl);
+        console.log('endcodedFileName: ' + encodedFileName);
+
+        
+    } catch(err) {
+      console.log(err);
     }
+  },
+  async uploadFile() {
+    const presignedUrl = this.presignedUrl;
+    const selectedFile = this.selectedFile;
+    const encodedFileName = this.encodedFileName;
+    await axios.put(presignedUrl, selectedFile)
+          .then((res) => {
+            this.image = presignedUrl + encodedFileName;
+            console.log(res);
+            console.log('s3 업로드 완료');
+          })
+        .catch(err => {
+          if (err.response.status === 419) {
+            this.$store.dispatch('handleTokenExpired');
+          } 
+          else console.error('s3 업로드 오류:', err);
+        })
+  }
   }
 }
 </script>
