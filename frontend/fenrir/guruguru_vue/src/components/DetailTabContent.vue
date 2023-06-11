@@ -588,13 +588,26 @@ export default {
       this.showCommentForm();
     },
     deleteReply(reviewParam, replyParam) {
-      console.log(reviewParam.rid);
-      console.log(replyParam.replyId);
+      // console.log(reviewParam.rid);
+      // console.log(replyParam.replyId);
     
-      const reviewObject = {
-        reviewId: reviewParam.rid,
-        replyId: replyParam.replyId
+
+      let reviewObject = null;
+      if(replyParam) {
+        reviewObject = {
+          reviewId: reviewParam.rid,
+          replyId: replyParam.replyId
+        }
       }
+      else {
+        reviewObject = {
+          reviewId: reviewParam.rid,
+          replyId: null
+        }
+      }
+      
+      
+      console.log(reviewObject);
       this.$emit('deleteReply', reviewObject);
       
     }

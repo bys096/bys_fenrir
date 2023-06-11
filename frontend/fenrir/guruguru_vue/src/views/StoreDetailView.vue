@@ -237,9 +237,21 @@ export default {
     },
     async deleteReplyAndLoad(reviewObj) {
       try {
-        await axios.delete(`/api/review/${reviewObj.reviewId}/${reviewObj.replyId}`,{
-          headers: this.$store.getters.headers
-        });
+        if(reviewObj.replyId === null) {
+          console.log('review Object axios 직전');
+          console.log(reviewObj);
+          await axios.delete(`/api/review/${reviewObj.reviewId}`,{
+            headers: this.$store.getters.headers
+          });
+        } else {
+          console.log('review Object axios 직전');
+          console.log(reviewObj);
+          await axios.delete(`/api/review/${reviewObj.reviewId}/${reviewObj.replyId}`,{
+            headers: this.$store.getters.headers
+          });
+        }
+
+        
         await this.getReviewList();
       } catch(error) {
         console.log(error);
