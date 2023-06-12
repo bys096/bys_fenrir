@@ -29,7 +29,7 @@ public class OwnerRegister extends BaseEntity {
     private User owner;
 
     @Column(name = "or_state")
-    private int orState;
+    private Integer orState;
     // image thumbnail?
 
     @OneToOne
