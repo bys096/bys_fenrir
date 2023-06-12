@@ -33,7 +33,7 @@
       </v-btn>
     </v-card-text> -->
   </v-card>
-    <UserManageVue :props="members" v-if="selectedTab === 0"></UserManageVue>
+    <UserManageVue :props="members" :pages="pages" @pageChange="loadUserData" v-if="selectedTab === 0"></UserManageVue>
   </div>
 </template>
 <script>
@@ -50,7 +50,14 @@ import axios from 'axios';
       // length: 15,
       tabs: ['会員管理', 'オーナー承認管理'],
       selectedTab: 0,
-      members: null
+      members: null,
+      
+      pages: {
+        totalPages: null,
+        totalElements: null,
+        pageSize: 10,
+        page: null
+      }
     }),
 
     watch: {
@@ -61,12 +68,27 @@ import axios from 'axios';
     methods: {
       async loadUserData() {
         try {
-          const res = await axios.get('/api/admin/user/list', {
+          
+          const pageable = {
+            page: this.pages.page == null ? 0 : this.pages.page - 1,
+            limit: this.pages.pageSize
+          }
+          const res = await axios.get('/api/admin/user/list', {params: pageable},{
             headers: this.$store.getters.headers
           });
           console.log(res);
           if(res.status === 200) {
             this.members = res.data.content;
+
+            const pages = {
+              totalElements: res.data.totalElements,
+              totalPages: res.data.totalPages,
+              pageSize: res.data.size,
+              page: res.data.number+1
+            }
+            this.pages = pages;
+
+            
           }
         } catch(err) {
           console.log(err);
