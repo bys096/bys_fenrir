@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.user.repository;
 
+import com.fenrir.guruguru_spring.domain.user.entity.Role;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.domain.user.exception.UserNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -48,10 +49,12 @@ class UserRepositoryTest {
     @Test
     void createUser() {
         IntStream.rangeClosed(10, 50).forEach(i -> {
+            Role role = Role.USER;
             User user = User.builder()
                     .userEmail("test" + i + "@naver.com")
                     .userPw(passwordEncoder.encode("1111"))
                     .userNick("test" + i)
+                    .userRole(role)
                     .build();
             userRepository.save(user);
         });

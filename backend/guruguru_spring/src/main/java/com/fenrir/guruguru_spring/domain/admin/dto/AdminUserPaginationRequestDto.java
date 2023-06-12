@@ -1,4 +1,4 @@
-package com.fenrir.guruguru_spring.domain.dto;
+package com.fenrir.guruguru_spring.domain.admin.dto;
 
 import com.fenrir.guruguru_spring.global.common.Sort;
 import lombok.Builder;
