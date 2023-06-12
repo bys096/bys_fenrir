@@ -1,6 +1,8 @@
 package com.fenrir.guruguru_spring.domain.user.mapper;
 
+import com.fenrir.guruguru_spring.domain.admin.dto.AdminUpdateRequestDto;
 import com.fenrir.guruguru_spring.domain.user.dto.UserCreateRequestDto;
+import com.fenrir.guruguru_spring.domain.user.dto.UserUpdateRequestDto;
 import com.fenrir.guruguru_spring.domain.user.entity.Role;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,4 +21,5 @@ public class UserMapper {
                 .userRole(Role.USER)
                 .build();
     }
+
 }
