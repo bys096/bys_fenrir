@@ -34,14 +34,19 @@
     </v-card-text> -->
   </v-card>
     <UserManageVue :props="members" :pages="pages" @pageChange="loadUserData" v-if="selectedTab === 0"></UserManageVue>
+    <OwnerManageVue v-if="selectedTab === 1"></OwnerManageVue>
   </div>
 </template>
 <script>
 import userManageVue from '../components/UserManageVue.vue'
+import ownerManageVue from '../components/OwnerManageVue.vue';
 import axios from 'axios';
+
+
   export default {
     components: {
-      UserManageVue: userManageVue
+      UserManageVue: userManageVue,
+      OwnerManageVue: ownerManageVue
     },
     mounted() {
       this.loadUserData();
