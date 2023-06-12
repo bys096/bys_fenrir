@@ -12,6 +12,7 @@
             <td class="text-center">パスワード</td>
             <td class="text-center">登録日</td>
             <td class="text-center">Role</td>
+            <td class="text-center">Actions</td>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +23,18 @@
             <td class="align-middle text-center">{{ shortenPw(member.userPw) }}</td>
             <td class="align-middle text-center">{{ member.createdAt }}</td>
             <td class="align-middle text-center">{{ member.userRole }}</td>
+            <td class="align-middle text-center icons">
+              <v-btn class="text-none" stacked>
+                <v-badge dot color="success">
+                  <span class="edit-icon"><svg-icon type="mdi" :path="pencilIcon"></svg-icon></span>
+                </v-badge>
+              </v-btn>
+              <v-btn class="text-none" stacked>
+                <v-badge dot color="success">
+                  <span class="delete-icon"><svg-icon type="mdi" :path="deleteIcon"></svg-icon></span>
+                </v-badge>
+              </v-btn>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -41,8 +54,10 @@
     </div>
   
 
-<a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>
-	View on GitHub</a>
+<a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
+  <i class="fa fa-github" aria-hidden="true"></i>
+	View on GitHub
+</a>
 
   
 </div>  
@@ -50,11 +65,18 @@
 
 <script>
 import axios from 'axios';
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiPencil, mdiDelete } from '@mdi/js';
+
 export default {
   props: ['props', 'pages'],
-  computed: {
-    page() {
-      
+  components: {
+    SvgIcon
+  },
+  data() {
+    return {
+      pencilIcon: mdiPencil,
+      deleteIcon: mdiDelete
     }
   },
   methods: {
@@ -96,5 +118,21 @@ export default {
 .sch-result {
   min-height: 60vh;
 }
-
+.icons {
+  cursor: pointer;
+}
+.icons > span:first-child {
+  margin-right: 1vh;
+}
+.theme--light.v-btn.v-btn--has-bg {
+  background-color: white;
+}
+.edit-icon {
+  color: #5C6BC0;
+  /* color: #00796B; */
+  
+}
+.delete-icon {
+  color: #EC407A;
+}
 </style>
