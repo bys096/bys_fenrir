@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(member, index) in props" :key="index" @click="goToStoreDetail(shop)">
+          <tr v-for="(member, index) in props" :key="index">
             <td class="align-middle text-center">{{ member.userEmail }}</td>
             <td class="align-middle text-center">{{ member.userName }}</td>
             <td class="align-middle text-center">{{ member.userNick }}</td>
@@ -30,11 +30,11 @@
     </div>
     <div class="page-wrap">
       <v-pagination
-        v-model="page"
-        :length="pageCnt"
-        min="1"
-        @input="pageLoad()"
-        total-visible="9"
+        v-model="pages.page"
+        :length="pages.totalPages"
+        :start="0"
+        @input="pageChange()"
+        total-visible="10"
         class="my-pagination"
       >
       </v-pagination>
@@ -49,8 +49,19 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  props: ['props']
+  props: ['props', 'pages'],
+  computed: {
+    page() {
+      
+    }
+  },
+  methods: {
+    pageChange() {
+      this.$emit('pageChange');
+    }
+  }
 }
 </script>
 
@@ -76,5 +87,8 @@ export default {
 		vertical-align: middle;
 	}
 }
+.my-pagination >>> .v-pagination__item--active {
+    color: black;
+  }
 
 </style>
