@@ -2,7 +2,6 @@
   <div id="app">
     <HeaderVue></HeaderVue>
     <div id="content">
-
       <RouterView ref="routerView"></RouterView>
     </div>
     <FooterVue></FooterVue>
