@@ -1,5 +1,6 @@
 package com.fenrir.guruguru_spring.domain.admin.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fenrir.guruguru_spring.domain.user.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class AdminOwnerResponseDto {
 
     private String storeName;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime createdAt;
 
 

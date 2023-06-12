@@ -19,8 +19,8 @@
             <td class="align-middle text-center">{{ member.userEmail }}</td>
             <td class="align-middle text-center">{{ member.userName }}</td>
             <td class="align-middle text-center">{{ member.userNick }}</td>
-            <td class="align-middle text-center">{{ member.userPw }}</td>
-            <td class="align-middle text-center">text</td>
+            <td class="align-middle text-center">{{ shortenPw(member.userPw) }}</td>
+            <td class="align-middle text-center">{{ member.createdAt }}</td>
             <td class="align-middle text-center">{{ member.userRole }}</td>
           </tr>
         </tbody>
@@ -60,6 +60,9 @@ export default {
   methods: {
     pageChange() {
       this.$emit('pageChange');
+    },
+    shortenPw(pw) {
+      return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
     }
   }
 }
@@ -89,6 +92,9 @@ export default {
 }
 .my-pagination >>> .v-pagination__item--active {
     color: black;
-  }
+}
+.sch-result {
+  min-height: 60vh;
+}
 
 </style>
