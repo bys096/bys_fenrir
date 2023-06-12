@@ -1,7 +1,5 @@
 <template>
-
-<div>
-
+  <div>
     <div class="sch-result">
       <table class="table table-hover store-list">
         <thead>
@@ -39,7 +37,6 @@
         </tbody>
       </table>
 
-      
     </div>
     <div class="page-wrap">
       <v-pagination
@@ -52,15 +49,11 @@
       >
       </v-pagination>
     </div>
-  
-
-<a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
-  <i class="fa fa-github" aria-hidden="true"></i>
-	View on GitHub
-</a>
-
-  
-</div>  
+    <a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
+      <i class="fa fa-github" aria-hidden="true"></i>
+      View on GitHub
+    </a>
+  </div>  
 </template>
 
 <script>
@@ -121,16 +114,11 @@ export default {
 .icons {
   cursor: pointer;
 }
-.icons > span:first-child {
-  margin-right: 1vh;
-}
 .theme--light.v-btn.v-btn--has-bg {
   background-color: white;
 }
 .edit-icon {
   color: #5C6BC0;
-  /* color: #00796B; */
-  
 }
 .delete-icon {
   color: #EC407A;

@@ -1,51 +1,47 @@
 <template>
 <div>
-    <div class="sch-result">
-      <table class="table table-hover store-list">
-        <thead>
-          <tr>
-            <td class="text-center">E-Mail</td>
-            <td class="text-center">ユーザー名</td>
-            <td class="text-center">ニックネーム</td>
-            <td class="text-center">パスワード</td>
-            <td class="text-center">申請時間</td>
-            <td class="text-center">ストアコード</td>
-            <td class="text-center">店名</td>
-            <td class="text-center">申請状態</td>
-            <td class="text-center">Actions</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(owner, index) in owners" :key="index">
-            <td class="align-middle text-center">{{ owner.userEmail }}</td>
-            <td class="align-middle text-center">{{ owner.userName }}</td>
-            <td class="align-middle text-center">{{ owner.userNick }}</td>
-            <td class="align-middle text-center">{{ shortenPw(owner.userPw) }}</td>
-            <td class="align-middle text-center">{{ owner.createdAt }}</td>
-            <td class="align-middle text-center">{{ owner.storeCode }}</td>
-            <td class="align-middle text-center">{{ owner.storeName }}</td>
-            <td class="align-middle text-center" v-show="owner.orState==0">受諾待ち</td>
-            <td class="align-middle text-center" v-show="owner.orState==1">受諾完了</td>
-            <td class="align-middle text-center icons">
-              <v-spacer></v-spacer>
+  <div class="sch-result">
+    <table class="table table-hover store-list">
+      <thead>
+        <tr>
+          <td class="text-center">E-Mail</td>
+          <td class="text-center">ユーザー名</td>
+          <td class="text-center">ニックネーム</td>
+          <td class="text-center">パスワード</td>
+          <td class="text-center">申請時間</td>
+          <td class="text-center">ストアコード</td>
+          <td class="text-center">店名</td>
+          <td class="text-center">申請状態</td>
+          <td class="text-center">Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(owner, index) in owners" :key="index">
+          <td class="align-middle text-center">{{ owner.userEmail }}</td>
+          <td class="align-middle text-center">{{ owner.userName }}</td>
+          <td class="align-middle text-center">{{ owner.userNick }}</td>
+          <td class="align-middle text-center">{{ shortenPw(owner.userPw) }}</td>
+          <td class="align-middle text-center">{{ owner.createdAt }}</td>
+          <td class="align-middle text-center">{{ owner.storeCode }}</td>
+          <td class="align-middle text-center">{{ owner.storeName }}</td>
+          <td class="align-middle text-center" v-show="owner.orState==0">受諾待ち</td>
+          <td class="align-middle text-center" v-show="owner.orState==1">受諾完了</td>
+          <td class="align-middle text-center icons">
+            <v-btn class="text-none" stacked>
+              <v-badge dot color="success">
+                <span class="search-icon check-icon"><svg-icon type="mdi" :path="checkIcon"></svg-icon></span>
+              </v-badge>
+            </v-btn>
+            <v-btn class="text-none" stacked>
+              <v-badge dot color="error">
+                <span class="search-icon reject-icon"><svg-icon type="mdi" :path="rejectIcon"></svg-icon></span>
+              </v-badge>
+            </v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-              <v-btn class="text-none" stacked>
-                <v-badge dot color="success">
-                  <span class="search-icon check-icon"><svg-icon type="mdi" :path="checkIcon"></svg-icon></span>
-                </v-badge>
-              </v-btn>
-              <v-btn class="text-none" stacked>
-                <v-badge dot color="error">
-                  <span class="search-icon reject-icon"><svg-icon type="mdi" :path="rejectIcon"></svg-icon></span>
-                </v-badge>
-                
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      
     </div>
     <div class="page-wrap">
       <v-pagination
@@ -58,7 +54,6 @@
       >
       </v-pagination>
     </div>
-  
 
   <a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
     <i class="fa fa-github" aria-hidden="true"></i>
@@ -71,6 +66,7 @@
 import axios from 'axios';
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiCheck, mdiClose } from '@mdi/js';
+
 
 export default {
   mounted() {
@@ -111,7 +107,6 @@ export default {
         console.log(res);
         if(res.status === 200) {
           this.owners = res.data.content;
-
           const pages = {
             totalElements: res.data.totalElements,
             totalPages: res.data.totalPages,
@@ -119,14 +114,12 @@ export default {
             page: res.data.number+1
           }
           this.pages = pages;
-          
         }
       } catch(err) {
         console.log(err);
       }
     },
     shortenPw(pw) {
-      console.log('call');
       return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
     }
   }
@@ -161,9 +154,6 @@ export default {
 }
 .icons {
   cursor: pointer;
-}
-.icons > span:first-child {
-  margin-right: 1vh;
 }
 .check-icon {
   color: #4caf50;
