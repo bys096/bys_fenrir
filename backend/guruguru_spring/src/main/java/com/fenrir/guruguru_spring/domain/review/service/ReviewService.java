@@ -28,6 +28,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -90,6 +92,7 @@ public class ReviewService {
         return reviewRepositoryCustom.getReviewByStore(storeCode, pageable, requestDto);
     }
 
+    @Transactional
 
     public void deleteReview(Long reviewId, Long replyId) throws BusinessException {
 
@@ -108,7 +111,6 @@ public class ReviewService {
             replyRepository.delete(reply);
             reviewRepository.delete(review);
         }
-
 
     }
 

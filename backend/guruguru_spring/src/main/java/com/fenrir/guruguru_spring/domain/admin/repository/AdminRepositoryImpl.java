@@ -4,6 +4,7 @@ import com.fenrir.guruguru_spring.domain.admin.dto.AdminOwnerResponseDto;
 import com.fenrir.guruguru_spring.domain.admin.dto.AdminUserPaginationRequestDto;
 import com.fenrir.guruguru_spring.domain.admin.dto.AdminUserResponseDto;
 import com.fenrir.guruguru_spring.domain.owner_register.entity.QOwnerRegister;
+import com.fenrir.guruguru_spring.domain.owner_register.entity.QOwnerRegisterFile;
 import com.fenrir.guruguru_spring.domain.reply.dto.ReplyResponseDto;
 import com.fenrir.guruguru_spring.domain.reply.entity.QReply;
 import com.fenrir.guruguru_spring.domain.store.entity.QStore;
@@ -90,11 +91,12 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
         );
     }
 
-    public QBean<AdminOwnerResponseDto> ownerSelect(QOwnerRegister owner, QUser user, QStore store) {
+    public QBean<AdminOwnerResponseDto> ownerSelect(QOwnerRegister owner, QUser user, QStore store, QOwnerRegisterFile file) {
         return Projections.fields(
                 AdminOwnerResponseDto.class,
                 user.userEmail, user.userPw, user.userNick, user.userName,
-                store.storeName, store.storeCode, owner.createdAt, owner.orState
+                store.storeName, store.storeCode, owner.createdAt, owner.orState,
+                file.orFileName, owner.orId
         );
     }
 
@@ -124,12 +126,14 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
         QUser user = QUser.user;
         QOwnerRegister ownerRegister = QOwnerRegister.ownerRegister;
         QStore store = QStore.store;
+        QOwnerRegisterFile file = QOwnerRegisterFile.ownerRegisterFile;
 
         JPQLQuery<AdminOwnerResponseDto> results = queryFactory
-                .select(ownerSelect(ownerRegister, user, store))
+                .select(ownerSelect(ownerRegister, user, store, file))
                 .from(ownerRegister)
-                .leftJoin(ownerRegister.owner, user)
-                .leftJoin(ownerRegister.store, store)
+                .leftJoin(user).on(ownerRegister.owner.eq(user))
+                .leftJoin(store).on(ownerRegister.store.eq(store))
+                .leftJoin(file).on(file.owner.eq(ownerRegister))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 

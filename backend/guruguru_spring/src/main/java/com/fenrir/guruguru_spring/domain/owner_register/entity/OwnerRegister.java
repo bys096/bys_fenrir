@@ -35,4 +35,9 @@ public class OwnerRegister extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "store_code")
     private Store store;
+
+
+    public void acceptOwner() {
+        this.orState = 1;
+    }
 }

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -17,7 +19,12 @@ import javax.persistence.*;
 @Getter
 @Table(name = "users")
 @DynamicInsert
+@Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE users SET deleted = true where user_id=?")
 public class User extends BaseEntity {
+
+    @Column(nullable = false)
+    private boolean deleted;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -45,4 +52,6 @@ public class User extends BaseEntity {
         this.userNick = dto.getNickName();
         this.userPw = dto.getPw();
     }
+
+
 }

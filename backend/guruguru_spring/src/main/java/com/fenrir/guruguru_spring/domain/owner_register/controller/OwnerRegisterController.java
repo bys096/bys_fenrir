@@ -33,4 +33,5 @@ public class OwnerRegisterController {
         storeService.deleteStore(uid, sid);
     }
 
+
 }

@@ -1,6 +1,7 @@
 package com.fenrir.guruguru_spring.domain.review.entity;
 
 import com.fenrir.guruguru_spring.domain.owner_register.entity.OwnerRegister;
+import com.fenrir.guruguru_spring.domain.reply.entity.Reply;
 import com.fenrir.guruguru_spring.domain.store.entity.Store;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Builder
@@ -39,6 +41,9 @@ public class Review extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_code")
     private Store store;
+
+    @OneToMany(mappedBy = "review")
+    private List<Reply> replyList;
 
     // image
 }

@@ -12,6 +12,7 @@
           <td class="text-center">ストアコード</td>
           <td class="text-center">店名</td>
           <td class="text-center">申請状態</td>
+          <td class="text-center">ファイル</td>
           <td class="text-center">Actions</td>
         </tr>
       </thead>
@@ -26,17 +27,25 @@
           <td class="align-middle text-center">{{ owner.storeName }}</td>
           <td class="align-middle text-center" v-show="owner.orState==0">受諾待ち</td>
           <td class="align-middle text-center" v-show="owner.orState==1">受諾完了</td>
+          <!-- <td class="align-middle text-center">{{ owner.orFileName }}</td> -->
+          <td class="align-middle text-center">
+            <!-- <a href=`https://ns-union.s3.ap-northeast-2.amazonaws.com/guruguru/${}`></a> -->
+            <!-- <router-link :to="`https://ns-union.s3.ap-northeast-2.amazonaws.com/guruguru/${owner.orFileName}`">{{ owner.orFileName }}</router-link> -->
+            <a :href="downloadFile(owner.orFileName)">{{ shortenPw(owner.orFileName) }}</a>
+          </td>
           <td class="align-middle text-center icons">
-            <v-btn class="text-none" stacked>
-              <v-badge dot color="success">
-                <span class="search-icon check-icon"><svg-icon type="mdi" :path="checkIcon"></svg-icon></span>
-              </v-badge>
-            </v-btn>
-            <v-btn class="text-none" stacked>
-              <v-badge dot color="error">
-                <span class="search-icon reject-icon"><svg-icon type="mdi" :path="rejectIcon"></svg-icon></span>
-              </v-badge>
-            </v-btn>
+            <div v-show="owner.orState==0">
+              <v-btn class="text-none" stacked @click="acceptOwner(owner.orId)">
+                <v-badge dot color="success">
+                  <span class="search-icon check-icon"><svg-icon type="mdi" :path="checkIcon"></svg-icon></span>
+                </v-badge>
+              </v-btn>
+              <v-btn class="text-none" stacked @click="rejectOwner(owner.orId)">
+                <v-badge dot color="error">
+                  <span class="search-icon reject-icon"><svg-icon type="mdi" :path="rejectIcon"></svg-icon></span>
+                </v-badge>
+              </v-btn>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -89,7 +98,6 @@ export default {
         pageSize: 10,
         page: null
       },
-
       checkIcon: mdiCheck,
       rejectIcon: mdiClose
     }
@@ -121,7 +129,37 @@ export default {
     },
     shortenPw(pw) {
       return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
-    }
+    },
+    downloadFile(fileName) {
+      // alert(fileName);
+      const url = `https://ns-union.s3.ap-northeast-2.amazonaws.com/guruguru/${fileName}`;
+      return url
+    },
+    async acceptOwner(orId) {
+      try {
+        const res = await axios.patch(`/api/admin/owner/accept/${orId}`, {
+          headers: this.$store.getters.headers
+        });
+        if(res.status === 200) {
+          this.loadOwnerData();
+        }
+      } catch(err) {
+        console.log(err);
+      }
+    },
+    async rejectOwner(orId) {
+      try {
+        console.log('reject');
+        const res = await axios.delete(`/api/admin/owner/reject/${orId}`, {
+          headers: this.$store.getters.headers
+        });
+        if(res.status === 204) {
+          this.loadOwnerData();
+        }
+      } catch(err) {
+        console.log(err);
+      }
+    },
   }
 }
 </script>
