@@ -24,7 +24,7 @@
           <td class="align-middle text-center">{{ shortenPw(owner.userPw) }}</td>
           <td class="align-middle text-center">{{ owner.createdAt }}</td>
           <td class="align-middle text-center">{{ owner.storeCode }}</td>
-          <td class="align-middle text-center">{{ owner.storeName }}</td>
+          <td class="align-middle text-center">{{ shortenPw(owner.storeName) }}</td>
           <td class="align-middle text-center" v-show="owner.orState==0">受諾待ち</td>
           <td class="align-middle text-center" v-show="owner.orState==1">受諾完了</td>
           <!-- <td class="align-middle text-center">{{ owner.orFileName }}</td> -->
@@ -128,7 +128,7 @@ export default {
       }
     },
     shortenPw(pw) {
-      return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
+      return pw.length > 10 ? pw.substr(0, 10) + '...' : pw;
     },
     downloadFile(fileName) {
       // alert(fileName);

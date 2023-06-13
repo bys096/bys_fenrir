@@ -135,10 +135,6 @@
   </div>
 </div>
 
-
-
-</div>
-
 </template>
 
 <script>
@@ -293,26 +289,7 @@ export default {
       this.storeName = store.name;
       this.storeAddress = store.address;
       this.getStoreLoadByStoreId();
-    }
-  },
-  async uploadFile() {
-    const presignedUrl = this.presignedUrl;
-    const selectedFile = this.selectedFile;
-    const encodedFileName = this.encodedFileName;
-    await axios.put(presignedUrl, selectedFile)
-          .then((res) => {
-            this.image = presignedUrl + encodedFileName;
-            console.log(res);
-            console.log('s3 업로드 완료');
-            
-          })
-        .catch(err => {
-          if (err.response.status === 419) {
-            this.$store.dispatch('handleTokenExpired');
-          } 
-          else console.error('s3 업로드 오류:', err);
-        })
-  },
+    },
   }
 }
 </script>
