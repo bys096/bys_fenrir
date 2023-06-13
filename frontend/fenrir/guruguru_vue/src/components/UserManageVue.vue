@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in props" :key="index">
+          <tr v-for="(user, index) in users" :key="index">
             <td class="align-middle text-center">{{ user.userEmail }}</td>
             <td class="align-middle text-center">{{ user.userName }}</td>
             <td class="align-middle text-center">{{ user.userNick }}</td>
@@ -43,7 +43,7 @@
         v-model="pages.page"
         :length="pages.totalPages"
         :start="0"
-        @input="pageChange()"
+        @input="loadUserData()"
         total-visible="10"
         class="my-pagination"
       >
@@ -62,20 +62,27 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiPencil, mdiDelete } from '@mdi/js';
 
 export default {
-  props: ['props', 'pages'],
   components: {
     SvgIcon
+  },
+  mounted() {
+      this.loadUserData();
   },
   data() {
     return {
       pencilIcon: mdiPencil,
-      deleteIcon: mdiDelete
+      deleteIcon: mdiDelete,
+
+      users: null,
+      pages: {
+        totalPages: null,
+        totalElements: null,
+        pageSize: 10,
+        page: null
+      }
     }
   },
   methods: {
-    pageChange() {
-      this.$emit('pageChange');
-    },
     shortenPw(pw) {
       return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
     },
@@ -84,13 +91,40 @@ export default {
         const res = await axios.delete(`/api/user/${userId}`, {
           headers: this.$store.getters.headers
         });
-        // if(res.data.status === 204) {
-        //   this.$emit('');
-        // }
+        console.log(res);
+        if(res.status == 204) {
+          console.log(res);
+          this.loadUserData();
+        }
       } catch(err) {
         console.log(err);
       }
-    }
+    },
+    async loadUserData() {
+        try {
+          const pageable = {
+            page: this.pages.page == null ? 0 : this.pages.page - 1,
+            limit: this.pages.pageSize
+          }
+          const res = await axios.get('/api/admin/user/list', {params: pageable},{
+            headers: this.$store.getters.headers
+          });
+          console.log(res);
+          if(res.status === 200) {
+            this.users = res.data.content;
+
+            const pages = {
+              totalElements: res.data.totalElements,
+              totalPages: res.data.totalPages,
+              pageSize: res.data.size,
+              page: res.data.number+1
+            }
+            this.pages = pages;
+          }
+        } catch(err) {
+          console.log(err);
+        }
+      }
   }
 }
 </script>

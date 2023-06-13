@@ -53,5 +53,9 @@ public class User extends BaseEntity {
         this.userPw = dto.getPw();
     }
 
+    public void toOwner() {
+        this.userRole = Role.OWNER;
+    }
+
 
 }

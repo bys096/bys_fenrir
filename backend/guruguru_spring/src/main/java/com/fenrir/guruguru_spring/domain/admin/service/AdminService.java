@@ -71,6 +71,7 @@ public class AdminService {
                 .orElseThrow(() -> {
                     throw new OwnerRequestNotFoundException();
                 });
+        owner.getOwner().toOwner();
         owner.acceptOwner();
     }
 
