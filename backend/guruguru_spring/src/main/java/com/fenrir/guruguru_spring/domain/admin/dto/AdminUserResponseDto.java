@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 public class AdminUserResponseDto {
 
+    private Long userId;
+
     private String userEmail;
 
     private String userPw;
@@ -31,12 +33,13 @@ public class AdminUserResponseDto {
     private Role userRole;
 
     @Builder
-    public AdminUserResponseDto(String userEmail, String userPw, LocalDateTime createdAt, String userNick, Role userRole, String userName) {
+    public AdminUserResponseDto(Long userId, String userEmail, String userPw, LocalDateTime createdAt, String userNick, Role userRole, String userName) {
         this.userEmail = userEmail;
         this.userPw = userPw;
         this.createdAt = createdAt;
         this.userNick = userNick;
         this.userRole = userRole;
         this.userName = userName;
+        this.userId = userId;
     }
 }

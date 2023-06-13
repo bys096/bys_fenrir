@@ -14,20 +14,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(member, index) in props" :key="index">
-            <td class="align-middle text-center">{{ member.userEmail }}</td>
-            <td class="align-middle text-center">{{ member.userName }}</td>
-            <td class="align-middle text-center">{{ member.userNick }}</td>
-            <td class="align-middle text-center">{{ shortenPw(member.userPw) }}</td>
-            <td class="align-middle text-center">{{ member.createdAt }}</td>
-            <td class="align-middle text-center">{{ member.userRole }}</td>
+          <tr v-for="(user, index) in users" :key="index">
+            <td class="align-middle text-center">{{ user.userEmail }}</td>
+            <td class="align-middle text-center">{{ user.userName }}</td>
+            <td class="align-middle text-center">{{ user.userNick }}</td>
+            <td class="align-middle text-center">{{ shortenPw(user.userPw) }}</td>
+            <td class="align-middle text-center">{{ user.createdAt }}</td>
+            <td class="align-middle text-center">{{ user.userRole }}</td>
             <td class="align-middle text-center icons">
-              <v-btn class="text-none" stacked>
+              <v-btn class="text-none" stacked data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="clickEdit(user)">
                 <v-badge dot color="success">
                   <span class="edit-icon"><svg-icon type="mdi" :path="pencilIcon"></svg-icon></span>
                 </v-badge>
               </v-btn>
-              <v-btn class="text-none" stacked>
+              <v-btn class="text-none" stacked @click="deleteUser(user.userId)">
                 <v-badge dot color="success">
                   <span class="delete-icon"><svg-icon type="mdi" :path="deleteIcon"></svg-icon></span>
                 </v-badge>
@@ -43,7 +43,7 @@
         v-model="pages.page"
         :length="pages.totalPages"
         :start="0"
-        @input="pageChange()"
+        @input="loadUserData()"
         total-visible="10"
         class="my-pagination"
       >
@@ -53,6 +53,122 @@
       <i class="fa fa-github" aria-hidden="true"></i>
       View on GitHub
     </a>
+
+<!-- add boot -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">会員情報修正</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- modal body -->
+        <v-card>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="4">
+                <div>E-Mail</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="E-Mail"
+                  readonly
+                  :value="selectedUser !== null ? selectedUser.userEmail : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="4">
+                <div>ユーザー名</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="ユーザー名"
+                  required
+                  :value="selectedUser !== null ? selectedUser.userName : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <div>ニックネーム</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="ニックネーム"
+                  required
+                  :value="selectedUser !== null ? selectedUser.userNick : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+              </v-col>
+              <v-col cols="8">
+                <div>パスワード</div>
+                <v-text-field
+                  label="パスワード"
+                  value=""
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <div>Role</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="Role"
+                  required
+                  
+                  :value="selectedUser !== null ? selectedUser.userRole : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </div>
+      <div class="modal-footer">
+        <v-btn
+          class="flex-grow-1"
+          height="48"
+          variant="tonal"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </v-btn>
+        <v-btn
+          class="flex-grow-1 btn btn-secondary"
+          height="48"
+          variant="tonal"
+          data-bs-dismiss="modal"
+        >
+          セーブ
+        </v-btn>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- add -->
+    
+    <v-row justify="center">
+      
+    
+    </v-row>
+    
   </div>  
 </template>
 
@@ -61,24 +177,80 @@ import axios from 'axios';
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiPencil, mdiDelete } from '@mdi/js';
 
+
 export default {
-  props: ['props', 'pages'],
   components: {
-    SvgIcon
+    SvgIcon,
+    
+  },
+  mounted() {
+      this.loadUserData();
   },
   data() {
     return {
       pencilIcon: mdiPencil,
-      deleteIcon: mdiDelete
+      deleteIcon: mdiDelete,
+
+      users: null,
+      pages: {
+        totalPages: null,
+        totalElements: null,
+        pageSize: 10,
+        page: null
+      },
+
+      isShowUserUpdateForm: false,
+      selectedUser: null
     }
   },
   methods: {
-    pageChange() {
-      this.$emit('pageChange');
-    },
     shortenPw(pw) {
       return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
-    }
+    },
+    async deleteUser(userId) {
+      try {
+        const res = await axios.delete(`/api/user/${userId}`, {
+          headers: this.$store.getters.headers
+        });
+        console.log(res);
+        if(res.status == 204) {
+          console.log(res);
+          this.loadUserData();
+        }
+      } catch(err) {
+        console.log(err);
+      }
+    },
+    async loadUserData() {
+        try {
+          const pageable = {
+            page: this.pages.page == null ? 0 : this.pages.page - 1,
+            limit: this.pages.pageSize
+          }
+          const res = await axios.get('/api/admin/user/list', {params: pageable},{
+            headers: this.$store.getters.headers
+          });
+          console.log(res);
+          if(res.status === 200) {
+            this.users = res.data.content;
+
+            const pages = {
+              totalElements: res.data.totalElements,
+              totalPages: res.data.totalPages,
+              pageSize: res.data.size,
+              page: res.data.number+1
+            }
+            this.pages = pages;
+          }
+        } catch(err) {
+          console.log(err);
+        }
+      },
+      clickEdit(user) {
+        console.log(user);
+        this.selectedUser = user;
+        this.isShowUserUpdateForm = !this.isShowUserUpdateForm;
+      }
   }
 }
 </script>
@@ -123,4 +295,8 @@ export default {
 .delete-icon {
   color: #EC407A;
 }
+.mt-2 {
+  visibility: visible !important;
+}
+
 </style>

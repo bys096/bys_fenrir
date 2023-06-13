@@ -9,7 +9,7 @@
     <div class="row g-md-5">
       <!-- 左邊 tab 區塊 -->
       <div class="col-lg-8">
-        <DetailTabContentVue :props="reviewList" @addReply="saveReplyAndLoad" @deleteReply="deleteReplyAndLoad"></DetailTabContentVue>
+        <DetailTabContentVue :props="reviewList" @addReply="saveReplyAndLoad" @deleteReply="deleteReplyAndLoad" @editReview="editReviewAndLoad"></DetailTabContentVue>
         <!-- 手機版逼人贊助卡片區塊 -->
         <InfoCardVue></InfoCardVue>
         <!-- 表單 -->
@@ -107,8 +107,6 @@
         </form>
       </div>
 
-      
-      <!-- 右邊 card 區塊 -->
       <DetailSidebarVue></DetailSidebarVue>
     </div>
   </div>
@@ -250,11 +248,26 @@ export default {
             headers: this.$store.getters.headers
           });
         }
-
-        
         await this.getReviewList();
       } catch(error) {
         console.log(error);
+      }
+    },
+    async editReviewAndLoad(review) {
+      console.log(review.reviewId, review.reviewText);
+      const reviewRequest = {
+        reviewText: review.reviewText
+      }
+      try {
+        const res = await axios.patch(`/api/review/${review.reviewId}`, reviewRequest, {
+          headers: this.$store.getters.headers
+        });
+        if(res.status === 200) {
+          await this.getReviewList();
+        }
+        console.log(res);
+      } catch(err) {
+        console.log(err);
       }
     }
   }

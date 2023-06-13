@@ -23,15 +23,20 @@ public class AdminOwnerResponseDto {
 
     private String storeCode;
 
+    private Long orId;
+
     private Integer orState;
 
     private String storeName;
+
+    private String orFileName;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime createdAt;
 
 
-    public AdminOwnerResponseDto(String userEmail, String userPw, String userName, String userNick, String storeCode, Integer orState, String storeName, LocalDateTime createdAt) {
+    public AdminOwnerResponseDto(String userEmail, String userPw, String userName, String userNick, String storeCode, Integer orState, String storeName, LocalDateTime createdAt,
+                                 String orFileName, Long orId) {
         this.userEmail = userEmail;
         this.userPw = userPw;
         this.userName = userName;
@@ -40,5 +45,7 @@ public class AdminOwnerResponseDto {
         this.orState = orState;
         this.storeName = storeName;
         this.createdAt = createdAt;
+        this.orFileName = orFileName;
+        this.orId = orId;
     }
 }

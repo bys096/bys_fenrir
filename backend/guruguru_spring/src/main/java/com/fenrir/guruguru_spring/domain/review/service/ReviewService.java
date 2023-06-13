@@ -3,10 +3,7 @@ package com.fenrir.guruguru_spring.domain.review.service;
 import com.fenrir.guruguru_spring.domain.reply.entity.Reply;
 import com.fenrir.guruguru_spring.domain.reply.exception.ReplyNotFoundException;
 import com.fenrir.guruguru_spring.domain.reply.repository.ReplyRepository;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreWithReplyDto;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
+import com.fenrir.guruguru_spring.domain.review.dto.*;
 import com.fenrir.guruguru_spring.domain.review.entity.Review;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateException;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewNotFoundException;
@@ -27,6 +24,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -90,9 +89,8 @@ public class ReviewService {
         return reviewRepositoryCustom.getReviewByStore(storeCode, pageable, requestDto);
     }
 
-
+    @Transactional
     public void deleteReview(Long reviewId, Long replyId) throws BusinessException {
-
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> {
                     throw new ReviewNotFoundException();
@@ -108,8 +106,15 @@ public class ReviewService {
             replyRepository.delete(reply);
             reviewRepository.delete(review);
         }
+    }
 
-
+    @Transactional
+    public void updateReview(Long reviewId, ReviewUpdateRequestDto dto) throws BusinessException {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> {
+                    throw new ReviewNotFoundException();
+                });
+        review.updateReview(dto.getReviewText());
     }
 
 

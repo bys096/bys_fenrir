@@ -6,6 +6,8 @@ import LoginView from '../views/LoginView.vue'
 import DetailView from '../views/StoreDetailView.vue'
 import StoreRegisterView from '../views/StoreRegisterView.vue'
 import AdminView from '../views/AdminView.vue'
+import Error404 from '../views/Error404.vue'
+import Error500 from '../views/Error500.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +42,18 @@ const routes = [
     name: 'admin',
     component: AdminView
   },
+  {
+    path: '/error404',
+    name: 'error404',
+    component: Error404
+  },
+  {
+    path: '/error500',
+    name: 'error500',
+    component: Error500
+  },
+  { path: '/:pathMatch(.*)*', component: Error404 }
+
   
   
   

@@ -27,7 +27,10 @@ public enum ErrorCode {
 
     // Owner
     OWNER_DUPLICATE(HttpStatus.BAD_REQUEST, "O001", "もう登録済みの店です。"),
+    OWNER_REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND, "O002", "登録申請したログがありません。"),
 
+    // File
+    FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "F001", "存在しないファイルです。"),
 
     // Review
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R001", "存在しないレビューです。"),
