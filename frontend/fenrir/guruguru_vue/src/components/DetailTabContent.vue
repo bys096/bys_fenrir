@@ -447,9 +447,17 @@
                     </div>
                     </div>
 
-
-
-                    <div class="dl-wrap" @click="deleteReply(content.review, content.reply)">
+                    <div class="edit-wrap">
+                      <div @click="showUpdateReviewForm()">
+                        <v-chip
+                        class="ma-2 ed"
+                        variant="outlined"
+                        >
+                        <svg-icon type="mdi" :path="editIcon"></svg-icon>
+                        <span class="dl-text">修正</span>
+                        </v-chip>
+                      </div>
+                      <div @click="deleteReply(content.review, content.reply)">
                         <v-chip
                         class="ma-2 dl "
                         variant="outlined"
@@ -458,17 +466,7 @@
                         <span class="dl-text">削除</span>
                         </v-chip>
                       </div>
-                    <!-- <div class="dl-wrap">
-                      <v-chip
-                      class="ma-2 dl"
-                      variant="outlined"
-                      >
-                      <svg-icon type="mdi" :path="path"></svg-icon>
-                      <span class="dl-text">削除</span>
-                      </v-chip>
-                    </div> -->
-                    
-
+                    </div>
                   </div>
                   <div>
                     <p class="text-gray-800 my-3 letter-spacing-7">
@@ -483,9 +481,7 @@
                           "
                           @click="showCommentForm()"
                       >コメント</span>
-                      
                   </div>
-                    
                   <div class="
                             text-gray-800
                             p-3
@@ -493,10 +489,10 @@
                             rounded-2
                             letter-spacing-7
                           "
-                          v-if="isShowCommnentForm"
+                          v-if="isShowCommnentForm || isShowUpdateReviewForm"
                   >
                     <!-- コメントフォーム -->
-                    <div class="mb-3">
+                    <div class="mb-3" v-show="isShowCommnentForm">
                       <v-container fluid>
                         <v-textarea
                           name="input-7-1"
@@ -508,39 +504,66 @@
                           model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
                         ></v-textarea>
                         <div class="replyBtn">
-                        <button class="
-                              btn
-                              btn-sm
-                              btn-outline-secondary
-                              btn-outline-secondary-hover
-                              rounded-pill
-                              px-3
-                              "
-                            @click="saveReply(content.review.rid)"
-                        >
-                          <i class="far fa-comment-dots me-2 text-secondary"></i>コメント
-                        </button>
+                          <button class="
+                                btn
+                                btn-sm
+                                btn-outline-secondary
+                                btn-outline-secondary-hover
+                                rounded-pill
+                                px-3
+                                "
+                              @click="saveReply(content.review.rid)"
+                          >
+                            <i class="far fa-comment-dots me-2 text-secondary"></i>コメント
+                          </button>
+                        </div>
+                      </v-container>
+                      <div class="invalid-feedback">請選擇一種付款方式</div>
+                    </div>
+
+                    <!-- レビュー修正フォーム -->
+                    <div class="mb-3" v-show="isShowUpdateReviewForm">
+                      <v-container fluid>
+                        <v-textarea
+                          name="input-7-1"
+                          variant="filled"
+                          clearable
+                          v-model="reviewUpdateText"
+                          placeholder="変更するレビューを書いてください。"
+                          required
+                          model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                        ></v-textarea>
+                        <div class="replyBtn">
+                          <button class="
+                                btn
+                                btn-sm
+                                btn-outline-secondary
+                                btn-outline-secondary-hover
+                                rounded-pill
+                                px-3
+                                "
+                              @click="editReview(content.review.rid)"
+                          >
+                            <i class="far fa-comment-dots me-2 text-secondary"></i>レビュー修正
+                          </button>
                         </div>
                       </v-container>
                       <div class="invalid-feedback">請選擇一種付款方式</div>
                     </div>
                   </div>
-                    <div class="reply-content" v-if="content.reply !== null">
-                      <span class="
-                                text-danger
-                                w-100
-                                fs-sm
-                                d-block
-                                mb-2
-                                letter-spacing-6
-                              ">オーナー</span>
-                      {{ content.reply.replyText }} 
-                    </div>
+                  <div class="reply-content" v-if="content.reply !== null">
+                    <span class="
+                        text-danger
+                        w-100
+                        fs-sm
+                        d-block
+                        mb-2
+                        letter-spacing-6
+                    ">オーナー</span>
+                    {{ content.reply.replyText }} 
+                  </div>
                 </div>
               </li>
-
-            
-              
             </ul>
           </div>
         </div>
@@ -549,30 +572,22 @@
 <script>
 import axios from 'axios';
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiDeleteVariant } from '@mdi/js';
-
-
-
-
-
+import { mdiDeleteVariant, mdiPencil } from '@mdi/js';
 
 export default {
   components: {
     SvgIcon
   },
   props: ['props'],
-  computed: {
-    reviewData() {
-      
-    }
-  },
-
   data() {
     return {
       isShowCommnentForm: false,
+      isShowUpdateReviewForm: false,
       replyText: null,
       mdiDelete: true,
       path: mdiDeleteVariant,
+      editIcon: mdiPencil,
+      reviewUpdateText: null
     }
   },
   methods: {
@@ -588,10 +603,6 @@ export default {
       this.showCommentForm();
     },
     deleteReply(reviewParam, replyParam) {
-      // console.log(reviewParam.rid);
-      // console.log(replyParam.replyId);
-    
-
       let reviewObject = null;
       if(replyParam) {
         reviewObject = {
@@ -605,11 +616,23 @@ export default {
           replyId: null
         }
       }
-      
-      
       console.log(reviewObject);
       this.$emit('deleteReply', reviewObject);
-      
+    },
+    showUpdateReviewForm() {
+      this.isShowUpdateReviewForm = !this.isShowUpdateReviewForm;
+    },
+    editReview(reviewId) {
+      if(!this.reviewUpdateText) {
+        alert('レビューを作成してください。');
+        return;
+      }
+      const review = {
+        reviewId: reviewId,
+        reviewText: this.reviewUpdateText
+      }
+      this.$emit('editReview', review);
+      this.showUpdateReviewForm();
     }
   }
   
@@ -649,14 +672,19 @@ export default {
   
 }*/
 .theme--light.v-chip:not(.v-chip--active) {
-    background: transparent;
+  background: transparent;
   border: solid 1px #e91e63;
     /* border: #e91e63; */
 }
 
 .dl {
-    color: #e91e63!important;
-    cursor: pointer;
+  color: #e91e63!important;
+  cursor: pointer;
+}
+.ed {
+  color: #009688;
+  cursor: pointer;
+  border: solid 1px #009688 !important;
 }
 .dl-text {
   margin-left: 5px;
@@ -668,4 +696,10 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+.edit-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 1vh
+}
+
 </style>

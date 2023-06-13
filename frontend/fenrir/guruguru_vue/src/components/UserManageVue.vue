@@ -22,7 +22,7 @@
             <td class="align-middle text-center">{{ user.createdAt }}</td>
             <td class="align-middle text-center">{{ user.userRole }}</td>
             <td class="align-middle text-center icons">
-              <v-btn class="text-none" stacked>
+              <v-btn class="text-none" stacked data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="clickEdit(user)">
                 <v-badge dot color="success">
                   <span class="edit-icon"><svg-icon type="mdi" :path="pencilIcon"></svg-icon></span>
                 </v-badge>
@@ -53,6 +53,122 @@
       <i class="fa fa-github" aria-hidden="true"></i>
       View on GitHub
     </a>
+
+<!-- add boot -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">会員情報修正</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- modal body -->
+        <v-card>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="4">
+                <div>E-Mail</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="E-Mail"
+                  readonly
+                  :value="selectedUser !== null ? selectedUser.userEmail : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="4">
+                <div>ユーザー名</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="ユーザー名"
+                  required
+                  :value="selectedUser !== null ? selectedUser.userName : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <div>ニックネーム</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="ニックネーム"
+                  required
+                  :value="selectedUser !== null ? selectedUser.userNick : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+              </v-col>
+              <v-col cols="8">
+                <div>パスワード</div>
+                <v-text-field
+                  label="パスワード"
+                  value=""
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <div>Role</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="Role"
+                  required
+                  
+                  :value="selectedUser !== null ? selectedUser.userRole : ''"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </div>
+      <div class="modal-footer">
+        <v-btn
+          class="flex-grow-1"
+          height="48"
+          variant="tonal"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </v-btn>
+        <v-btn
+          class="flex-grow-1 btn btn-secondary"
+          height="48"
+          variant="tonal"
+          data-bs-dismiss="modal"
+        >
+          セーブ
+        </v-btn>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- add -->
+    
+    <v-row justify="center">
+      
+    
+    </v-row>
+    
   </div>  
 </template>
 
@@ -61,9 +177,11 @@ import axios from 'axios';
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiPencil, mdiDelete } from '@mdi/js';
 
+
 export default {
   components: {
-    SvgIcon
+    SvgIcon,
+    
   },
   mounted() {
       this.loadUserData();
@@ -79,7 +197,10 @@ export default {
         totalElements: null,
         pageSize: 10,
         page: null
-      }
+      },
+
+      isShowUserUpdateForm: false,
+      selectedUser: null
     }
   },
   methods: {
@@ -124,6 +245,11 @@ export default {
         } catch(err) {
           console.log(err);
         }
+      },
+      clickEdit(user) {
+        console.log(user);
+        this.selectedUser = user;
+        this.isShowUserUpdateForm = !this.isShowUserUpdateForm;
       }
   }
 }
@@ -169,4 +295,8 @@ export default {
 .delete-icon {
   color: #EC407A;
 }
+.mt-2 {
+  visibility: visible !important;
+}
+
 </style>

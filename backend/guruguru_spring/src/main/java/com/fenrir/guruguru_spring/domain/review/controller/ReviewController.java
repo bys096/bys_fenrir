@@ -1,9 +1,6 @@
 package com.fenrir.guruguru_spring.domain.review.controller;
 
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreResponseDto;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewByStoreWithReplyDto;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewCreateRequestDto;
-import com.fenrir.guruguru_spring.domain.review.dto.ReviewPaginationRequestDto;
+import com.fenrir.guruguru_spring.domain.review.dto.*;
 import com.fenrir.guruguru_spring.domain.review.exception.ReviewDuplicateException;
 import com.fenrir.guruguru_spring.domain.review.service.ReviewService;
 import com.fenrir.guruguru_spring.domain.user.entity.User;
@@ -62,6 +59,15 @@ public class ReviewController {
     public void deleteReviewWithReply(@PathVariable("reviewId") Long reviewId, @PathVariable("replyId") Long replyId) {
         log.info("delete mapiing in cntroller for with reply and review");
         reviewService.deleteReview(reviewId, replyId);
+    }
+
+
+    @PatchMapping("/{reviewId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateReview(@PathVariable("reviewId") Long reviewId, @Valid @RequestBody ReviewUpdateRequestDto dto) {
+        log.info(reviewId.toString());
+        log.info(dto.getReviewText());
+        reviewService.updateReview(reviewId, dto);
     }
 
 

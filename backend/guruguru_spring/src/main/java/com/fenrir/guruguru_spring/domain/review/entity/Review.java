@@ -46,4 +46,8 @@ public class Review extends BaseEntity {
     private List<Reply> replyList;
 
     // image
+
+    public void updateReview(String reviewText) {
+        this.reviewText = reviewText;
+    }
 }
