@@ -25,17 +25,32 @@
         <!-- <h3>店舗のオーナーを証明するシステムは織り込んでおりません。</h3> -->
         <form id="form" class="needs-validation" @submit.prevent="registerRequest">
           <div class="mb-3">
-            <label for="email" class="form-label">店舗ID</label>
-            <input type="text" 
-                :class="isStoreValid ? 'form-control is-valid' : 'form-control is-invalid'"
-                id="email"
-                @keyup="getStoreLoad()"
-                name="userName" v-model="storeId" required />
-            <div :class="!isStoreValid ? 'invalid-feedback' : 'span-none'">店舗のオーナーを証明するシステムは織り込んでおりません。</div>
-            <div :class="!isStoreValid ? 'span-none' : 'valid-feedback'">正しい店のIDです。</div>
             <div>
-              <input type="file" @change="getUrl()" ref="file" required />
+              <label for="store_code" class="form-label">店舗ID</label>
+              <input type="text" 
+                  :class="isStoreValid ? 'form-control is-valid' : 'form-control is-invalid'"
+                  id="store_code"
+                  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                  @keyup="getStoreLoadByStoreId()"
+                  name="userName" v-model="storeId" required />
+              <div :class="!isStoreValid ? 'span-none' : 'valid-feedback'">正しい店のIDです。</div>
             </div>
+
+            <div>
+              <label for="email" class="form-label">店舗名</label>
+              <input type="text" class="form-control" id="email" name="userName" v-model="storeName" required />
+            </div>
+
+            <div>
+              <label for="email" class="form-label">アドレス</label>
+              <input type="text" class="form-control" id="email" name="userName" v-model="storeAddress" required />
+            </div>
+
+              <div>
+                <label for="email" class="form-label">店舗ID</label>
+                <input type="file" class="form-control" @change="getUrl()" ref="file" required />
+              </div>
+            
           </div>
 
           <div class="d-none d-md-flex justify-content-center">
@@ -45,8 +60,7 @@
                       fw-bold
                       rounded-pill
                       mt-2
-                    "
-                  
+                    "    
             >
               登録
             </button>
@@ -55,6 +69,74 @@
       </div>
     </div>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">会員情報修正</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- modal body -->
+        <v-card>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="4">
+                <div>お店の検索</div>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  label="Search"
+                  v-model="searchKeyword"
+                  @input="getStoreLoad"
+                ></v-text-field>
+                  <!-- @keyup="getStoreLoad" -->
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </div>
+      <div class="sch-result">
+        <table class="table table-hover store-list">
+          <thead>
+            <tr>
+              <td class="text-center">店名</td>
+              <td class="text-center">アドレス</td>
+              <td class="text-center">ストアコード</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(result, index) in searchResults" :key="index" data-bs-dismiss="modal" @click="selectStore(result)">
+              <td class="align-middle text-center">{{ shorten(result.name) }}</td>
+              <td class="align-middle text-center">{{ shorten(result.address) }}</td>
+              <td class="align-middle text-center">{{ result.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <!-- <div class="page-wrap">
+      <v-pagination
+        v-model="pages.page"
+        :length="pages.totalPages"
+        :start="0"
+        @input="loadUserData()"
+        total-visible="10"
+        class="my-pagination"
+      >
+      </v-pagination>
+    </div> -->
+      <div class="modal-footer">
+        
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </div>
 
 </template>
@@ -67,7 +149,10 @@ export default {
     return {
       storeId: null,
       storeName: null,
+      storeAddress: null,
       isStoreValid: false,
+      searchKeyword: null,
+      searchResults: null,
 
       presignedUrl: null,
       encodedFileName: null,
@@ -76,10 +161,10 @@ export default {
   },
   methods: {
     async registerRequest() {
-
-      
-
-
+      if(this.isStoreValid !== true) {
+        alert('正しいストアIDを入力してください。');
+        return;
+      }
       const store = {
         storeCode: this.storeId,
         storeName: this.storeName,
@@ -87,9 +172,6 @@ export default {
       }
       console.log('전송전 store 정보확인');
       console.log(store);
-
-
-
       await axios.post('/api/or', store, {
         headers: this.$store.getters.headers
       })
@@ -110,63 +192,81 @@ export default {
           }
         });
     },
-    async getStoreLoad() {
-      if(this.storeId != null && this.storeId !== "") {
-        await axios.get('/v1/?key=a6d3bb26218771ec&format=json', {
+    async getStoreLoadByStoreId() {
+      try {
+        const res = await axios.get('/v1/?key=a6d3bb26218771ec&format=json', {
           params: {
             id: this.storeId
+            // keyword: this.searchKeyword,
+            // count: 9
           }
-        })
-          .then((res) => {
-            const resLen = res.data.results.shop.length;
-            if(resLen == 0 || resLen == null) {
-              this.isStoreValid = false;
-            }
-            else if(this.storeId === res.data.results.shop[0].id){
-              this.isStoreValid = true;
-              this.storeName = res.data.results.shop[0].name;
-            }
-
-          })
-          .catch((err) => console.log(err));
-        }
-      },
-
-
-
-      async getUrl() {
-        try {
-        const selectedFile = this.$refs.file.files[0];
-        const maxSize = 5 * 1024 * 1024;
-        const fileSize = selectedFile.size;
-        if (fileSize > maxSize) {
-          alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
-          return;
-        }
-        const filename = selectedFile.name;
-        const filetype = selectedFile.type;
-        console.log(filetype);
-        const res = await axios.get('/api/aws/s3/url', {
-          params: { filename, filetype },
-          headers: this.$store.getters.headers
         });
-        const encodedFileName = res.data.encodedFileName
-        const presignedUrl = res.data.preSignedUrl;
-
-        this.presignedUrl = presignedUrl;
-        this.encodedFileName = encodedFileName;
-        this.selectedFile = selectedFile;
-
-        console.log('presign');
         console.log(res);
-        console.log('presignedUrl: ' + presignedUrl);
-        console.log('endcodedFileName: ' + encodedFileName);
+          if(res.data.results.shop[0].id == this.storeId) {
+            this.searchResults = res.data.results.shop;
+            this.isStoreValid = true;
+          }
+        
+        else {
+          this.isStoreValid = false;
+        }
+      } catch(error) {
+        console.log(error);
+        this.isStoreValid = false;
+      }
+    },
+
+    async getStoreLoad() {
+      try {
+        const res = await axios.get('/v1/?key=a6d3bb26218771ec&format=json', {
+          params: {
+            // id: this.storeId
+            keyword: this.searchKeyword,
+            count: 9
+          }
+        });
+        if(res.status === 200) {
+          this.searchResults = res.data.results.shop;
+        }
+      } catch(error) {
+        console.log(error);
+      }
 
         
+    },
+
+    async getUrl() {
+      try {
+      const selectedFile = this.$refs.file.files[0];
+      const maxSize = 5 * 1024 * 1024;
+      const fileSize = selectedFile.size;
+      if (fileSize > maxSize) {
+        alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+        return;
+      }
+      const filename = selectedFile.name;
+      const filetype = selectedFile.type;
+      console.log(filetype);
+      const res = await axios.get('/api/aws/s3/url', {
+        params: { filename, filetype },
+        headers: this.$store.getters.headers
+      });
+      const encodedFileName = res.data.encodedFileName
+      const presignedUrl = res.data.preSignedUrl;
+
+      this.presignedUrl = presignedUrl;
+      this.encodedFileName = encodedFileName;
+      this.selectedFile = selectedFile;
+
+      console.log('presign');
+      console.log(res);
+      console.log('presignedUrl: ' + presignedUrl);
+      console.log('endcodedFileName: ' + encodedFileName);
     } catch(err) {
       console.log(err);
     }
   },
+
   async uploadFile() {
     const presignedUrl = this.presignedUrl;
     const selectedFile = this.selectedFile;
@@ -184,7 +284,16 @@ export default {
           } 
           else console.error('s3 업로드 오류:', err);
         })
-  },
+    },
+    shorten(text) {
+      return text.length > 15 ? text.substr(0, 15) + '...' : text;
+    },
+    selectStore(store) {
+      this.storeId = store.id;
+      this.storeName = store.name;
+      this.storeAddress = store.address;
+      this.getStoreLoadByStoreId();
+    }
   }
 }
 </script>
@@ -210,4 +319,13 @@ export default {
   display: none;
 }
 
+.sch-result{
+  min-height: 425px !important;
+}
+.sch-result tbody td{
+  cursor: pointer;
+}
+#store_code {
+  cursor: pointer;
+}
 </style>
