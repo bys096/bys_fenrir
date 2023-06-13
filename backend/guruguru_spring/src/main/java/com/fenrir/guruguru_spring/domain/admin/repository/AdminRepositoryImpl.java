@@ -87,7 +87,7 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
         return Projections.fields(
                 AdminUserResponseDto.class,
                 user.userEmail, user.userPw, user.createdAt, user.userNick,
-                user.userRole, user.userName
+                user.userRole, user.userName, user.userId
         );
     }
 

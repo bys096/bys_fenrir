@@ -14,20 +14,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(member, index) in props" :key="index">
-            <td class="align-middle text-center">{{ member.userEmail }}</td>
-            <td class="align-middle text-center">{{ member.userName }}</td>
-            <td class="align-middle text-center">{{ member.userNick }}</td>
-            <td class="align-middle text-center">{{ shortenPw(member.userPw) }}</td>
-            <td class="align-middle text-center">{{ member.createdAt }}</td>
-            <td class="align-middle text-center">{{ member.userRole }}</td>
+          <tr v-for="(user, index) in props" :key="index">
+            <td class="align-middle text-center">{{ user.userEmail }}</td>
+            <td class="align-middle text-center">{{ user.userName }}</td>
+            <td class="align-middle text-center">{{ user.userNick }}</td>
+            <td class="align-middle text-center">{{ shortenPw(user.userPw) }}</td>
+            <td class="align-middle text-center">{{ user.createdAt }}</td>
+            <td class="align-middle text-center">{{ user.userRole }}</td>
             <td class="align-middle text-center icons">
               <v-btn class="text-none" stacked>
                 <v-badge dot color="success">
                   <span class="edit-icon"><svg-icon type="mdi" :path="pencilIcon"></svg-icon></span>
                 </v-badge>
               </v-btn>
-              <v-btn class="text-none" stacked>
+              <v-btn class="text-none" stacked @click="deleteUser(user.userId)">
                 <v-badge dot color="success">
                   <span class="delete-icon"><svg-icon type="mdi" :path="deleteIcon"></svg-icon></span>
                 </v-badge>
@@ -78,6 +78,18 @@ export default {
     },
     shortenPw(pw) {
       return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
+    },
+    async deleteUser(userId) {
+      try {
+        const res = await axios.delete(`/api/user/${userId}`, {
+          headers: this.$store.getters.headers
+        });
+        // if(res.data.status === 204) {
+        //   this.$emit('');
+        // }
+      } catch(err) {
+        console.log(err);
+      }
     }
   }
 }

@@ -13,27 +13,8 @@
         {{ tab }}
       </v-tab>
     </v-tabs>
-    <!-- <v-card-text class="text-center">
-      <v-btn
-        :disabled="!length"
-        variant="text"
-        @click="length--"
-      >
-        Remove Tab
-      </v-btn>
-      <v-divider
-        class="mx-4"
-        vertical
-      ></v-divider>
-      <v-btn
-        variant="text"
-        @click="length++"
-      >
-        Add Tab
-      </v-btn>
-    </v-card-text> -->
   </v-card>
-    <UserManageVue :props="members" :pages="pages" @pageChange="loadUserData" v-if="selectedTab === 0"></UserManageVue>
+    <UserManageVue :props="users" :pages="pages" @pageChange="loadUserData" v-if="selectedTab === 0"></UserManageVue>
     <OwnerManageVue v-if="selectedTab === 1"></OwnerManageVue>
   </div>
 </template>
@@ -52,10 +33,9 @@ import axios from 'axios';
       this.loadUserData();
     },
     data: () => ({
-      // length: 15,
       tabs: ['会員管理', 'オーナー承認管理'],
       selectedTab: 0,
-      members: null,
+      users: null,
       
       pages: {
         totalPages: null,
@@ -64,16 +44,9 @@ import axios from 'axios';
         page: null
       }
     }),
-
-    watch: {
-      // length (val) {
-      //   this.tab = val - 1
-      // },
-    },
     methods: {
       async loadUserData() {
         try {
-          
           const pageable = {
             page: this.pages.page == null ? 0 : this.pages.page - 1,
             limit: this.pages.pageSize
@@ -83,7 +56,7 @@ import axios from 'axios';
           });
           console.log(res);
           if(res.status === 200) {
-            this.members = res.data.content;
+            this.users = res.data.content;
 
             const pages = {
               totalElements: res.data.totalElements,
