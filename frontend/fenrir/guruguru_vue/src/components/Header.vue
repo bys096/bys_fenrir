@@ -83,9 +83,9 @@ export default {
     toRegister() {
       console.log(this.isAuthenticated);
       if(this.isAuthenticated)
-        this.$router.push('/store/register');
+        this.$router.push('/store/register').catch(() => {});
       else
-        this.$router.push('login');
+        this.$router.push('login').catch(() => {});
     }
   }
 }
