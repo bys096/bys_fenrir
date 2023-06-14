@@ -12,16 +12,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-              <a class="nav-link link-dark px-md-4" aria-current="page" href="#">検索</a>
+              <router-link to="/" class="nav-link link-dark px-md-4">検索</router-link>
+              <!-- <a class="nav-link link-dark px-md-4" aria-current="page" href="/">検索</a> -->
             </li>
             <li class="nav-item">
-              <a class="nav-link link-dark px-md-4" href="/store/register">店舗登録</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link link-dark px-md-4" href="#">＃＃</a>
+              <a class="nav-link link-dark px-md-4" @click="toRegister()" id="rg-link">店舗登録</a>
             </li>
           </ul>
-          <div class="justify-content-end d-flex" v-if="!isAuthenticated">
+          <div class="justify-content-end d-flex btns" v-if="!isAuthenticated">
             <button 
             @click="$router.push('/join')"
             class="btn btn-warning btn-warning-hover me-3 rounded-pill">
@@ -39,17 +37,16 @@
           </div>
 
 
-          <div class="justify-content-end d-flex" v-if="isAuthenticated">
-            <button 
+          <div class="justify-content-end d-flex btns" v-if="isAuthenticated">
+            <!-- <button 
             @click="$router.push('/join')"
             class="btn btn-warning btn-warning-hover me-3 rounded-pill">
               会員登録
-            </button>
+            </button> -->
             <button 
             @click="logout()"
                       class="
-                      btn btn-outline-secondary btn-outline-secondary-hover
-                      rounded-pill
+                      btn btn-warning btn-warning-hover me-3 rounded-pill
                       border-2
                     ">
               ログアウト
@@ -82,6 +79,13 @@ export default {
     logout() {
       this.$store.dispatch('logout');
       this.$router.push('/').catch(() => {});
+    },
+    toRegister() {
+      console.log(this.isAuthenticated);
+      if(this.isAuthenticated)
+        this.$router.push('/store/register');
+      else
+        this.$router.push('login');
     }
   }
 }
@@ -90,8 +94,12 @@ export default {
 <style scoped>
 /* @import url('../assets/css/header.css'); */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;600;700&amp;family=Noto+Sans+TC:wght@400;700&amp;display=swap');
+#rg-link {
+  cursor: pointer;
+}
 
-
-
-
+.btns {
+  position: relative;
+  left: 40px;
+}
 </style>

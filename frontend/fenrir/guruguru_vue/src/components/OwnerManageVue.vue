@@ -109,7 +109,8 @@ export default {
           page: this.pages.page == null ? 0 : this.pages.page - 1,
           limit: this.pages.pageSize
         }
-        const res = await axios.get('/api/admin/owner/register/list', {params: pageable},{
+        const res = await axios.get('/api/admin/owner/register/list', {
+          params: pageable,
           headers: this.$store.getters.headers
         });
         console.log(res);
@@ -124,7 +125,9 @@ export default {
           this.pages = pages;
         }
       } catch(err) {
-        console.log(err);
+        const status = err.response.status;
+        if(status === 401)  this.$router.push('/login');
+        else if(status === 403) this.$router.push('/error403');
       }
     },
     shortenPw(pw) {

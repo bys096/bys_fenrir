@@ -37,13 +37,6 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public Long AdminUserCountQuery(QUser user, Long userId) {
-        return queryFactory
-                .select(user.count())
-                .from(user)
-                .where(user.userRole.eq(Role.ADMIN))
-                .fetchOne();
-    }
     public Long totalUserCountQuery(QUser user) {
         return queryFactory
                 .select(user.count())

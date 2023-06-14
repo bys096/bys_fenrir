@@ -20,7 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -64,6 +66,10 @@ public class UserService {
         // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
         //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+        List<?> l =  authentication.getAuthorities().stream().collect(Collectors.toList());
+        l.forEach(i -> System.out.println(i.toString()));
+//        log.info(authentication.getAuthorities().stream().collect(Collectors.toList()));
 
         User user = userRepository.findById(Long.parseLong(authentication.getName()))
                 .orElseThrow(() -> new UserNotFoundException());

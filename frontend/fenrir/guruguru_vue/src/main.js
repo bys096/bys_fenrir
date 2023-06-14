@@ -7,6 +7,7 @@ import { store } from './store/store'
 
 
 Vue.config.productionTip = false;
+
 Vue.use(VueGoogleMaps, {
   load: {
     // key: 'AIzaSyAil4xXCaukSc_hw2Bayr9DFrUf_T44N7A',
