@@ -157,10 +157,7 @@
       >
       </v-pagination>
     </div>
-    <a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
-    <i class="fa fa-github" aria-hidden="true"></i>
-    View on GitHub
-    </a>
+    <Ribbon></Ribbon>
   </div>
 </template>
 
@@ -168,15 +165,16 @@
   import 'bootstrap'
   import 'bootstrap/dist/css/bootstrap.min.css'
   import axios from 'axios'
-  import { VPagination } from 'vuetify/lib';
+  import { VPagination } from 'vuetify/lib'
   import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiMagnify } from '@mdi/js';
+  import { mdiMagnify } from '@mdi/js'
+  import ribbon from './GitRibbon.vue';
 
   export default {
     components: {
       VPagination,
-      SvgIcon
-
+      SvgIcon,
+      Ribbon: ribbon
     },
     computed: {
       condition() {
@@ -475,44 +473,12 @@
   position: relative;
   bottom: 1px;
 }
-#ribbon {
-	background: #fff none repeat scroll 0 0;
-	box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-	font-weight: 400;
-	padding: 15px;
-	position: fixed;
-	right: -269px;
-	text-align: center;
-	top: -125px;
-	transform: rotate(45deg);
-	transform-origin: 0 0 0;
-	width: 500px;
-	
-	i {
-		font-size: 21px;
-		padding-right: 5px;
-		vertical-align: middle;
-	}
-}
 .circular {
   color: #0d6efd !important;
   position: absolute;
   left: 43.3%;
   top: 41.5%;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center */
-  
-  ;
   z-index: 200;
 }
-.map {
-  /* position: absolute; */
-  
-}
-.gmap {
-  /* position: absolute; */
-  /* left: 50%; */
-}
+
 </style>

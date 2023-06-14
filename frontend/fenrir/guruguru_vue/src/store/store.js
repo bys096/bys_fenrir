@@ -83,6 +83,7 @@ export const store =  new Vuex.Store({
         setTimeout(() => {
           alert('セッションの有効期限が切れました。');
           dispatch('logout');
+          location.href = '/';
         }, delay);
       }
     },
@@ -90,11 +91,6 @@ export const store =  new Vuex.Store({
       commit('clearToken');
       commit('setAuthenticated');
     },
-    handleTokenExpired({ commit }) {
-      commit('clearToken');
-      location.href = '/';
-    },
-    
   },
   
   plugins: [

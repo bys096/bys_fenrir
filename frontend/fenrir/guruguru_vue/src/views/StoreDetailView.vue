@@ -124,7 +124,7 @@
     レビュー登録
   </button>
 </div>
-
+<!-- <Ribbon></Ribbon> -->
 </div>
 </template>
 
@@ -134,6 +134,7 @@ import topSectionVue from '../components/DetailTopSection.vue'
 import detailSidebarVue from '../components/DetailSidebar.vue'
 import detailTabContentVue from '../components/DetailTabContent.vue'
 import infoCardVue from '../components/DetailInfoCardVue.vue'
+// import ribbon from '../components/GitRibbon.vue'
 import { mapState } from 'vuex'
 import axios from 'axios';
 
@@ -162,14 +163,7 @@ export default {
     DetailSidebarVue: detailSidebarVue,
     DetailTabContentVue: detailTabContentVue,
     InfoCardVue: infoCardVue,
-    
-  },
-  mounted() {
-    // console.log('값 수신');
-    // console.log(this.$route.query.shop);
-    // this.shop = this.$route.query.shop;
-    // console.log('vuex');
-    // console.log(this.$store.state.shopDetail);
+    // Ribbon: ribbon
   },
   methods: {
     async saveReviewAndLoad() {

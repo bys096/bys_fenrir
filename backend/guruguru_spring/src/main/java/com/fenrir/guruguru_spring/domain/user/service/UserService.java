@@ -7,6 +7,7 @@ import com.fenrir.guruguru_spring.domain.user.entity.User;
 import com.fenrir.guruguru_spring.domain.user.exception.UserNotFoundException;
 import com.fenrir.guruguru_spring.domain.user.mapper.UserMapper;
 import com.fenrir.guruguru_spring.domain.user.repository.UserRepository;
+import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import com.fenrir.guruguru_spring.global.security.jwt.RefreshToken;
 import com.fenrir.guruguru_spring.global.security.jwt.RefreshTokenRepository;
 import com.fenrir.guruguru_spring.global.security.jwt.TokenDto;
@@ -59,29 +60,23 @@ public class UserService {
     }
 
     @Transactional
-    public TokenDto login(LoginRequestDto dto) {
+    public TokenDto login(LoginRequestDto dto) throws BusinessException {
 
         UsernamePasswordAuthenticationToken authenticationToken = dto.toAuthentication();
-
-        // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
-        //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         List<?> l =  authentication.getAuthorities().stream().collect(Collectors.toList());
         l.forEach(i -> System.out.println(i.toString()));
-//        log.info(authentication.getAuthorities().stream().collect(Collectors.toList()));
 
         User user = userRepository.findById(Long.parseLong(authentication.getName()))
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(() -> {
+                    throw new UserNotFoundException();
+                });
 
-
-        // 3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication, user.getUserId());
         log.info("accessToken:" + tokenDto.getAccessToken());
         log.info("userId: " + tokenDto.getUid());
 
-        log.info("tokentDto 발급");
-        // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())
                 .value(tokenDto.getRefreshToken())
@@ -90,7 +85,7 @@ public class UserService {
         log.info("refresh before");
         refreshTokenRepository.save(refreshToken);
         log.info("refresh after");
-        // 5. 토큰 발급
+
         return tokenDto;
     }
 
