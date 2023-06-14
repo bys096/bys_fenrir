@@ -183,7 +183,7 @@
           format: 'json',
           count: this.pageSize,
           start: this.pageSize * (this.page - 1) + 1,
-          address: '東京',
+          // address: '東京',
           wifi: this.wifi,
           free_food: this.free_food,
           parking: this.parking,
@@ -242,7 +242,17 @@
           params: this.condition
         })
           .then((res) => {
+            const errCode = res.data.results?.error?.[0]?.code;
+            const errMsg = res.data.results?.error?.[0]?.message;
+            console.log('res 출력');
             console.log(res);
+            
+            // const errCode = res.data.results.error[0].code;
+            // const errMsg = res.data.results.error[0].message;
+            if(errCode == 3000) {
+              alert(errMsg);
+              return;
+            }
             this.page = 1;
             this.shopData = res.data.results.shop;
             this.recordCnt = res.data.results.results_available;
@@ -251,9 +261,16 @@
             this.center.lat = this.shopData[0].lat;
             this.center.lng = this.shopData[0].lng;
 
+            // const errMsg = res.data.results.error[0].message;
+            console.log('msg1');
+            // console.log(res.data.results)
+            // alert(errMsg);
           })
-          .catch((error) => {
-            console.error(error);
+          .catch((err) => {
+            console.log('errcode');
+          
+            console.error(err);
+            // alert('err');
           });
       },
       pageLoad() {
