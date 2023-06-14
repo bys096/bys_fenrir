@@ -1,5 +1,6 @@
 <template>
   <div class="stsch_container">
+    
     <div class="brd">
       <div class="border rounded-4 p-3 mb-2">
         <div class="my-4">
@@ -84,41 +85,67 @@
       </div>
     </div>
 
-    <div class="sch-result">
-      <table class="table table-hover store-list">
-        <thead>
-          <tr>
-            <td class="text-center"></td>
-            <td class="text-center">店舗名</td>
-            <td class="text-center">住所/サービス</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(shop, index) in shopData" :key="index" @click="goToStoreDetail(shop)">
-            <td class="align-middle text-center">
-              <div class="td-img-wrapper">
-                <img :src="shop.photo.pc.m" alt="" class="img-thumbnail">
-              </div>
-            </td>
-            <td class="align-middle text-center">{{ shop.name }}</td>
-            <td class="align-middle text-center">{{ shop.address }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="card">
-        <div class="map">
-          <button @click="getCurrentPostion()">getCurrentPostion</button>
-          <p>{{textContent}}</p>
-          <gmap-map
-              :zoom="14"    
-              :center="center"
-              style="width:100%;  height: 600px;"
-          >
-          </gmap-map>
-        </div>
+    <v-card class="sch-result brd">
+      <div class="table-wrap">
+        <table class="table table-hover store-list">
+          <thead>
+            <tr>
+              <td class="text-center"></td>
+              <td class="text-center">店舗名</td>
+              <td class="text-center">住所/サービス</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(shop, index) in shopData" :key="index" @click="goToStoreDetail(shop)">
+              <td class="align-middle text-center">
+                <div class="td-img-wrapper">
+                  <img :src="shop.photo.pc.m" alt="" class="img-thumbnail">
+                </div>
+              </td>
+              <td class="align-middle text-center">{{ shorten(shop.name) }}</td>
+              <td class="align-middle text-center">{{ shorten(shop.address) }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
+    
+
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <td class="text-center">地図</td>
+            </tr>
+            
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle text-center">
+                <div class="map">
+                  <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    class="circular"
+                    :size="80"
+                    v-show="locating"
+                  ></v-progress-circular>
+                </div>
+                <div>
+
+                  <gmap-map
+                      :zoom="14"    
+                      :center="center"
+                      style="width:100%;  height: 70vh;"
+                      class="gmap"
+                  >
+                  </gmap-map>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </v-card>
     <div class="page-wrap">
       <v-pagination
         v-model="page"
@@ -133,7 +160,7 @@
     <a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
     <i class="fa fa-github" aria-hidden="true"></i>
     View on GitHub
-  </a>
+    </a>
   </div>
 </template>
 
@@ -202,7 +229,8 @@
         midnight: null,
         
 
-        isGps: false
+        isGps: false,
+        locating: false
       }
     },
 
@@ -249,6 +277,8 @@
           this.textContent = 'Geolocation is not available.';
           return;
         }
+        this.locating = true;
+
         this.textContent = 'Locating...'
           
         // get position
@@ -256,6 +286,7 @@
           this.latitude = pos.coords.latitude;
           this.longitude = pos.coords.longitude;
           this.textContent = 'Your location data is ' + this.latitude + ', ' + this.longitude;
+          this.locating = false;
           this.center.lat = this.latitude;
           this.center.lng = this.longitude;
           this.search();
@@ -279,7 +310,10 @@
           this.latitude = null;
           this.longitude = null;
         }
-      }
+      },
+      shorten(text) {
+        return text.length > 20 ? text.substr(0, 20) + '...' : text;
+      },
     }
   }
 </script>
@@ -289,7 +323,7 @@
   
 .brd {
   margin-top: 7vh;
-  width: 70vw;
+  /* width: 70vw; */
   min-width: 500px;
 }
   .stsch_container {
@@ -298,28 +332,30 @@
     justify-content: center;
     align-items: center;
   }
-  .stsch_box {
-    /* margin-top: 10vh; */
-    border: 1px solid #cccccc;
-    padding: 20px 57px 20px 60px;
-    width: 60vw;
-  }
+  
   .sch-result {
     display: flex;
+    /* width: 60vw; */
+  }
+  .sch-result table {
+    height: 70vh;
   }
   .map {
     width: 30vw;
-    position: relative;
-    top: 10vh;
+    /* height: 100%; */
+    /* position: relative; */
+    /* top: 10vh; */
   }
+  
   .page-wrap {
-    margin-top: 10vh;
+    margin: 5vh 0;
   }
+/*   
   .stsch_form li {
     display: flex;
     flex-direction: row;
-  }
-  .stb_sel {
+  } */
+  /* .stb_sel {
     display: flex;
     flex-direction: row;
     width: 30vw;
@@ -331,7 +367,7 @@
     color: #999999;
     font-size: 14px;
     padding: 10px;
-  }
+  } */
   option {
     padding: 10px;
     font-weight: normal;
@@ -340,12 +376,13 @@
     min-height: 1.2em;
     padding: 0px 2px 1px;
   }
-
+/* 
   .stsch_form li {
     border-bottom: 1px dotted #cccccc;
     padding: 2vw 0vh 3vh 2vw;
     margin-bottom: 2vh
-  }
+  } */
+/*   
   .stsch_form .st_dot {
     display: inline-block;
     vertical-align: top;
@@ -353,7 +390,7 @@
     color: #444;
     font-size: 16px;
     padding: 8px 0px 0px 12px;
-  }
+  } */
   .stb_btnwrap .sch {
     padding: 12px 0;
     width: 94px;
@@ -382,11 +419,12 @@
     background-position: 10px 14px;
     margin: 12px 0px 10px;
   }
+/*   
   .stsch_form .stsch_ipt {
     width: 418px;
     height: 34px;
     border: 2px solid #666;
-  }
+  } */
   input[type=text], input[type=password] {
     text-indent: 5px;
     border: 1px solid #d6d6d6;
@@ -399,18 +437,19 @@
     font-size: 5vmin;
   }
   .sch-result table {
-    width: 40vw;
+    /* width: 3vw; */
+    width: 36vw;
     position: relative;
-    right: 2vw;
-    top: 5vh;
+    /* right: 2vw; */
+    /* top: 5vh; */
   }
   .td-img-wrapper {
-    width:20vw;
-    height:20vh;
+    width:16vw;
+    height: 16vh;
   }
   .td-img-wrapper img {
-      max-width:20vw;
-      max-height:20vh;
+      max-width:16vw;
+      max-height:16vh;
       object-fit:cover;
       cursor: pointer;
   }
@@ -425,7 +464,6 @@
   
 }
 .service {
-  
   display: flex;
   gap: 2vw;
   min-width: 450px;
@@ -455,5 +493,26 @@
 		padding-right: 5px;
 		vertical-align: middle;
 	}
+}
+.circular {
+  color: #0d6efd !important;
+  position: absolute;
+  left: 43.3%;
+  top: 41.5%;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center */
+  
+  ;
+  z-index: 200;
+}
+.map {
+  /* position: absolute; */
+  
+}
+.gmap {
+  /* position: absolute; */
+  /* left: 50%; */
 }
 </style>

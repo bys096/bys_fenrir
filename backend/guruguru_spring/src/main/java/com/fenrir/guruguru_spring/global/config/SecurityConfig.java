@@ -1,10 +1,9 @@
 package com.fenrir.guruguru_spring.global.config;
 
 import com.fenrir.guruguru_spring.global.error.GlobalExceptionHandler;
-import com.fenrir.guruguru_spring.global.security.jwt.JwtAccessDeniedHandler;
-import com.fenrir.guruguru_spring.global.security.jwt.JwtAuthenticationEntryPoint;
-import com.fenrir.guruguru_spring.global.security.jwt.JwtSecurityConfig;
-import com.fenrir.guruguru_spring.global.security.jwt.TokenProvider;
+import com.fenrir.guruguru_spring.global.security.jwt.*;
+import com.fenrir.guruguru_spring.global.security.jwt.handle.ExceptionHandlerFilter;
+import com.fenrir.guruguru_spring.global.security.jwt.handle.JwtAuthentcaionFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +25,9 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final ExceptionHandlerFilter exceptionHandlerFilter;
+    private final JwtAuthentcaionFilter jwtAuthentcaionFilter;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -34,45 +36,41 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // CSRF 설정 Disable
         http.csrf().disable()
-                .cors().configurationSource(corsConfigurationSource())
+                .cors()
                 .and()
-                // exception handling 할 때 우리가 만든 클래스를 추가
+                .formLogin().disable()
+                .httpBasic().disable()
+                .authorizeRequests()
+//                .antMatchers("/user/login").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+//                .antMatchers("/reply/**").hasAnyAuthority("ADMIN", "OWNER")
+                .antMatchers("/**").permitAll()
+
+
+//                .antMatchers("/**").permitAll()
+//                .antMatchers("/admin/**").hasAuthority("ADMIN")
+//                .antMatchers("/user/login").permitAll()
+//                .antMatchers("/user/**","/or/**").authenticated()
+
+                .anyRequest().authenticated()
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // h2-console 을 위한 설정을 추가
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
 
-                // 시큐리티는 기본적으로 세션을 사용
-                // 여기서는 세션을 사용하지 않기 때문에 세션 설정을 Stateless 로 설정
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/member/me").hasRole("USER")
-                .antMatchers("/api/project/list").hasRole("ADMIN")
-                .antMatchers("/api/board/list").hasRole("USER")
-                .antMatchers("/api/member/listMember").hasRole("ADMIN")
-                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
-
-                // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider))
-        .and()
+                .and()
                 .exceptionHandling();
-
-
-
 
         return http.build();
     }

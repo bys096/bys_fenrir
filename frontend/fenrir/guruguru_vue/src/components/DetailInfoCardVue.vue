@@ -9,7 +9,7 @@
                       " alt="缺錢事務所" />
               <div class="ps-3">
                 <h4 class="letter-spacing-20 fs-lg-5 fs-mobile-3">
-                  缺錢事務所
+                  おな
                 </h4>
                 <p class="
                           text-gray-800
@@ -22,7 +22,7 @@
               </div>
             </div>
             <p class="mb-3 fs-6 d-none d-md-block">
-              需要點錢錢做些酷酷的東西，拜託各位乾爹乾媽囉！
+              オーナーの紹介
             </p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex">

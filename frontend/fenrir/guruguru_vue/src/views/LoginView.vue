@@ -86,8 +86,8 @@ export default {
         .then((res) => {
           const accessToken = res.data.accessToken;
           const uid = res.data.uid;
-        
-          this.$store.dispatch('login', { token: accessToken, uid: uid });
+          const expire = res.data.accessTokenExpiresIn;
+          this.$store.dispatch('login', { token: accessToken, uid: uid, expire: expire });
           this.$router.push('/');
         })
         .catch((err) => {

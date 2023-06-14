@@ -12,6 +12,7 @@
 import { RouterView } from 'vue-router'
 import headerVue from './components/Header.vue'
 import footerVue from './components/Footer.vue'
+import { mapState } from 'vuex'
 
 
 export default {
@@ -20,6 +21,15 @@ export default {
     RouterView,
     FooterVue: footerVue
   },
+  computed: {
+    ...mapState(['isTokenExpired'])
+  },
+  created() {
+    if (this.isTokenExpired) {
+      alert('logout');
+      this.$store.dispatch('logout');
+    }
+  }
   
 }
 </script>
