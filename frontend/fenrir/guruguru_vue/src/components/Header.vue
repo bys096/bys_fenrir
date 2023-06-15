@@ -3,12 +3,11 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light py-3">
       <div class="container">
-        <a class="navbar-brand py-0" href="/">
-          <img src="https://WangShuan.github.io/bootstrap5-project/images/logo.jpeg" alt="拼拼 LOGO" width="111" height="40" class="d-inline-block align-top" />
-        </a>
-        <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="home-img">
+          <a class="navbar-brand py-0" href="/">
+            <img src="https://WangShuan.github.io/bootstrap5-project/images/logo.jpeg" alt="拼拼 LOGO" width="111" height="40" class="d-inline-block align-top" />
+          </a>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item active">
@@ -101,5 +100,13 @@ export default {
 .btns {
   position: relative;
   left: 40px;
+}
+.home-img {
+  position: relative;
+  right: 2.5vw;
+}
+.navbar-nav {
+  position: relative;
+  right: 2.5vw;
 }
 </style>

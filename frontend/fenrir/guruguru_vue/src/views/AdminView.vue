@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-card>
+  <v-card class="nav-tabs-wrap">
     <v-tabs
       v-model="selectedTab"
       bg-color="red-lighten-2"
@@ -40,3 +40,5 @@ import axios from 'axios';
     }
   }
 </script>
+<style scoped>
+</style>

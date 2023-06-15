@@ -52,7 +52,7 @@
     </table>
 
     </div>
-    <div class="page-wrap">
+    <!-- <div class="page-wrap">
       <v-pagination
         v-model="pages.page"
         :length="pages.totalPages"
@@ -62,12 +62,9 @@
         class="my-pagination"
       >
       </v-pagination>
-    </div>
+    </div> -->
 
-  <a href="https://github.com/bys096/bys_guruguru" id="ribbon" target="_blank">
-    <i class="fa fa-github" aria-hidden="true"></i>
-    View on GitHub
-  </a>
+  
 </div>  
 </template>
 
@@ -93,7 +90,7 @@ export default {
     return {
       owners: null,
       pages: {
-        totalPages: null,
+        totalPages: 0,
         totalElements: null,
         pageSize: 10,
         page: null
@@ -140,7 +137,7 @@ export default {
     },
     async acceptOwner(orId) {
       try {
-        const res = await axios.patch(`/api/admin/owner/accept/${orId}`, {
+        const res = await axios.patch(`/api/admin/owner/accept/${orId}`, null, {
           headers: this.$store.getters.headers
         });
         if(res.status === 200) {

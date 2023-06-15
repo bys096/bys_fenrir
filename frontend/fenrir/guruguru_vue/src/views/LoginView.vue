@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <div>
   <div class="my-4">
     <div class="row g-md-5">
       <div class="col-lg-8 form-wrap">
@@ -35,16 +36,13 @@
             <label for="pw" class="form-label">パスワード</label>
             <input type="password" class="form-control" id="pw"
                 name="pw" v-model="pw" required />
-            <div class="invalid-feedback"></div>
+          </div>
+          <div class="feedback-wrap">
+
+            <div class="feedback" :style="{ visibility: isWrong ? 'visible' : 'hidden' }">IDまたはパスワードが間違っています。</div>
           </div>
 
-          <!-- <div class="mb-3">
-            <label for="phone" class="form-label">連絡先</label>
-            <input type="text" class="form-control" id="phone" required />
-            <div class="invalid-feedback"></div>
-          </div> -->
-
-          <div class="d-none d-md-flex justify-content-center">
+          <div class="d-none d-md-flex justify-content-center login-btn">
             <button type="submit" class="
                       btn btn-warning btn-lg btn-warning-hover
                       px-5
@@ -61,19 +59,25 @@
       </div>
     </div>
   </div>
+  <Ribbon></Ribbon>
 </div>
-
+</div>
 </template>
 
 <script>
 import axios from 'axios'
-import router from 'vue-router';
+import ribbon from '../components/GitRibbon.vue'
+// import router from 'vue-router';
 
 export default {
+  components: {
+    Ribbon: ribbon
+  },
   data() {
     return {
       email: null,
-      pw: null
+      pw: null,
+      isWrong: null
     }
   },
   methods: {
@@ -91,6 +95,11 @@ export default {
           this.$router.push('/');
         })
         .catch((err) => {
+          const code = err.response.data.code;
+          if(code === "U001") {
+            this.isWrong = true;
+          }
+          // alert(code);
           console.log(err);
         });
     }
@@ -98,21 +107,51 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('../assets/css/header.css');
 .container {
-  width: 71vw;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important; 
+  align-items: center !important; 
+  position: relative;
+  left: 1.5vw;
+}
+.container > div:first-child{
+  width: 49vw !important;
 }
 
 .form-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* 세로 가운데 정렬 */
-  align-items: stretch; /* 가로 가운데 정렬 */
+  /* display: flex !important; */
+  /* flex-direction: column !important; */
+  /* justify-content: center !important;  */
+  /* align-items: stretch !important;  */
 }
 
 .row {
-  justify-content: center; /* 가로 가운데 정렬 */
+  /* justify-content: center !important;  */
 }
+.login-btn {
+  position: relative;
+  top: 1vh;
+}
+.login-btn button{
+  width: 49vw;
+}
+input[type=text], input[type=password] {
+    text-indent: 5px;
+    border: 1px solid #d6d6d6;
+    height: 45px;
+    line-height: 31px;
+    color: #666;
+    font-size: 1.3vw;
+}
+.feedback-wrap {
+  text-align: center;
+  color: red;
+  /* position: relative; */
+  /* left: 5px; */
+}
+
 
 </style>

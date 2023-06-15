@@ -1,6 +1,8 @@
 package com.fenrir.guruguru_spring.global.security.jwt;
 
+import com.fenrir.guruguru_spring.domain.user.exception.UserNotFoundException;
 import com.fenrir.guruguru_spring.domain.user.repository.UserRepository;
+import com.fenrir.guruguru_spring.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,10 +25,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userEmail) throws BusinessException {
         return userRepository.findByUserEmail(userEmail)
                 .map(this::createUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException(userEmail + " -> 데이터베이스에서 찾을 수 없습니다."));
+                .orElseThrow(() -> {
+                    throw new UserNotFoundException();
+                });
     }
 
     // DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴

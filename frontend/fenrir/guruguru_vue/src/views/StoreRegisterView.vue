@@ -133,14 +133,19 @@
       </div>
     </div>
   </div>
+  <Ribbon></Ribbon>
 </div>
 
 </template>
 
 <script>
 import axios from 'axios'
+import ribbon from '../components/GitRibbon.vue';
 
 export default {
+  components: {
+    Ribbon: ribbon
+  },
   data() {
     return {
       storeId: null,

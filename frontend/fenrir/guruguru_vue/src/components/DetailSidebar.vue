@@ -83,12 +83,12 @@
               <p class="letter-spacing-7 text-justify text-secondary mt-2">
                 レビュー内容
               </p>
-              <a href="#" class="
+              <!-- <a href="#" class="
                         btn btn-warning btn-warning-hover
                         rounded-pill
                         w-100
                         fw-bold
-                      ">贊助此專案</a>
+                      ">贊助此專案</a> -->
             </div>
           </div>
           <div class="card mt-3">
@@ -114,12 +114,12 @@
               <p class="letter-spacing-7 text-justify text-secondary mt-2">
                 レビュー内容
               </p>
-              <a href="#" class="
+              <!-- <a href="#" class="
                         btn btn-warning btn-warning-hover
                         rounded-pill
                         w-100
                         fw-bold
-                      ">贊助此專案</a>
+                      ">贊助此專案</a> -->
             </div>
           </div>
           <div class="card mt-3">
@@ -145,12 +145,12 @@
               <p class="letter-spacing-7 text-justify text-secondary mt-2">
                 レビュー内容
               </p>
-              <a href="#" class="
+              <!-- <a href="#" class="
                         btn btn-warning btn-warning-hover
                         rounded-pill
                         w-100
                         fw-bold
-                      " id="oraginBtn">贊助此專案</a>
+                      " id="oraginBtn">贊助此專案</a> -->
             </div>
           </div>
         </div>

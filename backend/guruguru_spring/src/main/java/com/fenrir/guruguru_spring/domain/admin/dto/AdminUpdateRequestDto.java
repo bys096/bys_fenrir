@@ -4,37 +4,34 @@ import com.fenrir.guruguru_spring.domain.user.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class AdminUpdateRequestDto {
 
     @NotNull
     private Long userId;
 
     @NotBlank
-    private String userEmail;
-
-    @NotBlank
-    private String userPw;
+    private String userNick;
 
     @NotBlank
     private String userName;
 
-    @NotBlank
-    private String userNick;
-
     private Role userRole;
 
+    private String userPw;
+
     @Builder
-    public AdminUpdateRequestDto(Long userId, String userEmail, String userPw, String userName, String userNick, Role userRole) {
+    public AdminUpdateRequestDto(Long userId, String userNick, Role userRole, String userName) {
         this.userId = userId;
-        this.userEmail = userEmail;
-        this.userPw = userPw;
-        this.userName = userName;
         this.userNick = userNick;
+        this.userName = userName;
         this.userRole = userRole;
     }
 }
