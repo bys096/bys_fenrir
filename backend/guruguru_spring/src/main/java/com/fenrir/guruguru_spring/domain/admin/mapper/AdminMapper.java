@@ -14,10 +14,9 @@ public class AdminMapper {
     public User toEntity(@Valid AdminUpdateRequestDto dto, PasswordEncoder passwordEncoder) {
         return User.builder()
                 .userId(dto.getUserId())
-                .userEmail(dto.getUserEmail())
-                .userPw(passwordEncoder.encode(dto.getUserPw()))
+//                .userEmail(dto.getUserEmail())
                 .userNick(dto.getUserNick())
-                .userName(dto.getUserName())
+//                .userName(dto.getUserName())
                 .userRole(dto.getUserRole())
                 .build();
     }

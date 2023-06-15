@@ -184,11 +184,12 @@ export default {
       }
     },
     async saveReview(review) {
-      let response = null;
+      
       try {
-        await axios.post(`/api/review`, review, {
+        const res = await axios.post(`/api/review`, review, {
           headers: this.$store.getters.headers
         });
+        console.log(res);
       } catch(err) {
         console.log(err);
         const errRes = err.response.data;

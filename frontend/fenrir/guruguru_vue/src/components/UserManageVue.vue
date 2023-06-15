@@ -1,4 +1,5 @@
 <template>
+<v-app>
   <div>
     <div class="sch-result">
       <table class="table table-hover store-list">
@@ -23,14 +24,14 @@
             <td class="align-middle text-center">{{ user.userRole }}</td>
             <td class="align-middle text-center icons">
               <v-btn class="text-none" stacked data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="clickEdit(user)">
-                <v-badge dot color="success">
+                
                   <span class="edit-icon"><svg-icon type="mdi" :path="pencilIcon"></svg-icon></span>
-                </v-badge>
+                
               </v-btn>
               <v-btn class="text-none" stacked @click="deleteUser(user.userId)">
-                <v-badge dot color="success">
+                
                   <span class="delete-icon"><svg-icon type="mdi" :path="deleteIcon"></svg-icon></span>
-                </v-badge>
+                
               </v-btn>
             </td>
           </tr>
@@ -40,6 +41,7 @@
     </div>
     <div class="page-wrap">
       <v-pagination
+      id="page"
         v-model="pages.page"
         :length="pages.totalPages"
         :start="0"
@@ -56,11 +58,10 @@
 
 <!-- add boot -->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
+
 
 <!-- Modal -->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
     <div class="modal-content">
@@ -80,7 +81,7 @@
                 <v-text-field
                   label="E-Mail"
                   readonly
-                  :value="selectedUser !== null ? selectedUser.userEmail : ''"
+                  v-model="selectedUser.userEmail"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -93,8 +94,9 @@
                 <v-text-field
                   label="ユーザー名"
                   required
-                  :value="selectedUser !== null ? selectedUser.userName : ''"
+                  v-model="selectedUser.userName"
                 ></v-text-field>
+                  
               </v-col>
             </v-row>
             <v-row>
@@ -105,15 +107,15 @@
                 <v-text-field
                   label="ニックネーム"
                   required
-                  :value="selectedUser !== null ? selectedUser.userNick : ''"
+                  v-model="selectedUser.userNick"
                 ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="4">
+                <div>パスワード</div>
               </v-col>
               <v-col cols="8">
-                <div>パスワード</div>
                 <v-text-field
                   label="パスワード"
                   value=""
@@ -126,12 +128,20 @@
                 <div>Role</div>
               </v-col>
               <v-col cols="8">
-                <v-text-field
+                <v-select
+                  label="Select"
+                  :items="['USER', 'OWNER']"
+                  :value="selectedUser.userRole"
+                  variant="underlined"
+                  :item-value="selectedUser.userRole"
+                  v-model="selectedUser.userRole"
+                ></v-select>
+                <!-- <v-text-field
                   label="Role"
                   required
-                  
-                  :value="selectedUser !== null ? selectedUser.userRole : ''"
-                ></v-text-field>
+                  v-model="selectedUser.userRole"
+                ></v-text-field> -->
+                  <!-- :value="selectedUser !== null ? selectedUser.userRole : ''" -->
               </v-col>
             </v-row>
           </v-container>
@@ -151,25 +161,18 @@
           height="48"
           variant="tonal"
           data-bs-dismiss="modal"
+          @click="updateUser()"
         >
           セーブ
         </v-btn>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
-    <!-- add -->
-    
-    <v-row justify="center">
-      
-    
-    </v-row>
-    
-  </div>  
+  
+    </div>
+  
+</div>  
+</v-app>
 </template>
 
 <script>
@@ -181,7 +184,11 @@ import { mdiPencil, mdiDelete } from '@mdi/js';
 export default {
   components: {
     SvgIcon,
-    
+  },
+  computed: {
+    inputUser() {
+      return this.selectedUser !== null ? this.selectedUser : '';
+    }
   },
   mounted() {
       this.loadUserData();
@@ -190,6 +197,8 @@ export default {
     return {
       pencilIcon: mdiPencil,
       deleteIcon: mdiDelete,
+      test: ['1', '2'],
+      defaultSelected: "USER",
 
       users: null,
       pages: {
@@ -200,7 +209,12 @@ export default {
       },
 
       isShowUserUpdateForm: false,
-      selectedUser: null
+      selectedUser: {
+        userRole: "",
+        userNick: "",
+        userName: "",
+        userEmail: ""
+      }
     }
   },
   methods: {
@@ -253,9 +267,25 @@ export default {
         }
       },
       clickEdit(user) {
-        console.log(user);
         this.selectedUser = user;
         this.isShowUserUpdateForm = !this.isShowUserUpdateForm;
+      },
+      updateUser() {
+        const user = {
+          userId: this.selectedUser.userId,
+          userNick: this.selectedUser.userNick,
+          userName: this.selectedUser.userName,
+          userRole: this.selectedUser.userRole
+        }
+        console.log(user);
+        try {
+          const res = axios.patch('/api/admin/user', user, {
+            headers: this.$store.getters.headers
+          });
+          console.log(res);
+        } catch(err) {
+          console.log(err);
+        }
       }
   }
 }
@@ -286,8 +316,21 @@ export default {
 .my-pagination >>> .v-pagination__item--active {
     color: black;
 }
+.v-application >>> .primary {
+  background-color: white !important;
+  border-color: white !important;
+}
 .sch-result {
   min-height: 60vh;
+  position: relative;
+  top: 20px;
+}
+.page-wrap {
+  position: relative;
+  top: 20px;
+  min-height: 800px;
+}
+.store-list {
 }
 .icons {
   cursor: pointer;

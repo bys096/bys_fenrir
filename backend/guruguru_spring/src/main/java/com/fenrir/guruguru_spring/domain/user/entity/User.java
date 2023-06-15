@@ -1,18 +1,20 @@
 package com.fenrir.guruguru_spring.domain.user.entity;
 
+import com.fenrir.guruguru_spring.domain.admin.dto.AdminUpdateRequestDto;
 import com.fenrir.guruguru_spring.domain.user.dto.UserUpdateRequestDto;
 import com.fenrir.guruguru_spring.global.common.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
+@ToString
 @Entity
+@Slf4j
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,14 +48,32 @@ public class User extends BaseEntity {
     @Column(name = "user_role")
     private Role userRole;
 
+    @Column(name = "user_thumbnail")
+    private String userThumb;
+
 
     public void updateUser(UserUpdateRequestDto dto) {
         this.userName = dto.getUserName();
         this.userNick = dto.getNickName();
-        this.userPw = dto.getPw();
+//        this.userThumb
     }
 
+    public void adminUpdateUser(AdminUpdateRequestDto dto) {
+        log.info("start update");
+//        log.info(dto.toString());
+        this.userNick = dto.getUserNick();
+        this.userRole = dto.getUserRole();
+        this.userName = dto.getUserName();
+        log.info("complete userNick");
+//        log.info("complete userName: after {}", dto.getUserName());
+//        this.userThumb
+    }
+
+
+
+@Transactional
     public void toOwner() {
+        log.info("accept owner");
         this.userRole = Role.OWNER;
     }
 

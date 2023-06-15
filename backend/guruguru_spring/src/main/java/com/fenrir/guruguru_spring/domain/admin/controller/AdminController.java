@@ -37,6 +37,7 @@ public class AdminController {
     @PatchMapping("/user")
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@Valid @RequestBody AdminUpdateRequestDto dto) {
+        log.info("patch user: {}", dto.toString());
         adminService.updateUser(dto);
     }
 
@@ -50,6 +51,7 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     public void acceptOwner(@PathVariable("orId") Long orId) {
         log.info("or Id: " + orId);
+        log.info("???");
         adminService.acceptOwner(orId);
     }
 

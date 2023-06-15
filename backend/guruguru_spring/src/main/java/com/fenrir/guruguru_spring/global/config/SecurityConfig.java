@@ -43,9 +43,10 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeRequests()
 //                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/login").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
 //                .antMatchers("/reply/**").hasAnyAuthority("ADMIN", "OWNER")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/review/list/**").permitAll()
 
 
 //                .antMatchers("/**").permitAll()

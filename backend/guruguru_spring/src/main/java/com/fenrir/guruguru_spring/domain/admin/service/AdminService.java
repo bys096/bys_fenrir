@@ -48,12 +48,16 @@ public class AdminService {
         return adminRepositoryCustom.getAllOwner(pageable, requestDto);
     }
 
+    @Transactional
     public void updateUser(AdminUpdateRequestDto dto) throws BusinessException {
         User user =  userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> {
                    throw new UserNotFoundException();
                 });
-        userRepository.save(adminMapper.toEntity(dto, passwordEncoder));
+        log.info(user.toString());
+//        userRepository.save(adminMapper.toEntity(dto, passwordEncoder));
+        log.info(dto.toString());
+        user.adminUpdateUser(dto);
     }
 
     @Transactional
