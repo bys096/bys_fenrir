@@ -541,7 +541,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiDeleteVariant, mdiPencil } from '@mdi/js';
 
@@ -621,33 +620,21 @@ export default {
   color: #636057;
   text-decoration: none;  
   position: relative;
-  /* left: 1vw; */
-  /* top: 1vh; */
 }
-
 .reply:hover{
   color: #ff785e;
   cursor: pointer;
 }
-/* .theme--light.v-chip:not(.v-chip--active) {
-    background: #ff785e;
-} */
 #review-header {
     justify-content: space-between !important;
 }
 .review-title {
   display: flex;
 }
-/* .dl-wrap {
-  position: relative;
-  
-}*/
 .theme--light.v-chip:not(.v-chip--active) {
   background: transparent;
   border: solid 1px #e91e63;
-    /* border: #e91e63; */
 }
-
 .dl {
   color: #e91e63!important;
   cursor: pointer;
@@ -660,10 +647,7 @@ export default {
 .dl-text {
   margin-left: 5px;
 }
-
 .replyBtn {
-  /* position: relative; */
-  /* left: 50px; */
   display: flex;
   justify-content: flex-end;
 }
@@ -675,6 +659,5 @@ export default {
 .review-tab {
   position: relative;
   bottom: 50px;
-
 }
 </style>

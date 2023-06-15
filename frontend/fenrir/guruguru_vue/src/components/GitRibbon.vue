@@ -26,7 +26,6 @@ export default {
 	transform: rotate(45deg);
 	transform-origin: 0 0 0;
 	width: 500px;
-
 	i {
 		font-size: 21px;
 		padding-right: 5px;

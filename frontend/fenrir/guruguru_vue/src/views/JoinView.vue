@@ -1,92 +1,84 @@
 <template>
-<div class="container">
-
-  <div class="my-4">
-    <div class="row g-md-5">
-      <div class="col-lg-8 form-wrap">
-        <div class="position-relative my-4">
-          <div class="progress bg-warning" style="height: 3px">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+  <div class="container">
+    <div class="my-4">
+      <div class="row g-md-5">
+        <div class="col-lg-8 form-wrap">
+          <div class="position-relative my-4">
+            <div class="progress bg-warning" style="height: 3px">
+              <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              </div>
             </div>
+            <h2 class="
+                  position-absolute
+                  top-0
+                  start-50
+                  translate-middle
+                  bg-white
+                  text-center
+                  px-3
+                  fs-lg-4 fs-mobile-2
+                  fw-bold
+            ">
+              会員登録
+            </h2>
           </div>
-          <h2 class="
-                    position-absolute
-                    top-0
-                    start-50
-                    translate-middle
-                    bg-white
-                    text-center
-                    px-3
-                    fs-lg-4 fs-mobile-2
+          <form id="form" class="needs-validation" @submit.prevent="joinRequest">
+            <div class="avatar-upload">
+              <div class="avatar-edit">
+                  <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" @change="readURL" ref="fileUpload"/>
+                  <label for="imageUpload"></label>
+              </div>
+              <div class="avatar-preview">
+                  <div id="imagePreview" :style="{backgroundImage: `url(${imagePreview})`}">
+                  </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">email</label>
+              <input type="text" class="form-control" id="email"
+                  name="email" v-model="email" required />
+              <div class="invalid-feedback">請輸入正確的郵件格式</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="pw" class="form-label">パスワード</label>
+              <input type="password" class="form-control" id="pw"
+                  name="pw" v-model="pw" required />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="userName" class="form-label">名前</label>
+              <input type="text" class="form-control" id="userName"
+                  name="userName" v-model="userName" required />
+              <div class="valid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="nickName" class="form-label">ニックネーム</label>
+              <input type="text" class="form-control" id="nickName"
+                  name="nickName" v-model="nickName" required />
+              <div class="valid-feedback"></div>
+            </div>
+            
+            <div class="d-none d-md-flex justify-content-center login-btn">
+              <button type="submit" class="
+                    btn btn-warning btn-lg btn-warning-hover
+                    px-5
                     fw-bold
-                  ">
-            会員登録
-          </h2>
+                    rounded-pill
+                    mt-2
+                  "
+              >
+                登録
+              </button>
+            </div>
+          </form>
         </div>
-        <form id="form" class="needs-validation" @submit.prevent="joinRequest">
-          <!-- image upload add -->
-          <div class="avatar-upload">
-            <div class="avatar-edit">
-                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" @change="readURL" ref="fileUpload"/>
-                <label for="imageUpload"></label>
-            </div>
-            <div class="avatar-preview">
-                <div id="imagePreview" :style="{backgroundImage: `url(${imagePreview})`}">
-                </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="text" class="form-control" id="email"
-                name="email" v-model="email" required />
-            <div class="invalid-feedback">請輸入正確的郵件格式</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="pw" class="form-label">パスワード</label>
-            <input type="password" class="form-control" id="pw"
-                name="pw" v-model="pw" required />
-            <div class="invalid-feedback"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="userName" class="form-label">名前</label>
-            <input type="text" class="form-control" id="userName"
-                name="userName" v-model="userName" required />
-            <div class="valid-feedback"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="nickName" class="form-label">ニックネーム</label>
-            <input type="text" class="form-control" id="nickName"
-                name="nickName" v-model="nickName" required />
-            <div class="valid-feedback"></div>
-          </div>
-          
-          
-
-
-
-          <div class="d-none d-md-flex justify-content-center login-btn">
-            <button type="submit" class="
-                      btn btn-warning btn-lg btn-warning-hover
-                      px-5
-                      fw-bold
-                      rounded-pill
-                      mt-2
-                    "
-                  
-            >
-              登録
-            </button>
-          </div>
-        </form>
       </div>
     </div>
   </div>
-</div>
-
 </template>
 
 <script>
@@ -101,7 +93,6 @@ export default {
       nickName: null,
       userName: null,
       imagePreview: "",
-
     }
   },
   methods: {
@@ -122,15 +113,14 @@ export default {
         });
     },
     readURL(e) {
-            if (e.target.files && e.target.files[0]) {
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    this.imagePreview = e.target.result;
-                };
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        },
-
+      if (e.target.files && e.target.files[0]) {
+          let reader = new FileReader();
+          reader.onload = (e) => {
+              this.imagePreview = e.target.result;
+          };
+          reader.readAsDataURL(e.target.files[0]);
+      }
+    },
   }
 }
 </script>
