@@ -76,10 +76,7 @@ public class S3Service {
     }
 
     public String findByName(String path) {
-//        if (!amazonS3.doesObjectExist(bucket,editPath+ useOnlyOneFileName))
-//            return "File does not exist";
         log.info("Generating signed URL for file name {}", useOnlyOneFileName);
-//        return  amazonS3.getUrl(bucket,editPath+useOnlyOneFileName).toString();
         return "https://"+bucket+".s3."+location+".amazonaws.com/"+path+"/"+useOnlyOneFileName;
     }
 }

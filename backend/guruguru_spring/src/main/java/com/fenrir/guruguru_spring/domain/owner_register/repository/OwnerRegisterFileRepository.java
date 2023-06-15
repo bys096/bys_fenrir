@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
 
 public interface OwnerRegisterFileRepository extends JpaRepository<OwnerRegisterFile, Long> {
-
-
     @Query("SELECT f FROM OwnerRegisterFile f WHERE f.owner.orId = :orId")
     Optional<OwnerRegisterFile> getRegisterFileByOrId(Long orId);
 }

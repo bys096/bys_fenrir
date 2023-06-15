@@ -7,8 +7,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
 
 public interface OwnerRegisterRepository extends JpaRepository<OwnerRegister, Long> {
-
-//    Optional<OwnerRegister> findByStoreCode(String storeCode);
-
     Optional<OwnerRegister> findByStore_StoreCode(@PathVariable("storeCode") String StoreCode);
 }

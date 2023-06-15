@@ -2,8 +2,6 @@ package com.fenrir.guruguru_spring.global.config;
 
 import com.fenrir.guruguru_spring.global.error.GlobalExceptionHandler;
 import com.fenrir.guruguru_spring.global.security.jwt.*;
-import com.fenrir.guruguru_spring.global.security.jwt.handle.ExceptionHandlerFilter;
-import com.fenrir.guruguru_spring.global.security.jwt.handle.JwtAuthentcaionFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +23,6 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final ExceptionHandlerFilter exceptionHandlerFilter;
-    private final JwtAuthentcaionFilter jwtAuthentcaionFilter;
 
 
     @Bean
@@ -42,18 +38,9 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-//                .antMatchers("/user/login").permitAll()
-                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-//                .antMatchers("/reply/**").hasAnyAuthority("ADMIN", "OWNER")
                 .antMatchers("/review/list/**").permitAll()
-
-
-//                .antMatchers("/**").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ADMIN")
-//                .antMatchers("/user/login").permitAll()
-//                .antMatchers("/user/**","/or/**").authenticated()
-
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
@@ -63,11 +50,9 @@ public class SecurityConfig {
                 .headers()
                 .frameOptions()
                 .sameOrigin()
-
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider))
                 .and()

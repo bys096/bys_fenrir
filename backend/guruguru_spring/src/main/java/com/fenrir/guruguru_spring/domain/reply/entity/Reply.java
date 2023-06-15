@@ -35,5 +35,4 @@ public class Reply extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User replyUser;
 
-
 }

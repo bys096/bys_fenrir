@@ -41,7 +41,6 @@ public class UserService {
 
     @Transactional
     public void createUser(UserCreateRequestDto dto) {
-
         userRepository.save(userMapper.toEntity(dto, passwordEncoder));
     }
 
@@ -66,26 +65,18 @@ public class UserService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         List<?> l =  authentication.getAuthorities().stream().collect(Collectors.toList());
-        l.forEach(i -> System.out.println(i.toString()));
-
         User user = userRepository.findById(Long.parseLong(authentication.getName()))
                 .orElseThrow(() -> {
                     throw new UserNotFoundException();
                 });
 
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication, user.getUserId());
-        log.info("accessToken:" + tokenDto.getAccessToken());
-        log.info("userId: " + tokenDto.getUid());
-
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())
                 .value(tokenDto.getRefreshToken())
                 .build();
 
-        log.info("refresh before");
         refreshTokenRepository.save(refreshToken);
-        log.info("refresh after");
-
         return tokenDto;
     }
 

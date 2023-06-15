@@ -51,8 +51,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     @SuppressWarnings("unchecked")
     private OrderSpecifier getOrderSpecifiers(Sort sort) {
         for (Sort value : Sort.values()) {
-            log.info("value.getProper(): " + value.getOrder());
-            log.info("param sort.getProper(): " + sort.getOrder());
             if (sort == value) {
                 Path<Object> path = Expressions.path(Object.class, review, value.getProperty());
                 return new OrderSpecifier(value.getOrder(), path);
@@ -105,14 +103,6 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                     .fetchOne();
             return new ReviewByStoreWithReplyDto(r, replyResponseDto);
         }).collect(Collectors.toList());
-
-        reviewReplyList.forEach(r -> {
-            System.out.println("review id: " + r.getReview().getRid());
-            System.out.println("review text: " + r.getReview().getReviewText());
-            if(r.getReply() != null)
-                System.out.println("reply text: " + r.getReply().getReplyText());
-        });
-
 
         return new PageImpl<>(reviewReplyList, pageable, countQuery(review, null));
     }

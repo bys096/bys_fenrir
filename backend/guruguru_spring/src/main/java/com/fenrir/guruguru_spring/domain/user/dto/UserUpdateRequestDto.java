@@ -22,5 +22,4 @@ public class UserUpdateRequestDto {
     @NotEmpty(message = "ユーザー名は必須項目です。")
     private String userName;
 
-
 }

@@ -26,8 +26,6 @@ public class ReviewController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createReview(@Valid @RequestBody ReviewCreateRequestDto dto) {
-        log.info("security Context: " + SecurityUtil.getCurrentMemberId());
-//        log.info(dto.toString());
         reviewService.createReview(dto);
     }
 
@@ -35,14 +33,8 @@ public class ReviewController {
     @GetMapping("/list/{storeCode}")
     @ResponseStatus(HttpStatus.OK)
     public Page<ReviewByStoreWithReplyDto> getAllReviewByStore(@PathVariable("storeCode") String storeCode,
-                                                               @ModelAttribute ReviewPaginationRequestDto requestDto) {
-        log.info("리스트 디버깅");
-        log.info(storeCode);
-        log.info(requestDto.getPage().toString());
-        log.info(requestDto.getLimit().toString());
-        log.info("getAllReviewByStore");
+                @ModelAttribute ReviewPaginationRequestDto requestDto) {
         return reviewService.getAllReviewByStore(storeCode, requestDto);
-//        return ResponseEntity.ok(reviewService.getAllReviewByStore(storeCode, requestDto));
     }
 
 
@@ -50,14 +42,12 @@ public class ReviewController {
     @DeleteMapping("/{reviewId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReview(@PathVariable("reviewId") Long reviewId) {
-        log.info("delete mapiing in cntroller for review");
         reviewService.deleteReview(reviewId, null);
     }
 
     @DeleteMapping("/{reviewId}/{replyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReviewWithReply(@PathVariable("reviewId") Long reviewId, @PathVariable("replyId") Long replyId) {
-        log.info("delete mapiing in cntroller for with reply and review");
         reviewService.deleteReview(reviewId, replyId);
     }
 
@@ -65,8 +55,6 @@ public class ReviewController {
     @PatchMapping("/{reviewId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateReview(@PathVariable("reviewId") Long reviewId, @Valid @RequestBody ReviewUpdateRequestDto dto) {
-        log.info(reviewId.toString());
-        log.info(dto.getReviewText());
         reviewService.updateReview(reviewId, dto);
     }
 

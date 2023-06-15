@@ -15,19 +15,13 @@ public class ReviewByStoreResponseDto {
 
     private String userNick;
 
-
     private Long rid;
 
     private LocalDateTime createdAt;
 
     private Integer reviewRating;
 
-
     private String reviewText;
-
-
-//    iine
-//    private String imageUrl;
 
     @Builder
     public ReviewByStoreResponseDto(String nickName, LocalDateTime createdDate,
