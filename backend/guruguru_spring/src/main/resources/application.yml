@@ -21,8 +21,8 @@ server:
 cloud:
   aws:
     credentials:
-      accessKey: AKIARRPJYMURRDERSIHU
-      secretKey: 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
+      accessKey: access key
+      secretKey: secret key
     s3:
       bucket: ns-union
     region:
