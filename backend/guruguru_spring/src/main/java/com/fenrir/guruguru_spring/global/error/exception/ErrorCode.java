@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     // Common
-    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "C001", "잘못된 입력 값입니다."),
-    INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST, "C002", "잘못된 타입입니다."),
-    MISSING_INPUT_VALUE(HttpStatus.BAD_REQUEST, "C003", "입력된 인자의 수가 부족합니다."),
-    NOT_EXIST_API(HttpStatus.BAD_REQUEST, "C004", "요청 API 주소가 올바르지 않습니다."),
-    METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "C005", "지원되지 않는 메서드입니다."),
-    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "C006", "접근 권한이 없습니다."),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "C007", "서버 에러입니다."),
+    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "C001", "間違った入力です。"),
+    INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST, "C002", "間違ったタイプです。"),
+    MISSING_INPUT_VALUE(HttpStatus.BAD_REQUEST, "C003", "パラメーターの数が足りません。"),
+    NOT_EXIST_API(HttpStatus.BAD_REQUEST, "C004", "間違ったAPI要請です。"),
+    METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "C005", "サポートされていないメソッドです。"),
+    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "C006", "アクセス権限がありません。"),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "C007", "サーバーエラーです。"),
 
 
     // User
@@ -36,7 +36,7 @@ public enum ErrorCode {
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R001", "存在しないレビューです。"),
     REVIEW_DUPLICATE(HttpStatus.BAD_REQUEST, "R002", "このレビューはもう作成済みです。"),
     REVIEW_NOT_MATCH_USER(HttpStatus.FORBIDDEN, "R003", "ユーザーが作成したレビューまたはオーナーではありません。"),
-    REVIEW_ALREADY_LIKED(HttpStatus.BAD_REQUEST, "R004", "이미 좋아요가 되어 있습니다."),
+    REVIEW_ALREADY_LIKED(HttpStatus.BAD_REQUEST, "R004", "いいねが登録されているレビューです。"),
 
     // Reply
     REPLY_NOT_FOUND(HttpStatus.NOT_FOUND, "RP001", "存在しないコメントです。"),

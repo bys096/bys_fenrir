@@ -15,22 +15,21 @@ export default {
 
 <style scoped>
 #ribbon {
-	background: #fff none repeat scroll 0 0;
-	box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-	font-weight: 400;
-	padding: 15px;
-	position: fixed;
-	right: -269px;
-	text-align: center;
-	top: -125px;
-	transform: rotate(45deg);
-	transform-origin: 0 0 0;
-	width: 500px;
-
+	background: #fff none repeat scroll 0 0 !important;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.1) !important;
+	font-weight: 400 !important;
+	padding: 15px !important;
+	position: fixed !important;
+	right: -269px !important;
+	text-align: center !important;
+	top: -125px !important;
+	transform: rotate(45deg) !important;
+	transform-origin: 0 0 0 !important;
+	width: 500px !important;
 	i {
-		font-size: 21px;
-		padding-right: 5px;
-		vertical-align: middle;
+		font-size: 21px !important;
+		padding-right: 5px !important;
+		vertical-align: middle !important;
 	}
 }
 </style>

@@ -50,15 +50,12 @@ public class AdminController {
     @PatchMapping("/owner/accept/{orId}")
     @ResponseStatus(HttpStatus.OK)
     public void acceptOwner(@PathVariable("orId") Long orId) {
-        log.info("or Id: " + orId);
-        log.info("???");
         adminService.acceptOwner(orId);
     }
 
     @DeleteMapping("/owner/reject/{orId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void rejectOwner(@PathVariable("orId") Long orId) {
-        log.info("reject or Id: " + orId);
         adminService.rejectOwner(orId);
     }
 }

@@ -45,8 +45,6 @@ public class Review extends BaseEntity {
     @OneToMany(mappedBy = "review")
     private List<Reply> replyList;
 
-    // image
-
     public void updateReview(String reviewText) {
         this.reviewText = reviewText;
     }

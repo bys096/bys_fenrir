@@ -11,12 +11,6 @@ export default {
   components: {
     SearchStoreVue: searchStoreVue
   },
-data() {
-    return {
-    }
-  },
-  methods: {
-  }
 }
 </script>
 

@@ -51,29 +51,19 @@ public class User extends BaseEntity {
     @Column(name = "user_thumbnail")
     private String userThumb;
 
-
     public void updateUser(UserUpdateRequestDto dto) {
         this.userName = dto.getUserName();
         this.userNick = dto.getNickName();
-//        this.userThumb
     }
 
     public void adminUpdateUser(AdminUpdateRequestDto dto) {
-        log.info("start update");
-//        log.info(dto.toString());
         this.userNick = dto.getUserNick();
         this.userRole = dto.getUserRole();
         this.userName = dto.getUserName();
-        log.info("complete userNick");
-//        log.info("complete userName: after {}", dto.getUserName());
-//        this.userThumb
     }
-
-
 
 @Transactional
     public void toOwner() {
-        log.info("accept owner");
         this.userRole = Role.OWNER;
     }
 

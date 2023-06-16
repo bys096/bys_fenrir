@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class ReviewUpdateRequestDto {
 
-
     private String reviewText;
 
     @Builder

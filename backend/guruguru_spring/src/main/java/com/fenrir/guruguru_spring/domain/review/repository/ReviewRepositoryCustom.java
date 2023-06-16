@@ -9,10 +9,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ReviewRepositoryCustom {
 
-//    ユーザーが作成したレビューの照会
-
-//    全てのレビューの照会
-
 //    一つの店のレビューの照会
     Page<ReviewByStoreWithReplyDto> getReviewByStore(String storeCode, Pageable pageable,
                                                      ReviewPaginationRequestDto requestDto);

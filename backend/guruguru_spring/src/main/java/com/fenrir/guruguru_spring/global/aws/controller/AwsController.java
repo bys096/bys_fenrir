@@ -23,13 +23,9 @@ public class AwsController {
 
     @GetMapping("/s3/url")
     public Map<String, Serializable> getPresignedUrl(@RequestParam("filename") String filename) {
-        System.out.println(filename);
-        log.info("s3진입");
 
         path = "guruguru";
         String imgName = filename;
-
         return awsService.getPreSignedUrl(path,imgName);
-
     }
 }

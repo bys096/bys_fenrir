@@ -18,6 +18,7 @@ public class UserMapper {
                 .userPw(passwordEncoder.encode(dto.getPw()))
                 .userName(dto.getUserName())
                 .userNick(dto.getNickName())
+                .userThumb(dto.getUserThumb())
                 .userRole(Role.USER)
                 .build();
     }

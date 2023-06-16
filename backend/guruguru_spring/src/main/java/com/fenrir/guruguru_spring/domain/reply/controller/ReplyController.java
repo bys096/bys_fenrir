@@ -21,9 +21,4 @@ public class ReplyController {
         replyService.createReply(dto);
     }
 
-    @DeleteMapping("/{reviewId}/{replyId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteReply(@PathVariable("reviewId") Long reviewId, @PathVariable("replyId") Long replyId) {
-//        replyService.deleteReply(reviewId, replyId);
-    }
 }

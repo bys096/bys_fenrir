@@ -23,11 +23,17 @@
         <h2 class="h1">Sorry! Page not found</h2>
       </div>
     </div>
+    <Ribbon></Ribbon>
   </div>
 </template>
 
 <script>
+import ribbon from '../components/GitRibbon.vue'
+
 export default {
+  components: {
+    Ribbon: ribbon
+  },
   data() {
     return {
       thirdDigit: null,

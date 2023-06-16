@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import axios from 'axios';
-
 
 Vue.use(Vuex);
 
@@ -30,7 +28,7 @@ export const store =  new Vuex.Store({
     },
     isTokenExpired(state) {
       if (!state.tokenExpiration) {
-        return true; // 토큰 만료 시간이 없는 경우
+        return true;
       }
       const now = new Date();
       const expiration = new Date(state.tokenExpiration);
@@ -44,7 +42,6 @@ export const store =  new Vuex.Store({
     setToken(state, { token, uid }) {
       state.token = token;
       state.uid = uid;
-      console.log('check from mutations: ' + uid);
     },
     setTokenExpiration(state, expiration) {
       state.tokenExpiration = expiration;
@@ -64,19 +61,15 @@ export const store =  new Vuex.Store({
   actions: {
     login({ commit, dispatch }, payload) {
       const { token, uid, expire } = payload;
-      console.log('check from actions token: ' + token);
-      console.log('check from actions uid: ' + uid);
       commit('setToken', { token, uid });
       commit('setAuthenticated');
       commit('setTokenExpiration', expire);
       dispatch('startSessionTimeout');
-      // alert('セッションの有効期限が切れました。');
     },
     startSessionTimeout({ commit, dispatch, state }) {
       const expirationTime = state.tokenExpiration;
       const currentTime = Date.now();
       const delay = expirationTime - currentTime;
-
       console.log('expire: ' + expirationTime);
       console.log('current: ' + currentTime);
       if (delay > 0) {
@@ -92,7 +85,6 @@ export const store =  new Vuex.Store({
       commit('setAuthenticated');
     },
   },
-  
   plugins: [
     createPersistedState(),
     (store) => {

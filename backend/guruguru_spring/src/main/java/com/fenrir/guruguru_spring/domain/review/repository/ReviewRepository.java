@@ -11,17 +11,10 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    Optional<Review> findByUser_UserId(Long userId);
-
     @Query("select r from Review r where r.user.userId = :userId and r.store.storeCode = :storeCode")
     Optional<Review> getReviewByUserId(@PathParam("userId") Long userId, @PathParam("storeCode") String storeCode);
 
-
-
     @Query("SELECT r FROM Review r JOIN Store s ON s.storeCode = r.store.storeCode JOIN OwnerRegister own ON own.store.storeCode = r.store.storeCode where r.rid = :reviewId AND own.owner.userId = :userId")
     Optional<Review> findReviewsByUserIdAndStoreCodeOrOwner(@PathParam("reviewId") Long reviewId, @PathParam("userId") Long userId);
-
-
-    Optional<Review> findByUser_UserIdAndStore_StoreCode(@PathParam("userId") Long userId, @PathParam("storeCode") String storeCode);
 
 }

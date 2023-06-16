@@ -30,12 +30,10 @@ public class OwnerRegister extends BaseEntity {
 
     @Column(name = "or_state")
     private Integer orState;
-    // image thumbnail?
 
     @OneToOne
     @JoinColumn(name = "store_code")
     private Store store;
-
 
     public void acceptOwner() {
         this.orState = 1;

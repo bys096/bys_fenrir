@@ -1,6 +1,6 @@
 <template>
+<v-app>
   <div class="stsch_container">
-    
     <div class="brd">
       <div class="border rounded-4 p-3 mb-2">
         <div class="my-4">
@@ -20,7 +20,6 @@
                       text-center
                       px-3
                       fs-lg-4 fs-mobile-2
-                      fw-bold
                     ">
                   検索
                 </h2>
@@ -30,23 +29,32 @@
                 <div class="mb-3">
                   <label for="gps" class="form-label">現在地で検索</label>
                   <v-checkbox label="現在地" id="gps" @click="findMyPlace" value=true></v-checkbox>
+                  <!-- <input type="text" v-model="range"> -->
+                  <v-select
+                      label="検索範囲"
+                      item-text="name"
+                      solo
+                      v-model="range"
+                      return-object
+                      :items="rangeSelectArr"
+                  ></v-select>
+                      <!-- :items="['300m', '500m', '1000m', '2000m', '3000m']" -->
                 </div>
 
                 <div class="mb-3">
                   <label for="email" class="form-label">店舗名</label>
-                  <input type="text" 
-                      class="form-control"
-                      id="email"
-                      name="userName" v-model="keyword"/>
+                    <v-text-field
+                      clearable
+                      v-model="keyword"
+                    ></v-text-field>
                 </div>
 
-
                 <div class="mb-3">
-                  <label for="email" class="form-label">アドレス</label>
-                  <input type="text" 
-                      class="form-control"
-                      id="email"
-                      />
+                  <label for="address" class="form-label">アドレス</label>
+                  <v-text-field
+                      clearable
+                      v-model="address"
+                  ></v-text-field>
                 </div>
 
                 <div class="mb-3">
@@ -69,7 +77,6 @@
                   <button type="submit" class="
                             btn btn-warning btn-lg btn-warning-hover
                             px-5
-                            fw-bold
                             rounded-pill
                             mt-2
                           "
@@ -159,6 +166,7 @@
     </div>
     <Ribbon></Ribbon>
   </div>
+  </v-app>
 </template>
 
 <script>
@@ -180,10 +188,11 @@
       condition() {
         return {
           keyword: this.keyword,
+          range: this.range.value,
           format: 'json',
           count: this.pageSize,
           start: this.pageSize * (this.page - 1) + 1,
-          // address: '東京',
+          address: this.address,
           wifi: this.wifi,
           free_food: this.free_food,
           parking: this.parking,
@@ -191,7 +200,8 @@
           lunch: this.lunch,
           midnight: this.midnight,
           lat: this.latitude,
-          lng: this.longitude
+          lng: this.longitude,
+          
           // 35.652243448 lat
           // 139.5444876358 lng
         }
@@ -203,7 +213,9 @@
         shopData: null,
         path: mdiMagnify,
 
+        range: "",
         keyword: "",
+        address: null,
         recordCnt: null,
         pageCnt: null,
         pageStart: 0,
@@ -228,7 +240,29 @@
         
 
         isGps: false,
-        locating: false
+        locating: false,
+        rangeSelectArr: [
+            {
+              name: "300m",
+              value: 1,
+            },
+            {
+              name: "500m",
+              value: 2,
+            },
+            {
+              name: "1000m",
+              value: 3,
+            },
+            {
+              name: "2000m",
+              value: 4,
+            },
+            {
+              name: "3000m",
+              value: 5,
+            }
+        ],
       }
     },
 
@@ -238,17 +272,13 @@
         this.page = null;
         console.log('currentPage by Computed: ');
         console.log(this.condition);
-        axios.get('/v1/?key=a6d3bb26218771ec&range=500', {
+        axios.get('/v1/?key=a6d3bb26218771ec', {
           params: this.condition
         })
           .then((res) => {
             const errCode = res.data.results?.error?.[0]?.code;
             const errMsg = res.data.results?.error?.[0]?.message;
-            console.log('res 출력');
-            console.log(res);
             
-            // const errCode = res.data.results.error[0].code;
-            // const errMsg = res.data.results.error[0].message;
             if(errCode == 3000) {
               alert(errMsg);
               return;
@@ -257,20 +287,14 @@
             this.shopData = res.data.results.shop;
             this.recordCnt = res.data.results.results_available;
             this.pageCnt = Math.ceil(this.recordCnt / 4);
-
             this.center.lat = this.shopData[0].lat;
             this.center.lng = this.shopData[0].lng;
-
-            // const errMsg = res.data.results.error[0].message;
-            console.log('msg1');
-            // console.log(res.data.results)
-            // alert(errMsg);
           })
           .catch((err) => {
             console.log('errcode');
           
             console.error(err);
-            // alert('err');
+            
           });
       },
       pageLoad() {
@@ -293,7 +317,6 @@
           return;
         }
         this.locating = true;
-
         this.textContent = 'Locating...'
           
         // get position
@@ -312,8 +335,6 @@
       },
 
       goToStoreDetail(shop) {
-        console.log('넘길 값');
-        console.log(shop);
         this.$store.commit('changeShop', shop);
         this.$router.push('/store/detail');
       },
@@ -334,149 +355,97 @@
 </script>
 
 <style scoped>
-  @import url('https://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css');
+@import url('https://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css');
   
 .brd {
   margin-top: 7vh;
-  /* width: 70vw; */
   min-width: 500px;
 }
-  .stsch_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .sch-result {
-    display: flex;
-    /* width: 60vw; */
-  }
-  .sch-result table {
-    height: 70vh;
-  }
-  .map {
-    width: 30vw;
-    /* height: 100%; */
-    /* position: relative; */
-    /* top: 10vh; */
-  }
-  
-  .page-wrap {
-    margin: 5vh 0;
-  }
-/*   
-  .stsch_form li {
-    display: flex;
-    flex-direction: row;
-  } */
-  /* .stb_sel {
-    display: flex;
-    flex-direction: row;
-    width: 30vw;
-  }
-  .stb_sel select {
-    margin-left: 1.3vw;
-    width: 30vw;
-    border: 1px solid #dddddd;
-    color: #999999;
-    font-size: 14px;
-    padding: 10px;
-  } */
-  option {
-    padding: 10px;
-    font-weight: normal;
-    display: block;
-    white-space: nowrap;
-    min-height: 1.2em;
-    padding: 0px 2px 1px;
-  }
-/* 
-  .stsch_form li {
-    border-bottom: 1px dotted #cccccc;
-    padding: 2vw 0vh 3vh 2vw;
-    margin-bottom: 2vh
-  } */
-/*   
-  .stsch_form .st_dot {
-    display: inline-block;
-    vertical-align: top;
-    width: 140px;
-    color: #444;
-    font-size: 16px;
-    padding: 8px 0px 0px 12px;
-  } */
-  .stb_btnwrap .sch {
-    padding: 12px 0;
-    width: 94px;
-    background-color: #ffdf65;
-    color: white;
-    width: 100px;
-    height: 78px;
-    text-align: center;
-  }
-  .stb_btnwrap .sch {
-    padding: 12px 0;
-    width: 94px;
-    width: 100px;
-    height: 78px;
-    text-align: center;
-  }
-  .stsch_navwrap {
-    clear: both;
-    border-top: 1px dotted #cccccc;
-  }
-  .stsch_navwrap .stsch_nav_tlt {
-    vertical-align: top;
-    color: #444;
-    font-size: 16px;
-    padding: 8px 0px 0px 20px;
-    background-position: 10px 14px;
-    margin: 12px 0px 10px;
-  }
-/*   
-  .stsch_form .stsch_ipt {
-    width: 418px;
-    height: 34px;
-    border: 2px solid #666;
-  } */
-  input[type=text], input[type=password] {
-    text-indent: 5px;
-    border: 1px solid #d6d6d6;
-    height: 29px;
-    line-height: 31px;
-    color: #666;
-    font-size: 13px;
-  }
-  .fa-magnifying-glass {
-    font-size: 5vmin;
-  }
-  .sch-result table {
-    /* width: 3vw; */
-    width: 36vw;
-    position: relative;
-    /* right: 2vw; */
-    /* top: 5vh; */
-  }
-  .td-img-wrapper {
-    width:16vw;
-    height: 16vh;
-  }
-  .td-img-wrapper img {
-      max-width:16vw;
-      max-height:16vh;
-      object-fit:cover;
-      cursor: pointer;
-  }
-  .my-pagination >>> .v-pagination__item--active {
-    color: black;
-  }
+.stsch_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sch-result {
+  display: flex;
+}
+.sch-result table {
+  height: 70vh;
+}
+.map {
+  width: 30vw;
+}
+.page-wrap {
+  margin: 5vh 0;
+}
+option {
+  padding: 10px;
+  font-weight: normal;
+  display: block;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+}
+.stb_btnwrap .sch {
+  padding: 12px 0;
+  width: 94px;
+  background-color: #ffdf65;
+  color: white;
+  width: 100px;
+  height: 78px;
+  text-align: center;
+}
+.stb_btnwrap .sch {
+  padding: 12px 0;
+  width: 94px;
+  width: 100px;
+  height: 78px;
+  text-align: center;
+}
+.stsch_navwrap {
+  clear: both;
+  border-top: 1px dotted #cccccc;
+}
+.stsch_navwrap .stsch_nav_tlt {
+  vertical-align: top;
+  color: #444;
+  font-size: 16px;
+  padding: 8px 0px 0px 20px;
+  background-position: 10px 14px;
+  margin: 12px 0px 10px;
+}
+input[type=text], input[type=password] {
+  text-indent: 5px;
+  border: 1px solid #d6d6d6;
+  height: 29px;
+  line-height: 31px;
+  color: #666;
+  font-size: 13px;
+}
+.fa-magnifying-glass {
+  font-size: 5vmin;
+}
+.sch-result table {
+  width: 36vw;
+  position: relative;
+}
+.td-img-wrapper {
+  width:16vw;
+  height: 16vh;
+}
+.td-img-wrapper img {
+    max-width:16vw;
+    max-height:16vh;
+    object-fit:cover;
+    cursor: pointer;
+}
+.my-pagination >>> .v-pagination__item--active {
+  color: black;
+}
 .address {
   position: relative;
   right: 20px;
-
-  /* color: red; */
-  
 }
 .service {
   display: flex;
@@ -497,5 +466,8 @@
   top: 41.5%;
   z-index: 200;
 }
-
+.v-application >>> .primary {
+  background-color:  #CFD8DC!important;
+  border-color: white !important;
+}
 </style>

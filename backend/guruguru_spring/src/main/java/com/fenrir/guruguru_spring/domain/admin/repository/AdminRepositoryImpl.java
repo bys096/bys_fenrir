@@ -34,7 +34,6 @@ import static com.fenrir.guruguru_spring.domain.user.entity.QUser.user;
 @Slf4j
 public class AdminRepositoryImpl implements AdminRepositoryCustom {
 
-
     private final JPAQueryFactory queryFactory;
 
     public Long totalUserCountQuery(QUser user) {
@@ -54,8 +53,6 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
     @SuppressWarnings("unchecked")
     private OrderSpecifier getOrderSpecifiers(Sort sort) {
         for (Sort value : Sort.values()) {
-            log.info("value.getProper(): " + value.getOrder());
-            log.info("param sort.getProper(): " + sort.getOrder());
             if (sort == value) {
                 Path<Object> path = Expressions.path(Object.class, ownerRegister, value.getProperty());
                 return new OrderSpecifier(value.getOrder(), path);
@@ -65,8 +62,6 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
     }
     private OrderSpecifier getUserOrderSpecifiers(Sort sort) {
         for (Sort value : Sort.values()) {
-            log.info("value.getProper(): " + value.getOrder());
-            log.info("param sort.getProper(): " + sort.getOrder());
             if (sort == value) {
                 Path<Object> path = Expressions.path(Object.class, user, value.getProperty());
                 return new OrderSpecifier(value.getOrder(), path);
@@ -93,13 +88,10 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
         );
     }
 
-
     @Override
     public Page<AdminUserResponseDto> getAllMember(Pageable pageable, AdminUserPaginationRequestDto dto) {
 
         QUser user = QUser.user;
-        log.info("get all Member");
-
         JPQLQuery<AdminUserResponseDto> results = queryFactory
                 .select(userSelect(user))
                 .from(user)
@@ -108,7 +100,6 @@ public class AdminRepositoryImpl implements AdminRepositoryCustom {
                 .limit(pageable.getPageSize());
 
         List<AdminUserResponseDto> userList = results.fetch();
-
         return new PageImpl<>(userList, pageable, totalUserCountQuery(user));
     }
 

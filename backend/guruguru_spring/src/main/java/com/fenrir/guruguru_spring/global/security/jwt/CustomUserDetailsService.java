@@ -33,7 +33,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 });
     }
 
-    // DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴
     private UserDetails createUserDetails(com.fenrir.guruguru_spring.domain.user.entity.User user) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getUserRole().toString());
         log.info(grantedAuthority.toString());

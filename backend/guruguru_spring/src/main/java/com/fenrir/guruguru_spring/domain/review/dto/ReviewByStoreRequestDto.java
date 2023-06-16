@@ -12,7 +12,5 @@ import lombok.NoArgsConstructor;
 public class ReviewByStoreRequestDto {
 
     private String reviewText;
-
     private String storeCode;
-//    private String
 }

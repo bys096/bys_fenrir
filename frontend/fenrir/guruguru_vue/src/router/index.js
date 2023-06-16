@@ -62,11 +62,6 @@ const routes = [
     path: '/:pathMatch(.*)*',
     component: Error404 
   },
-
-
-  
-  
-  
 ]
 
 const router = new VueRouter({

@@ -54,9 +54,6 @@ public class AdminService {
                 .orElseThrow(() -> {
                    throw new UserNotFoundException();
                 });
-        log.info(user.toString());
-//        userRepository.save(adminMapper.toEntity(dto, passwordEncoder));
-        log.info(dto.toString());
         user.adminUpdateUser(dto);
     }
 

@@ -46,25 +46,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequestDto dto, HttpServletResponse response) {
 
-        log.info("로그인정보 확인");
-        log.info(dto.getEmail());
-        log.info(dto.getPw());
         TokenDto tokenDTO = userService.login(dto);
-        log.info("서비스 종료");
-
-        Cookie cookie = new Cookie("token", tokenDTO.getRefreshToken());        //RefreshToken을 쿠키에 저장
-        cookie.setMaxAge(3600);     //초 단위 시간
-        cookie.setPath("/");        //쿠기 경로 적용하기
+        Cookie cookie = new Cookie("token", tokenDTO.getRefreshToken());
+        cookie.setMaxAge(3600);
+        cookie.setPath("/");
         response.addCookie(cookie);
-
-        response.setHeader("Authorization", "Bearer " + tokenDTO.getAccessToken());     //AccessToken을 헤더에 담아 응답
-
-
+        response.setHeader("Authorization", "Bearer " + tokenDTO.getAccessToken());
 
         return ResponseEntity.ok(tokenDTO);
-        //return ResponseEntity.ok(authService.login(memberRequestDto));
-
-
-
     }
 }

@@ -1,97 +1,88 @@
 <template>
-<div class="container">
-
-  <div class="my-4">
-    <div class="row g-md-5">
-      <div class="col-lg-8 form-wrap">
-        <div class="position-relative my-4">
-          <div class="progress bg-warning" style="height: 3px">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+  <div class="container">
+    <div class="my-4">
+      <div class="row g-md-5">
+        <div class="col-lg-8 form-wrap">
+          <div class="position-relative my-4">
+            <div class="progress bg-warning" style="height: 3px">
+              <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              </div>
             </div>
+            <h2 class="
+                  position-absolute
+                  top-0
+                  start-50
+                  translate-middle
+                  bg-white
+                  text-center
+                  px-3
+                  fs-lg-4 fs-mobile-2
+                  fw-bold
+            ">
+              会員登録
+            </h2>
           </div>
-          <h2 class="
-                    position-absolute
-                    top-0
-                    start-50
-                    translate-middle
-                    bg-white
-                    text-center
-                    px-3
-                    fs-lg-4 fs-mobile-2
+          <form id="form" class="needs-validation" @submit.prevent="joinRequest">
+            <div class="avatar-upload">
+              <div class="avatar-edit">
+                  <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" @change="readURL" ref="fileUpload"/>
+                  <label for="imageUpload"></label>
+              </div>
+              <div class="avatar-preview">
+                  <div id="imagePreview" :style="{backgroundImage: `url(${imagePreview})`}">
+                  </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">email</label>
+              <input type="text" class="form-control" id="email"
+                  name="email" v-model="email" required />
+              <div class="invalid-feedback">請輸入正確的郵件格式</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="pw" class="form-label">パスワード</label>
+              <input type="password" class="form-control" id="pw"
+                  name="pw" v-model="pw" required />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="userName" class="form-label">名前</label>
+              <input type="text" class="form-control" id="userName"
+                  name="userName" v-model="userName" required />
+              <div class="valid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="nickName" class="form-label">ニックネーム</label>
+              <input type="text" class="form-control" id="nickName"
+                  name="nickName" v-model="nickName" required />
+              <div class="valid-feedback"></div>
+            </div>
+            
+            <div class="d-none d-md-flex justify-content-center login-btn">
+              <button type="submit" class="
+                    btn btn-warning btn-lg btn-warning-hover
+                    px-5
                     fw-bold
-                  ">
-            会員登録
-          </h2>
+                    rounded-pill
+                    mt-2
+                  "
+              >
+                登録
+              </button>
+            </div>
+          </form>
         </div>
-        <form id="form" class="needs-validation" @submit.prevent="joinRequest">
-          <!-- image upload add -->
-          <div class="avatar-upload">
-            <div class="avatar-edit">
-                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" @change="readURL" ref="fileUpload"/>
-                <label for="imageUpload"></label>
-            </div>
-            <div class="avatar-preview">
-                <div id="imagePreview" :style="{backgroundImage: `url(${imagePreview})`}">
-                </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="text" class="form-control" id="email"
-                name="email" v-model="email" required />
-            <div class="invalid-feedback">請輸入正確的郵件格式</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="pw" class="form-label">パスワード</label>
-            <input type="password" class="form-control" id="pw"
-                name="pw" v-model="pw" required />
-            <div class="invalid-feedback"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="userName" class="form-label">名前</label>
-            <input type="text" class="form-control" id="userName"
-                name="userName" v-model="userName" required />
-            <div class="valid-feedback"></div>
-          </div>
-
-          <div class="mb-3">
-            <label for="nickName" class="form-label">ニックネーム</label>
-            <input type="text" class="form-control" id="nickName"
-                name="nickName" v-model="nickName" required />
-            <div class="valid-feedback"></div>
-          </div>
-          
-          
-
-
-
-          <div class="d-none d-md-flex justify-content-center login-btn">
-            <button type="submit" class="
-                      btn btn-warning btn-lg btn-warning-hover
-                      px-5
-                      fw-bold
-                      rounded-pill
-                      mt-2
-                    "
-                  
-            >
-              登録
-            </button>
-          </div>
-        </form>
       </div>
     </div>
   </div>
-</div>
-
 </template>
 
 <script>
 import axios from 'axios'
-import router from 'vue-router';
 
 export default {
   data() {
@@ -101,19 +92,22 @@ export default {
       nickName: null,
       userName: null,
       imagePreview: "",
-
     }
   },
   methods: {
-    joinRequest() {
+    async joinRequest() {
       const user = {
         email: this.email,
         pw: this.pw,
         nickName: this.nickName,
-        userName: this.userName
+        userName: this.userName,
+        userThumb: this.encodedFileName
       }
-      axios.post('/api/user', user)
+      console.log('request');
+      this.uploadFile();
+      await axios.post('/api/user', user)
         .then((res) => {
+          console.log(res);
           if(res.status === 201)
             this.$router.push('/');
         })
@@ -122,15 +116,60 @@ export default {
         });
     },
     readURL(e) {
-            if (e.target.files && e.target.files[0]) {
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    this.imagePreview = e.target.result;
-                };
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        },
+      if (e.target.files && e.target.files[0]) {
+          let reader = new FileReader();
+          reader.onload = (e) => {
+              this.imagePreview = e.target.result;
+          };
+          reader.readAsDataURL(e.target.files[0]);
+      }
+      this.getUrl();
+    },
+    
+    async getUrl() {
+      try {
+        const selectedFile = this.$refs.fileUpload.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        const fileSize = selectedFile.size;
+        if (fileSize > maxSize) {
+          alert("添付ファイルのサイズは5MB以内に登録できます。");
+          return;
+        }
+        const filename = selectedFile.name;
+        const filetype = selectedFile.type;
+        const res = await axios.get('/api/aws/s3/url', {
+          params: { filename, filetype },
+          headers: this.$store.getters.headers
+        });
+        const encodedFileName = res.data.encodedFileName
+        const presignedUrl = res.data.preSignedUrl;
 
+        this.presignedUrl = presignedUrl;
+        this.encodedFileName = encodedFileName;
+        this.selectedFile = selectedFile;
+        console.log('presignedUrl: ' + presignedUrl);
+        console.log('endcodedFileName: ' + encodedFileName);
+      } catch(err) {
+        console.log(err);
+      }
+    },
+
+    async uploadFile() {
+      const presignedUrl = this.presignedUrl;
+      const selectedFile = this.selectedFile;
+      const encodedFileName = this.encodedFileName;
+      await axios.put(presignedUrl, selectedFile)
+            .then((res) => {
+              this.image = presignedUrl + encodedFileName;
+              console.log(res);
+            })
+          .catch(err => {
+            if (err.response.status === 419) {
+              this.$store.dispatch('handleTokenExpired');
+            } 
+            else console.error('s3 upload eeror:', err);
+          })
+    },
   }
 }
 </script>
@@ -185,15 +224,15 @@ export default {
 }
 .avatar-upload .avatar-edit label:hover {
     background: #f1f1f1;
-    border-color: #d6d6d6;
+    border-color: #D7CCC8;
 }
 .avatar-upload .avatar-edit label:after {
     content: "\f040";
     font-family: 'FontAwesome';
     color: #757575;
     position: absolute;
-    top: 6.5px;
-    left: 1.3px;
+    top: 7.2px;
+    left: 1px;
     right: 0;
     text-align: center;
     margin: auto;
@@ -203,7 +242,7 @@ export default {
     height: 192px;
     position: relative;
     border-radius: 100%;
-    border: 6px solid #F8F8F8;
+    border: 6px solid #D7CCC8;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .avatar-upload .avatar-preview > div {

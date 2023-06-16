@@ -34,9 +34,6 @@ public class OwnerRegisterService {
 
     public void registerStore(OwnerRegisterRequestDto dto) throws BusinessException {
 
-        log.info("register store service 진입");
-        log.info(dto.toString());
-
         User user = userRepository.findById(SecurityUtil.getCurrentMemberId())
                         .orElseThrow(() -> {
                             throw new UserNotFoundException();
@@ -46,21 +43,14 @@ public class OwnerRegisterService {
             throw new OwnerDuplicateException();
         });
 
-
-        log.info("가게 중복검사 완료");
         storeRepository.findByStoreCode(dto.getStoreCode())
                         .ifPresentOrElse(
                                 store -> {
-                                    log.info("owner 등록 시작");
                                     OwnerRegister owner = ownerRegisterRepository.save(ownerRegisterMapper.toEntity(user, store));
-                                    log.info("owner 파일등록 시작");
                                     ownerRegisterFileRepository.save(ownerRegisterMapper.toEntity(dto.getFileName(), owner));
                                 },
                                 () -> {
                                     Store store = storeRepository.save(storeMapper.toEntity(dto.getStoreCode(), dto.getStoreName()));
-                                    log.info("실행됨?");
-                                    log.info(store.getStoreName());
-
                                     OwnerRegister owner =  ownerRegisterRepository.save(ownerRegisterMapper.toEntity(user, store));
                                     ownerRegisterFileRepository.save(ownerRegisterMapper.toEntity(dto.getFileName(), owner));
                                 }
