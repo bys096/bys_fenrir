@@ -22,4 +22,6 @@ public class UserCreateRequestDto {
     @NotEmpty(message = "ユーザー名は必須項目です。")
     private String userName;
 
+    private String userThumb;
+
 }

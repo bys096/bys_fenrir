@@ -23,15 +23,18 @@ public class ReviewByStoreResponseDto {
 
     private String reviewText;
 
+    private String userThumb;
+
     @Builder
     public ReviewByStoreResponseDto(String nickName, LocalDateTime createdDate,
-        Integer reviewRating, String reviewText, Long userId, Long reviewId) {
+        Integer reviewRating, String reviewText, Long userId, Long reviewId, String userThumb) {
         this.userNick = nickName;
         this.createdAt = createdDate;
         this.reviewRating = reviewRating;
         this.reviewText = reviewText;
         this.userId = userId;
         this.rid = reviewId;
+        this.userThumb = userThumb;
     }
 }
 

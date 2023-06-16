@@ -64,7 +64,8 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return Projections.fields(
                 ReviewByStoreResponseDto.class,
                 review.user.userNick, review.createdAt, review.reviewRating,
-                review.reviewText, review.user.userId, review.rid
+                review.reviewText, review.user.userId, review.rid,
+                user.userThumb
         );
     }
 
