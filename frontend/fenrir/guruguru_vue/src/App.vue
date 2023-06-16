@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style scoped>
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
 html, body {
   margin: 0;
   padding: 0;
@@ -44,6 +46,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important;
 }
 
 #content {

@@ -36,13 +36,13 @@
       </div>
       <div class="page-wrap">
         <v-pagination
-        id="page"
-          v-model="pages.page"
-          :length="pages.totalPages"
-          :start="0"
-          @input="loadUserData()"
-          total-visible="10"
-          class="my-pagination"
+            id="page"
+            v-model="pages.page"
+            :length="pages.totalPages"
+            :start="0"
+            @input="loadUserData()"
+            total-visible="10"
+            class="my-pagination"
         >
         </v-pagination>
       </div>
@@ -206,7 +206,8 @@ export default {
   },
   methods: {
     shortenPw(pw) {
-      return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
+      if(pw != null)
+        return pw.length > 15 ? pw.substr(0, 15) + '...' : pw;
     },
     async deleteUser(userId) {
       try {

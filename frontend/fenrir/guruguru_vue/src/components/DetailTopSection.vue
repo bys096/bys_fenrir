@@ -124,6 +124,8 @@
                   rounded-pill
                   btn-lg
                   mb-2
+                  "
+                  @click="scrollToBottom()
             ">
               レヴュー
             </button>
@@ -136,7 +138,9 @@
                       w-100
                       rounded-pill
                       btn-lg
-                ">
+                    "
+                    @click="notComplete()"
+                >
                   <i class="fas fa-heart custom-heart"></i>
                   いいね
                 </button>
@@ -148,9 +152,11 @@
                       btn btn-lg
                       w-100
                       rounded-pill
-                ">
+                      "
+                      @click="notComplete()"
+                >
                   <i class="fas fa-share-alt"></i>
-                  分享
+                  シェア
                 </button>
               </div>
             </div>
@@ -172,7 +178,19 @@ export default {
         return this.shopDetail.photo.pc.l;
       }
       return '';
+    },
+  },
+  methods: {
+    notComplete() {
+      alert('まだ開発中の機能です。');
+    },
+    scrollToBottom() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
     }
+    
   }
 }
 </script>

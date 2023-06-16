@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <div>
     <div class="sch-result">
       <table class="table table-hover store-list">
@@ -48,7 +49,7 @@
         </tbody>
       </table>
     </div>
-    <!-- <div class="page-wrap">
+    <div class="page-wrap">
       <v-pagination
         v-model="pages.page"
         :length="pages.totalPages"
@@ -58,8 +59,9 @@
         class="my-pagination"
       >
       </v-pagination>
-    </div> -->
+    </div>
   </div>  
+  </v-app>
 </template>
 
 <script>
@@ -193,5 +195,9 @@ export default {
 }
 .theme--light.v-btn.v-btn--has-bg {
   background-color: white;
+}
+.v-application >>> .primary {
+  background-color:  #CFD8DC!important;
+  border-color: white !important;
 }
 </style>

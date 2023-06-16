@@ -83,7 +83,6 @@
 
 <script>
 import axios from 'axios'
-import router from 'vue-router';
 
 export default {
   data() {
@@ -96,15 +95,19 @@ export default {
     }
   },
   methods: {
-    joinRequest() {
+    async joinRequest() {
       const user = {
         email: this.email,
         pw: this.pw,
         nickName: this.nickName,
-        userName: this.userName
+        userName: this.userName,
+        userThumb: this.encodedFileName
       }
-      axios.post('/api/user', user)
+      console.log('request');
+      this.uploadFile();
+      await axios.post('/api/user', user)
         .then((res) => {
+          console.log(res);
           if(res.status === 201)
             this.$router.push('/');
         })
@@ -120,6 +123,52 @@ export default {
           };
           reader.readAsDataURL(e.target.files[0]);
       }
+      this.getUrl();
+    },
+    
+    async getUrl() {
+      try {
+        const selectedFile = this.$refs.fileUpload.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        const fileSize = selectedFile.size;
+        if (fileSize > maxSize) {
+          alert("添付ファイルのサイズは5MB以内に登録できます。");
+          return;
+        }
+        const filename = selectedFile.name;
+        const filetype = selectedFile.type;
+        const res = await axios.get('/api/aws/s3/url', {
+          params: { filename, filetype },
+          headers: this.$store.getters.headers
+        });
+        const encodedFileName = res.data.encodedFileName
+        const presignedUrl = res.data.preSignedUrl;
+
+        this.presignedUrl = presignedUrl;
+        this.encodedFileName = encodedFileName;
+        this.selectedFile = selectedFile;
+        console.log('presignedUrl: ' + presignedUrl);
+        console.log('endcodedFileName: ' + encodedFileName);
+      } catch(err) {
+        console.log(err);
+      }
+    },
+
+    async uploadFile() {
+      const presignedUrl = this.presignedUrl;
+      const selectedFile = this.selectedFile;
+      const encodedFileName = this.encodedFileName;
+      await axios.put(presignedUrl, selectedFile)
+            .then((res) => {
+              this.image = presignedUrl + encodedFileName;
+              console.log(res);
+            })
+          .catch(err => {
+            if (err.response.status === 419) {
+              this.$store.dispatch('handleTokenExpired');
+            } 
+            else console.error('s3 upload eeror:', err);
+          })
     },
   }
 }
@@ -175,15 +224,15 @@ export default {
 }
 .avatar-upload .avatar-edit label:hover {
     background: #f1f1f1;
-    border-color: #d6d6d6;
+    border-color: #D7CCC8;
 }
 .avatar-upload .avatar-edit label:after {
     content: "\f040";
     font-family: 'FontAwesome';
     color: #757575;
     position: absolute;
-    top: 6.5px;
-    left: 1.3px;
+    top: 7.2px;
+    left: 1px;
     right: 0;
     text-align: center;
     margin: auto;
@@ -193,7 +242,7 @@ export default {
     height: 192px;
     position: relative;
     border-radius: 100%;
-    border: 6px solid #F8F8F8;
+    border: 6px solid #D7CCC8;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .avatar-upload .avatar-preview > div {

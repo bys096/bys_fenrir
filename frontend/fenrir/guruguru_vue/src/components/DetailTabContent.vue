@@ -24,7 +24,7 @@
                       ">
                 Q1
               </span>
-              影片拍完之後可以編輯嗎？
+              予約は必要ですか？予約の方法はありますか？
             </button>
           </h3>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#qa-accordion">
@@ -35,8 +35,7 @@
                       lh-lg
                       text-secondary
                     ">
-              可以進行簡易的編輯，內建 5
-              種濾鏡，影片秒數有3秒、5秒、10秒可以選擇，拍完的當下可以編輯要印出來的影片範圍哦！
+              一部の場合、予約が必要な場合があります。お電話での予約やオンライン予約システムを利用して予約していただけます。
             </p>
           </div>
         </li>
@@ -62,7 +61,7 @@
                       ">
                 Q2
               </span>
-              有提供保固或維修服務嗎？
+              レストランの営業時間はどのようになっていますか？
             </button>
           </h3>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#qa-accordion">
@@ -74,7 +73,7 @@
                       lh-lg
                       text-secondary
                     ">
-              提供產品售後服務，對產品本體(不含配件、線材)提供二年保固服務。產品因意外或人為不當使用或未經授權維修等非依使用手冊使用而造成產品損壞者，則不在保固範圍之內，得向客戶酌收產品維修服務費用。
+              当店は[営業時間]に開店します。平日と週末では営業時間が異なる場合があるため、正確な営業時間については当店のウェブサイトやお電話でお問い合わせください。
             </p>
           </div>
         </li>
@@ -100,7 +99,7 @@
                       ">
                 Q3
               </span>
-              補充包底片要去哪裡購買呢？
+              子供連れでの訪問は歓迎されますか？キッズメニューはありますか？
             </button>
           </h3>
           <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#qa-accordion">
@@ -112,8 +111,7 @@
                       lh-lg
                       text-secondary
                     ">
-              本產品可以兼容 i-type 及 600
-              相片，各大網路平台皆有販售。
+              当店では子供連れのお客様も歓迎しています。キッズメニューもご用意しており、お子様が楽しんで食事を楽しめるように心掛けています。
             </p>
           </div>
         </li>
@@ -139,7 +137,7 @@
                       ">
                 Q4
               </span>
-              印出來的拍立得照片需要充電嗎？
+              レストランの予約キャンセルポリシーはありますか？
             </button>
           </h3>
           <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#qa-accordion">
@@ -151,8 +149,7 @@
                       lh-lg
                       text-secondary
                     ">
-              不用，取出後稍微搖晃，相片與空氣接觸數秒後便會產生圖像顏色。
-            </p>
+            当店の予約キャンセルポリシーについては、事前にお電話またはウェブサイトでご確認ください。一般的に、直前のキャンセルや予約の変更には料金が発生する場合があります。            </p>
           </div>
         </li>
         <li class="accordion-item">
@@ -177,7 +174,7 @@
                       ">
                 Q5
               </span>
-              運送方式及付款方式有哪些呢？
+              レストランのシェフはどのような経歴を持っていますか？
             </button>
           </h3>
           <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#qa-accordion">
@@ -189,7 +186,7 @@
                       lh-lg
                       text-secondary
                     ">
-              可以選擇超商取貨及宅配，付款方式有銀行轉帳及信用卡支付。
+              当店のシェフは豊富な経験と専門知識を持つプロフェッショナルです。熟練した料理人がお客様に最高の食体験を提供するために、日々努力しています。
             </p>
           </div>
         </li>
@@ -215,7 +212,7 @@
                       ">
                 Q6
               </span>
-              退換貨方式及規則
+              レビューに対するコメントはオーナーのみが投稿することができますか？
             </button>
           </h3>
           <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#qa-accordion">
@@ -227,138 +224,13 @@
                       lh-lg
                       text-secondary
                     ">
-              因商品封條多為一次性包裝，商品退貨時必須回復原狀，亦即必須回復至您收到商品時的原始狀態，且會視回收的商品狀態另外酌收額外的整新費用，請您務必確認有購買需求後再行拆封，感謝您的配合。
+              はい、レビューに対するコメントはオーナーのみが投稿することができます。お客様からの貴重な意見やフィードバックに対して、オーナーが返信や感謝のメッセージを送ることができます。当店では、お客様の満足度向上とより良いサービス提供のために、皆様のご意見に真摯に対応しています。どうもありがとうございます。
             </p>
           </div>
         </li>
       </ul>
     </div>
-    <!-- tab - 目前進度 -->
-    <div class="tab-pane fade" id="tab-qa" role="tabpanel">
-      <ul class="list-unstyled">
-        <li class="card mb-3">
-          <div class="row g-0">
-            <div class="col-auto">
-              <img src="https://WangShuan.github.io/bootstrap5-project/images/news01.jpeg" alt="消息示意圖" class="news-img d-lg-none d-xl-block" />
-            </div>
-            <div class="col">
-              <div class="card-body">
-                <h4 class="card-title fs-6 fw-bold mb-0">
-                  高雄體驗會｜免費參加送帆布袋
-                </h4>
-                <small class="
-                          text-secondary
-                          my-2
-                          font-baloo-tamma
-                          d-block
-                          w-100
-                          fw-normal
-                        ">2021-6-20</small>
-                <p class="
-                          card-text
-                          text-secondary
-                          fs-sm
-                          d-none d-md-block
-                          pb-3
-                        ">
-                  大家安安！謝謝每位贊助者的熱情支持，讓我們離夢想更進一步，我們將於下個月舉辦體驗會，歡迎各位踴躍參與！
-                </p>
-                <a href="#" class="
-                          link-danger
-                          font-baloo-tamma
-                          fw-bold
-                          pb-2
-                          fs-6
-                          position-absolute
-                          bottom-0
-                        ">MORE</a>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="card mb-3">
-          <div class="row g-0">
-            <div class="col-auto">
-              <img src="https://WangShuan.github.io/bootstrap5-project/images/news02.jpeg" alt="消息示意圖" class="news-img d-lg-none d-xl-block" />
-            </div>
-            <div class="col">
-              <div class="card-body">
-                <h4 class="card-title fw-bold fs-6 mb-0">
-                  高雄體驗會｜免費參加送帆布袋
-                </h4>
-                <small class="
-                          text-secondary
-                          my-2
-                          font-baloo-tamma
-                          d-block
-                          w-100
-                          fw-normal
-                        ">2021-6-20</small>
-                <p class="
-                          card-text
-                          text-secondary
-                          fs-sm
-                          d-none d-md-block
-                          pb-3
-                        ">
-                  大家安安！謝謝每位贊助者的熱情支持，讓我們離夢想更進一步，我們將於下個月舉辦體驗會，歡迎各位踴躍參與！
-                </p>
-                <a href="#" class="
-                          link-danger
-                          font-baloo-tamma
-                          fw-bold
-                          pb-2
-                          fs-6
-                          position-absolute
-                          bottom-0
-                        ">MORE</a>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="card mb-3">
-          <div class="row g-0">
-            <div class="col-auto">
-              <img src="https://WangShuan.github.io/bootstrap5-project/images/news03.jpeg" alt="消息示意圖" class="news-img d-lg-none d-xl-block" />
-            </div>
-            <div class="col">
-              <div class="card-body">
-                <h4 class="card-title fs-6 fw-bold mb-0">
-                  高雄體驗會｜免費參加送帆布袋
-                </h4>
-                <small class="
-                          text-secondary
-                          my-2
-                          font-baloo-tamma
-                          d-block
-                          w-100
-                          fw-normal
-                        ">2021-6-20</small>
-                <p class="
-                          card-text
-                          text-secondary
-                          fs-sm
-                          d-none d-md-block
-                          pb-3
-                        ">
-                  大家安安！謝謝每位贊助者的熱情支持，讓我們離夢想更進一步，我們將於下個月舉辦體驗會，歡迎各位踴躍參與！
-                </p>
-                <a href="#" class="
-                          link-danger
-                          font-baloo-tamma
-                          fw-bold
-                          pb-2
-                          fs-6
-                          position-absolute
-                          bottom-0
-                        ">MORE</a>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-
+    
 
     <!-- tab - review-tab -->
     <div class="tab-pane active show review-tab" id="tab-comment" role="tabpanel">
@@ -378,13 +250,21 @@
       <ul class="mb-4 list-unstyled">
         
 
+        
         <li class="mb-3" v-for="(content, index) in props" :key="index">
           <div class="border rounded-4 p-3 comment">
             <div class="d-flex justify-content-start" id="review-header">
 
-
               <div class="review-title">
-              <img src="https://WangShuan.github.io/bootstrap5-project/images/user_img01.jpeg" alt="廖小杰個人頭像" />
+          <div class="img-wrap">
+            <v-img
+            class="bg-white"
+            width="5vw"
+            :aspect-ratio="1"
+            :src="getThumbUrl(content.review.userThumb)"
+          ></v-img>
+          </div>
+              <!-- <img src="https://ns-union.s3.ap-northeast-2.amazonaws.com/guruguru/ae74e661-de6e-4c84-8393-3cb192df9c72839af70d-5b78-412a-a595-dd469956ebb91157109.png" /> -->
               <div class="d-flex flex-column align-items-start ms-3">
                 <v-rating
                               class="my-rating"
@@ -408,12 +288,9 @@
                         ">
                   {{ content.review.userNick }}
                 </a>
-                <!-- <small class="text-secondary fs-sm letter-spacing-20">
+                <small class="text-secondary fs-sm letter-spacing-20">
                   {{ content.review.createdAt[0] }}年{{ content.review.createdAt[1] }}月{{ content.review.createdAt[2] }}日
                   {{ content.review.createdAt[3] < 10 ? '0'+ content.review.createdAt[3] : content.review.createdAt[3] }}:{{ content.review.createdAt[4] < 10 ? '0' + content.review.createdAt[4] : content.review.createdAt[4] }}
-                </small> -->
-                <small class="text-secondary fs-sm letter-spacing-20">
-                  2020年5月22日 11:32
                 </small>
               </div>
               </div>
@@ -502,7 +379,7 @@
                     v-model="reviewUpdateText"
                     placeholder="変更するレビューを書いてください。"
                     required
-                    model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                    model-value=""
                   ></v-textarea>
                   <div class="replyBtn">
                     <button class="
@@ -545,6 +422,9 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiDeleteVariant, mdiPencil } from '@mdi/js';
 
 export default {
+  computed: {
+    
+  },
   components: {
     SvgIcon
   },
@@ -603,7 +483,11 @@ export default {
       }
       this.$emit('editReview', review);
       this.showUpdateReviewForm();
-    }
+    },
+    getThumbUrl(url) {
+      return "https://ns-union.s3.ap-northeast-2.amazonaws.com/guruguru/" + url;
+    },
+    
   }
   
 }
@@ -659,5 +543,12 @@ export default {
 .review-tab {
   position: relative;
   bottom: 50px;
+}
+
+.img-wrap {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
 }
 </style>

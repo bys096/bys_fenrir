@@ -50,13 +50,11 @@
 
 
               <div class="mb-3">
-                <label for="payment" class="form-label">付款方式</label>
                 <select id="payment" class="form-select" aria-label="select payment" required>
                   <option value="1">静かで良かったです。</option>
                   <option value="2">写真がカッコよく映るお店でした。</option>
                   <option value="2">景色が良かったです。</option>
                 </select>
-                <div class="invalid-feedback">請選擇一種付款方式</div>
               </div>
 
               <div class="mb-3">
@@ -72,7 +70,6 @@
                     model-value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
                   ></v-textarea>
                 </v-container>
-                <div class="invalid-feedback">請選擇一種付款方式</div>
               </div>
 
               <button class="
@@ -84,7 +81,7 @@
                         w-100
                         d-md-none
                       " type="submit">
-                贊助專案
+                
               </button>
 
               <div class="d-none d-md-flex justify-content-center">
@@ -157,6 +154,10 @@ export default {
   },
   methods: {
     async saveReviewAndLoad() {
+      if(!this.$store.state.isAuthenticated) {
+        this.$router.push('/login');
+      }
+
       const review = {
         reviewRating: this.rating,
         reviewText: this.reviewText,
